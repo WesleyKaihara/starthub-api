@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import Project from '../entity/project.entity';
+import Project from '../entity/Project';
 import { UpdateProjectDto } from '@project/http/dto/project/update-project.dto';
 import { CreateProjectDto } from '@project/http/dto/project/create-project.dto';
 import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepositorySequelize';

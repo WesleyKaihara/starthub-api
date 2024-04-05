@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import Project from '@project/core/entity/project.entity';
+import Project from '@project/core/entity/Project';
 import ProjectModel from '../model/ProjectModel';
 import ProjectRepository from './project.repository';
 import { CreateProjectDto } from '@project/http/dto/project/create-project.dto';

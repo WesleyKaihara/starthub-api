@@ -20,6 +20,7 @@
     "paths": {
       "@project/*": ["./src/module/project/*"],
       "@identity/*": ["./src/module/identity/*"],
+      "@payment/*": ["./src/module/payment/*"],
       "@src/*": ["./src/*"],
     },
   }
