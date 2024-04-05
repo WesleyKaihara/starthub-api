@@ -7,6 +7,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './module/auth/auth.module';
 import { LoggerMiddleware } from './shared/utils/logger';
 import { ProjectModule } from '@project/project.module';
+import { IdentityModule } from '@identity/identity.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ProjectModule } from '@project/project.module';
     PersistenceModule,
     AuthModule,
     ProjectModule,
+    IdentityModule,
   ],
   controllers: [],
   providers: [

@@ -8,7 +8,7 @@ import { Throttle } from '@nestjs/throttler';
 import User from 'src/module/identity/core/entity/user.entity';
 
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
