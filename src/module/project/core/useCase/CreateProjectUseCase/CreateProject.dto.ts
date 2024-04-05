@@ -1,9 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { MIN_CHARACTERS_DESCRIPTION, MIN_CHARACTERS_NAME } from '@project/core/dto/project/@project.constant';
 import { z } from 'zod';
-import {
-  MIN_CHARACTERS_NAME,
-  MIN_CHARACTERS_DESCRIPTION,
-} from './@project.constant';
 
 export class CreateProjectDto {
   @ApiProperty({

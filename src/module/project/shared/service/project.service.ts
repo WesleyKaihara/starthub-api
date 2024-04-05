@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import Project from '../entity/Project';
-import { UpdateProjectDto } from '@project/http/dto/project/update-project.dto';
-import { CreateProjectDto } from '@project/http/dto/project/create-project.dto';
+import Project from '../../core/entity/Project';
+import CreateProject from '@project/core/useCase/CreateProjectUseCase/CreateProjectUseCase';
+
+import { UpdateProjectDto } from '@project/core/dto/project/update-project.dto';
+import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
+
 import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepositorySequelize';
 
 @Injectable()
@@ -18,7 +21,8 @@ export default class ProjectService {
   }
 
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    return this.projectRepository.createProject(createProjectDto);
+    const createProject = new CreateProject(this.projectRepository);
+    return createProject.execute(createProjectDto);
   }
 
   updateProject(

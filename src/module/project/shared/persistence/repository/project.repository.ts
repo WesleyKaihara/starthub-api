@@ -1,6 +1,6 @@
 import Project from '@project/core/entity/Project';
-import { CreateProjectDto } from '@project/http/dto/project/create-project.dto';
-import { UpdateProjectDto } from '@project/http/dto/project/update-project.dto';
+import { UpdateProjectDto } from '@project/core/dto/project/update-project.dto';
+import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
 
 export default interface ProjectRepository {
   getAllProjects(): Promise<Project[]>;

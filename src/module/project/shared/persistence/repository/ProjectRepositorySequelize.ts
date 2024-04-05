@@ -3,8 +3,9 @@ import { Injectable } from '@nestjs/common';
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../model/ProjectModel';
 import ProjectRepository from './project.repository';
-import { CreateProjectDto } from '@project/http/dto/project/create-project.dto';
-import { UpdateProjectDto } from '@project/http/dto/project/update-project.dto';
+
+import { UpdateProjectDto } from '@project/core/dto/project/update-project.dto';
+import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
 
 @Injectable()
 export default class ProjectRepositorySequelize implements ProjectRepository {

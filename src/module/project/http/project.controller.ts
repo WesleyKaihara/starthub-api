@@ -10,18 +10,16 @@ import {
 } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
-import ProjectService from '@project/core/service/project.service';
 import { Response } from 'express';
 
 import { ZodError } from 'zod';
 import {
-  CreateProjectDto,
-  CreateProjectDtoSchema,
-} from './dto/project/create-project.dto';
-import {
   UpdateProjectDto,
   UpdateProjectDtoSchema,
-} from './dto/project/update-project.dto';
+} from '../core/dto/project/update-project.dto';
+
+import ProjectService from '@project/shared/service/project.service';
+import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
 
 @Controller('/project')
 @ApiTags('Project')
@@ -58,19 +56,10 @@ export class ProjectController {
     @Res() response: Response,
   ) {
     try {
-      const validSchema = CreateProjectDtoSchema.parse(
-        createProjectDto,
-      ) as CreateProjectDto;
-      const project = await this.projectService.createProject(validSchema);
+      const project = await this.projectService.createProject(createProjectDto);
       return response.json(project);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ message: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ message: error.message });
-      }
+      return response.status(400).json({ message: error.message });
     }
   }
 
