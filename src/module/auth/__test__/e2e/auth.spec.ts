@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 
-import { AppModule } from '@src/app.module';
 import SignInDto from '../../http/dto/signin.dto';
 import User from '@identity/core/entity/user.entity';
 import UserService from '@identity/core/service/user.service';
+import { AppModule } from '@src/app.module';
 
 describe('Auth - Test (e2e)', () => {
   let app: INestApplication;

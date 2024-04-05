@@ -1,7 +1,9 @@
-import ProjectModel from '@project/shared/persistence/model/project.model';
 import { Sequelize } from 'sequelize-typescript';
-import UserRoleModel from 'src/module/identity/shared/persistence/model/user-role.model';
-import UserModel from 'src/module/identity/shared/persistence/model/user.model';
+
+import UserRoleModel from '@identity/shared/persistence/model/user-role.model';
+import ProjectModel from '@project/shared/persistence/model/ProjectModel';
+import ProjectVerticalModel from '@project/shared/persistence/model/ProjectVerticalModel';
+import UserModel from '@identity/shared/persistence/model/user.model';
 
 export const sequelizeProvider = {
   provide: 'SEQUELIZE',
@@ -15,7 +17,7 @@ export const sequelizeProvider = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     });
-    sequelize.addModels([UserModel, UserRoleModel, ProjectModel]);
+    sequelize.addModels([UserModel, UserRoleModel, ProjectModel, ProjectVerticalModel]);
 
     if (process.env.NODE_ENV === 'development') {
       await sequelize.sync();
