@@ -41,7 +41,6 @@ describe('Auth - Test (e2e)', () => {
       const user: User = {
         id: 9999,
         name: 'Test user',
-        cpf: '111.111.111-11',
         email: 'test.user@email.com',
         password:
           '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
@@ -66,7 +65,6 @@ describe('Auth - Test (e2e)', () => {
       const user: User = {
         id: 9999,
         name: 'Test user',
-        cpf: '111.111.111-11',
         email: 'test.user@email.com',
         password:
           '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
