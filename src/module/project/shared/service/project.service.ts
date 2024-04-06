@@ -5,11 +5,11 @@ import CreateProject from '@project/core/useCase/CreateProjectUseCase/CreateProj
 
 import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
 
-import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepositorySequelize';
 import { UpdateProjectDto } from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
 import UpdateProject from '@project/core/useCase/UpdateProjectUseCase/UpdateProjectUseCase';
 import FindProjectById from '@project/core/useCase/FindProjectById/FindProjectProjectByIdUseCase';
 import GetAllProjects from '@project/core/useCase/GetAllProjectsUseCase/GetAllProjectsUseCase';
+import ProjectRepositorySequelize from '../persistence/repository/ProjectRepository/ProjectRepositorySequelize';
 
 @Injectable()
 export default class ProjectService {

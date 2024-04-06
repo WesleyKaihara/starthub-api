@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import Project from '@project/core/entity/Project';
-import ProjectModel from '../model/ProjectModel';
+import ProjectModel from '../../model/ProjectModel';
 import ProjectRepository from './project.repository';
 
 import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';

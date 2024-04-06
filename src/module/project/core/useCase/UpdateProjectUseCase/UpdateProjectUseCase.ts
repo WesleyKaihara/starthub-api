@@ -1,9 +1,11 @@
-import ProjectRepository from '@project/shared/persistence/repository/project.repository';
+import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
 import { UpdateProjectDto } from './UpdateProject.dto';
 import Project from '@project/core/entity/Project';
 
 export default class UpdateProject {
-  constructor(private readonly projectRepository: ProjectRepository) {}
+  constructor(
+    private readonly projectRatingTopicRepository: ProjectRepository,
+  ) {}
 
   async execute(projectId: number, input: UpdateProjectDto): Promise<Project> {
     const project = Project.update(
@@ -11,7 +13,7 @@ export default class UpdateProject {
       input.description,
       input.private,
     );
-    await this.projectRepository.updateProject(projectId, project);
+    await this.projectRatingTopicRepository.updateProject(projectId, project);
     return project;
   }
 }
