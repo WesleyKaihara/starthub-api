@@ -7,17 +7,22 @@ import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/Cre
 
 import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepositorySequelize';
 import { UpdateProjectDto } from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
+import UpdateProject from '@project/core/useCase/UpdateProjectUseCase/UpdateProjectUseCase';
+import FindProjectById from '@project/core/useCase/FindProjectById/FindProjectProjectByIdUseCase';
+import GetAllProjects from '@project/core/useCase/GetAllProjectsUseCase/GetAllProjectsUseCase';
 
 @Injectable()
 export default class ProjectService {
   constructor(private readonly projectRepository: ProjectRepositorySequelize) {}
 
   getAllProjects(): Promise<Project[]> {
-    return this.projectRepository.getAllProjects();
+    const getAllProjects = new GetAllProjects(this.projectRepository);
+    return getAllProjects.execute();
   }
 
   findProjectById(projectId: number): Promise<Project> {
-    return this.projectRepository.findProjectById(projectId);
+    const findProjectById = new FindProjectById(this.projectRepository);
+    return findProjectById.execute(projectId);
   }
 
   async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
@@ -29,6 +34,7 @@ export default class ProjectService {
     projectId: number,
     updateProjectDto: UpdateProjectDto,
   ): Promise<Project> {
-    return this.projectRepository.updateProject(projectId, updateProjectDto);
+    const updateProject = new UpdateProject(this.projectRepository);
+    return updateProject.execute(projectId, updateProjectDto);
   }
 }

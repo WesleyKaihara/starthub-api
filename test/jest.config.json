@@ -12,7 +12,8 @@
   "collectCoverage": true,
   "collectCoverageFrom": [
     "<rootDir>/src/**/service/*.(t|j)s",
-    "<rootDir>/src/**/http/*.(t|j)s"
+    "<rootDir>/src/**/http/*.(t|j)s",
+    "<rootDir>/src/**/useCase/**/*.(t|j)s"
   ],
   "coverageReporters": ["json", "html"],
   "coverageDirectory": "<rootDir>/coverage",

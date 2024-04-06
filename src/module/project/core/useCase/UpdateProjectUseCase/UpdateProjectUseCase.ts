@@ -2,16 +2,16 @@ import ProjectRepository from '@project/shared/persistence/repository/project.re
 import { UpdateProjectDto } from './UpdateProject.dto';
 import Project from '@project/core/entity/Project';
 
-export default class CreateProject {
+export default class UpdateProject {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
-  async execute(input: UpdateProjectDto): Promise<Project> {
+  async execute(projectId: number, input: UpdateProjectDto): Promise<Project> {
     const project = Project.update(
       input.name,
       input.description,
       input.private,
     );
-    await this.projectRepository.createProject(project);
+    await this.projectRepository.updateProject(projectId, project);
     return project;
   }
 }
