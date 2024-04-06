@@ -4,8 +4,8 @@ import Project from '@project/core/entity/Project';
 import ProjectModel from '../model/ProjectModel';
 import ProjectRepository from './project.repository';
 
-import { UpdateProjectDto } from '@project/core/dto/project/update-project.dto';
 import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
+import { UpdateProjectDto } from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
 
 @Injectable()
 export default class ProjectRepositorySequelize implements ProjectRepository {

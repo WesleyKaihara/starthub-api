@@ -3,8 +3,19 @@ export default class Project {
   description: string;
   private: boolean;
 
-  static create(): Project {
+  static create(name: string, description: string, _private: boolean): Project {
     const project = new Project();
+    project.name = name;
+    project.description = description;
+    project.private = _private;
+    return project;
+  }
+
+  static update(name: string, description: string, _private: boolean): Project {
+    const project = new Project();
+    project.name = name;
+    project.description = description;
+    project.private = _private;
     return project;
   }
 }

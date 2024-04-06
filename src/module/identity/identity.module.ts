@@ -9,7 +9,12 @@ import { UserAbilityController } from './http/user-ability.controlle';
 import UserRepository from './shared/persistence/repository/user.repository';
 
 @Module({
-  providers: [UserService, UserRepository, UserAbilityRepositorySequelize, UserAbilityService, ],
+  providers: [
+    UserService,
+    UserRepository,
+    UserAbilityRepositorySequelize,
+    UserAbilityService,
+  ],
   controllers: [UserController, UserAbilityController],
   exports: [UserService, UserAbilityService],
 })

@@ -17,7 +17,12 @@ export const sequelizeProvider = {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     });
-    sequelize.addModels([UserModel, UserAbilityModel, ProjectModel, ProjectVerticalModel]);
+    sequelize.addModels([
+      UserModel,
+      UserAbilityModel,
+      ProjectModel,
+      ProjectVerticalModel,
+    ]);
 
     if (process.env.NODE_ENV === 'development') {
       await sequelize.sync();

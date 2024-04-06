@@ -8,7 +8,9 @@ import { CreateUserAbilityDto } from '@identity/http/dto/userAbility/create-user
 import { UpdateUserAbilityDto } from '@identity/http/dto/userAbility/update-user-ability.dto';
 
 @Injectable()
-export default class UserAbilityRepositorySequelize implements UserAbilityRepository {
+export default class UserAbilityRepositorySequelize
+  implements UserAbilityRepository
+{
   public getAllUserAbilities(): Promise<UserAbility[]> {
     return UserAbilityModel.findAll()
       .then((abilities) => {
@@ -20,7 +22,9 @@ export default class UserAbilityRepositorySequelize implements UserAbilityReposi
       });
   }
 
-  public createUserAbility(createUserAbilityDto: CreateUserAbilityDto): Promise<UserAbility> {
+  public createUserAbility(
+    createUserAbilityDto: CreateUserAbilityDto,
+  ): Promise<UserAbility> {
     return UserAbilityModel.create(createUserAbilityDto as any)
       .then((newUserAbility) => {
         return newUserAbility as UserAbility;

@@ -13,9 +13,15 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ZodError } from 'zod';
 
-import { CreateUserAbilityDto, CreateUserAbilityDtoSchema } from './dto/userAbility/create-user-ability.dto';
+import {
+  CreateUserAbilityDto,
+  CreateUserAbilityDtoSchema,
+} from './dto/userAbility/create-user-ability.dto';
 import UserAbilityService from '@identity/core/service/user-ability.service';
-import { UpdateUserAbilityDto, UpdateUserAbilityDtoSchema } from './dto/userAbility/update-user-ability.dto';
+import {
+  UpdateUserAbilityDto,
+  UpdateUserAbilityDtoSchema,
+} from './dto/userAbility/update-user-ability.dto';
 
 @Controller('/user-ability')
 @ApiTags('UserAbility')
@@ -41,7 +47,8 @@ export class UserAbilityController {
       const validSchema = CreateUserAbilityDtoSchema.parse(
         createUserAbilityDto,
       ) as CreateUserAbilityDto;
-      const ability = await this.userAbilityService.createUserAbility(validSchema);
+      const ability =
+        await this.userAbilityService.createUserAbility(validSchema);
       return response.json(ability);
     } catch (error) {
       if (error instanceof ZodError) {
@@ -64,10 +71,8 @@ export class UserAbilityController {
       const validSchema = UpdateUserAbilityDtoSchema.parse(
         updateUserAbilityDto,
       ) as UpdateUserAbilityDto;
-      const updatedUserAbility = await this.userAbilityService.updateUserAbility(
-        abilityId,
-        validSchema,
-      );
+      const updatedUserAbility =
+        await this.userAbilityService.updateUserAbility(abilityId, validSchema);
       return response.json(updatedUserAbility);
     } catch (error) {
       if (error instanceof ZodError) {

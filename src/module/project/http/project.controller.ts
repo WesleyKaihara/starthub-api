@@ -13,13 +13,13 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { ZodError } from 'zod';
-import {
-  UpdateProjectDto,
-  UpdateProjectDtoSchema,
-} from '../core/dto/project/update-project.dto';
 
 import ProjectService from '@project/shared/service/project.service';
 import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
+import {
+  UpdateProjectDto,
+  UpdateProjectDtoSchema,
+} from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
 
 @Controller('/project')
 @ApiTags('Project')

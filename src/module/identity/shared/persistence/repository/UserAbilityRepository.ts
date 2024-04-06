@@ -5,7 +5,9 @@ import { UpdateUserAbilityDto } from '@identity/http/dto/userAbility/update-user
 
 export default interface UserAbilityRepository {
   getAllUserAbilities(): Promise<UserAbility[]>;
-  createUserAbility(createUserAbilityDto: CreateUserAbilityDto): Promise<UserAbility>;
+  createUserAbility(
+    createUserAbilityDto: CreateUserAbilityDto,
+  ): Promise<UserAbility>;
   updateUserAbility(
     id: number,
     updateUserAbilityDto: UpdateUserAbilityDto,

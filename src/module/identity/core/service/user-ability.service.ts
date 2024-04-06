@@ -8,7 +8,9 @@ import UserAbilityRepositorySequelize from '@identity/shared/persistence/reposit
 
 @Injectable()
 export default class UserAbilityService {
-  constructor(private readonly userAbilityRepository: UserAbilityRepositorySequelize) {}
+  constructor(
+    private readonly userAbilityRepository: UserAbilityRepositorySequelize,
+  ) {}
 
   getUserAbilities(): Promise<UserAbility[]> {
     return this.userAbilityRepository.getAllUserAbilities();
@@ -24,6 +26,9 @@ export default class UserAbilityService {
     userAbilityId: number,
     updateUserAbilityDto: UpdateUserAbilityDto,
   ): Promise<UserAbility> {
-    return this.userAbilityRepository.updateUserAbility(userAbilityId, updateUserAbilityDto);
+    return this.userAbilityRepository.updateUserAbility(
+      userAbilityId,
+      updateUserAbilityDto,
+    );
   }
 }

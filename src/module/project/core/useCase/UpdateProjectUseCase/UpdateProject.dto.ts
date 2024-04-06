@@ -1,9 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { z } from 'zod';
-import {
-  MIN_CHARACTERS_NAME,
-  MIN_CHARACTERS_DESCRIPTION,
-} from './@project.constant';
+
+const PROJECT_VALIDATION = {
+  MIN_CHARACTERS_NAME: 3,
+  MIN_CHARACTERS_DESCRIPTION: 10,
+};
 
 export class UpdateProjectDto {
   @ApiProperty({
@@ -23,11 +24,11 @@ export class UpdateProjectDto {
 
 export const UpdateProjectDtoSchema = z
   .object({
-    name: z.string().min(MIN_CHARACTERS_NAME, {
-      message: `Project name must have at least ${MIN_CHARACTERS_NAME} characters`,
+    name: z.string().min(PROJECT_VALIDATION.MIN_CHARACTERS_NAME, {
+      message: `Project name must have at least ${PROJECT_VALIDATION.MIN_CHARACTERS_NAME} characters`,
     }),
-    description: z.string().min(MIN_CHARACTERS_DESCRIPTION, {
-      message: `Project description must have at least ${MIN_CHARACTERS_DESCRIPTION} characters`,
+    description: z.string().min(PROJECT_VALIDATION.MIN_CHARACTERS_DESCRIPTION, {
+      message: `Project description must have at least ${PROJECT_VALIDATION.MIN_CHARACTERS_DESCRIPTION} characters`,
     }),
     private: z.boolean(),
   })
