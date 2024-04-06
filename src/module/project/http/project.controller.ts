@@ -15,11 +15,11 @@ import { Response } from 'express';
 import { ZodError } from 'zod';
 
 import ProjectService from '@project/shared/service/project.service';
-import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
+import { CreateProjectDto } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import {
   UpdateProjectDto,
   UpdateProjectDtoSchema,
-} from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
+} from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 
 @Controller('/project')
 @ApiTags('Project')

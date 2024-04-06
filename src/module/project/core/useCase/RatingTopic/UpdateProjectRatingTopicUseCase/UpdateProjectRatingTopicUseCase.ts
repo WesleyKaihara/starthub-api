@@ -3,7 +3,7 @@ import RatingTopic from '@project/core/entity/RatingTopic';
 import { UpdateProjectRatingTopicDto } from './UpdateProjectRatingTopic.dto';
 import ProjectRatingTopicRepository from '@project/shared/persistence/repository/ProjectRatingTopicRepository/projectRatingTopic.repository';
 
-export default class UpdateProject {
+export default class UpdateProjectRatingTopic {
   constructor(
     private readonly projectRepository: ProjectRatingTopicRepository,
   ) {}

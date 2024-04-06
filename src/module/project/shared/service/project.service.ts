@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
 import Project from '../../core/entity/Project';
-import CreateProject from '@project/core/useCase/CreateProjectUseCase/CreateProjectUseCase';
-
-import { CreateProjectDto } from '@project/core/useCase/CreateProjectUseCase/CreateProject.dto';
-
-import { UpdateProjectDto } from '@project/core/useCase/UpdateProjectUseCase/UpdateProject.dto';
-import UpdateProject from '@project/core/useCase/UpdateProjectUseCase/UpdateProjectUseCase';
-import FindProjectById from '@project/core/useCase/FindProjectById/FindProjectProjectByIdUseCase';
-import GetAllProjects from '@project/core/useCase/GetAllProjectsUseCase/GetAllProjectsUseCase';
 import ProjectRepositorySequelize from '../persistence/repository/ProjectRepository/ProjectRepositorySequelize';
+import GetAllProjects from '@project/core/useCase/Project/GetAllProjectsUseCase/GetAllProjectsUseCase';
+import FindProjectById from '@project/core/useCase/Project/FindProjectByIdUseCase/FindProjectProjectByIdUseCase';
+import CreateProject from '@project/core/useCase/Project/CreateProjectUseCase/CreateProjectUseCase';
+import { CreateProjectDto } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
+import { UpdateProjectDto } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import UpdateProject from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProjectUseCase';
 
 @Injectable()
 export default class ProjectService {

@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';
 import ProjectRepository from './projectRatingTopic.repository';
-import { CreateProjectRatingTopicDto } from '@project/core/useCase/CreateProjectRatingTopicUseCase/CreateProjectRatingTopic.dto';
-import { UpdateProjectRatingTopicDto } from '@project/core/useCase/UpdateProjectRatingTopicUseCase/UpdateProjectRatingTopic.dto';
+import { CreateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateProjectRatingTopicUseCase/CreateProjectRatingTopic.dto';
+import { UpdateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateProjectRatingTopicUseCase/UpdateProjectRatingTopic.dto';
 
 @Injectable()
 export default class ProjectRatingTopicRepositorySequelize
