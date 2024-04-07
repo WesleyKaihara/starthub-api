@@ -1,17 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Res } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { ZodError } from 'zod';
 
 import PaymentService from '@payment/core/service/payment.service';
 

@@ -1,8 +1,6 @@
 import {
-  AutoIncrement,
   Column,
   CreatedAt,
-  DataType,
   Model,
   PrimaryKey,
   Table,
