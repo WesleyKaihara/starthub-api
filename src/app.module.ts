@@ -11,6 +11,7 @@ import { AuthModule } from './module/auth/auth.module';
 import { ProjectModule } from '@project/project.module';
 import { IdentityModule } from '@identity/identity.module';
 import { PersistenceModule } from './shared/module/persistence/persistence.module';
+import { AnalysisModule } from '@analysis/analysis.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PersistenceModule } from './shared/module/persistence/persistence.modul
     AuthModule,
     ProjectModule,
     IdentityModule,
+    AnalysisModule,
   ],
   controllers: [],
   providers: [

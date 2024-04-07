@@ -21,6 +21,7 @@
       "@project/*": ["./src/module/project/*"],
       "@identity/*": ["./src/module/identity/*"],
       "@payment/*": ["./src/module/payment/*"],
+      "@analysis/*": ["./src/module/analysis/*"],
       "@src/*": ["./src/*"],
     },
   }

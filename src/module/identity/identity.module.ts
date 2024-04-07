@@ -5,7 +5,7 @@ import UserService from './core/service/user.service';
 import { UserController } from './http/user.controller';
 
 import UserAbilityService from './core/service/user-ability.service';
-import { UserAbilityController } from './http/user-ability.controlle';
+import { UserAbilityController } from './http/user-ability.controller';
 import UserRepository from './shared/persistence/repository/user.repository';
 
 @Module({
