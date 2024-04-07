@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';
-import ProjectRepository from './projectRatingTopic.repository';
-import { CreateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateProjectRatingTopicUseCase/CreateProjectRatingTopic.dto';
-import { UpdateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateProjectRatingTopicUseCase/UpdateProjectRatingTopic.dto';
+import ProjectRepository from './RatingTopic.repository';
+import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 @Injectable()
-export default class ProjectRatingTopicRepositorySequelize
+export default class RatingTopicRepositorySequelize
   implements ProjectRepository
 {
   public getAllRatingTopic(): Promise<Project[]> {
@@ -28,24 +28,24 @@ export default class ProjectRatingTopicRepositorySequelize
   }
 
   public createRatingTopic(
-    createProjectRatingTopicDto: CreateProjectRatingTopicDto,
+    createRatingTopicDto: CreateRatingTopicDto,
   ): Promise<Project> {
-    return ProjectModel.create(createProjectRatingTopicDto as any);
+    return ProjectModel.create(createRatingTopicDto as any);
   }
 
   public async updateRatingTopic(
     id: number,
-    updateProjectRatingTopicDto: UpdateProjectRatingTopicDto,
+    updateRatingTopicDto: UpdateRatingTopicDto,
   ): Promise<Project> {
     const [linhasAfetadas] = await ProjectModel.update(
-      { ...updateProjectRatingTopicDto },
+      { ...updateRatingTopicDto },
       { where: { id } },
     );
 
     if (linhasAfetadas > 0) {
       return await ProjectModel.findByPk(id);
     } else {
-      throw new Error(`Unable to find a project type with id ${id}`);
+      throw new Error(`Unable to find a rating topic type with id ${id}`);
     }
   }
 }

@@ -6,7 +6,7 @@ const TOPIC_VALIDATION = {
   MIN_CHARACTERS_DESCRIPTION: 10,
 };
 
-export class UpdateProjectRatingTopicDto {
+export class UpdateRatingTopicDto {
   @ApiProperty({
     example: 'Inovação',
   })
@@ -18,7 +18,7 @@ export class UpdateProjectRatingTopicDto {
   readonly description: string;
 }
 
-export const UpdateProjectRatingTopicDtoSchema = z
+export const UpdateRatingTopicDtoSchema = z
   .object({
     name: z.string().min(TOPIC_VALIDATION.MIN_CHARACTERS_NAME, {
       message: `Rating topic must have at least ${TOPIC_VALIDATION.MIN_CHARACTERS_NAME} characters`,

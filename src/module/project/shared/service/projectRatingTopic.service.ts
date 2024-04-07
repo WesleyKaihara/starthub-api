@@ -1,44 +1,46 @@
 import { Injectable } from '@nestjs/common';
 
 import RatingTopic from '@project/core/entity/RatingTopic';
-import ProjectRatingTopicRepositorySequelize from '../persistence/repository/ProjectRatingTopicRepository/ProjectRatingTopicRepositorySequelize';
-import GetAllProjectRatingTopics from '@project/core/useCase/RatingTopic/GetAllProjectRatingTopicsUseCase/GetAllProjectRatingTopicsUseCase';
+import RatingTopicRepositorySequelize from '../persistence/repository/RatingTopicRepository/RatingTopicRepositorySequelize';
+import GetAllRatingTopics from '@project/core/useCase/RatingTopic/GetAllRatingTopicsUseCase/GetAllRatingTopicsUseCase';
 import FindRatingTopicById from '@project/core/useCase/RatingTopic/FindRatingTopicByIdUseCase/FindRatingTopicByIdUseCase';
-import { CreateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateProjectRatingTopicUseCase/CreateProjectRatingTopic.dto';
-import CreateProjectRatingTopic from '@project/core/useCase/RatingTopic/CreateProjectRatingTopicUseCase/CreateProjectRatingTopicUseCase';
-import UpdateProjectRatingTopic from '@project/core/useCase/RatingTopic/UpdateProjectRatingTopicUseCase/UpdateProjectRatingTopicUseCase';
-import { UpdateProjectRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateProjectRatingTopicUseCase/UpdateProjectRatingTopic.dto';
+import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import CreateRatingTopic from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopicUseCase';
+import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
+import UpdateRatingTopic from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopicUseCase';
 
 @Injectable()
 export default class ProjectRatingTopicService {
   constructor(
-    private readonly projectRepository: ProjectRatingTopicRepositorySequelize,
+    private readonly ratingTopicRepository: RatingTopicRepositorySequelize,
   ) {}
 
-  getAllProjects(): Promise<RatingTopic[]> {
-    const getAllProjects = new GetAllProjectRatingTopics(
-      this.projectRepository,
+  getAllRatingTopics(): Promise<RatingTopic[]> {
+    const getAllRatingTopics = new GetAllRatingTopics(
+      this.ratingTopicRepository,
     );
-    return getAllProjects.execute();
+    return getAllRatingTopics.execute();
   }
 
-  findProjectById(projectId: number): Promise<RatingTopic> {
-    const findProjectById = new FindRatingTopicById(this.projectRepository);
-    return findProjectById.execute(projectId);
+  findRatingTopicById(topicId: number): Promise<RatingTopic> {
+    const findRatingTopicById = new FindRatingTopicById(
+      this.ratingTopicRepository,
+    );
+    return findRatingTopicById.execute(topicId);
   }
 
-  async createProject(
-    createProjectDto: CreateProjectRatingTopicDto,
+  async createRatingTopic(
+    createRatingTopicDto: CreateRatingTopicDto,
   ): Promise<RatingTopic> {
-    const createProject = new CreateProjectRatingTopic(this.projectRepository);
-    return createProject.execute(createProjectDto);
+    const createRatingTopic = new CreateRatingTopic(this.ratingTopicRepository);
+    return createRatingTopic.execute(createRatingTopicDto);
   }
 
-  updateProject(
+  updateRatingTopic(
     topicId: number,
-    updateProjectRatingTopicDto: UpdateProjectRatingTopicDto,
+    updateRatingTopicDto: UpdateRatingTopicDto,
   ): Promise<RatingTopic> {
-    const updateProject = new UpdateProjectRatingTopic(this.projectRepository);
-    return updateProject.execute(topicId, updateProjectRatingTopicDto);
+    const updateRatingTopic = new UpdateRatingTopic(this.ratingTopicRepository);
+    return updateRatingTopic.execute(topicId, updateRatingTopicDto);
   }
 }
