@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 
-import Project from '@project/core/entity/Project';
-import ProjectModel from '../../model/ProjectModel';
-import ProjectRepository from './RatingTopic.repository';
+import RatingTopicModel from '../../model/RatingTopicModel';
+import RatingTopicRepository from './RatingTopic.repository';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
+import RatingTopic from '@project/core/entity/RatingTopic';
 
 @Injectable()
 export default class RatingTopicRepositorySequelize
-  implements ProjectRepository
+  implements RatingTopicRepository
 {
-  public getAllRatingTopic(): Promise<Project[]> {
-    return ProjectModel.findAll()
+  public getAllRatingTopic(): Promise<RatingTopic[]> {
+    return RatingTopicModel.findAll()
       .then((ratingTopics) => {
-        return ratingTopics as Project[];
+        return ratingTopics as RatingTopic[];
       })
       .catch((error) => {
         console.error(error);
@@ -21,29 +21,29 @@ export default class RatingTopicRepositorySequelize
       });
   }
 
-  public async findRatingTopicById(id: number): Promise<Project> {
-    return await ProjectModel.findOne({
+  public async findRatingTopicById(id: number): Promise<RatingTopic> {
+    return await RatingTopicModel.findOne({
       where: { id },
     });
   }
 
   public createRatingTopic(
     createRatingTopicDto: CreateRatingTopicDto,
-  ): Promise<Project> {
-    return ProjectModel.create(createRatingTopicDto as any);
+  ): Promise<RatingTopic> {
+    return RatingTopicModel.create(createRatingTopicDto as any);
   }
 
   public async updateRatingTopic(
     id: number,
     updateRatingTopicDto: UpdateRatingTopicDto,
-  ): Promise<Project> {
-    const [linhasAfetadas] = await ProjectModel.update(
+  ): Promise<RatingTopic> {
+    const [rowsAffected] = await RatingTopicModel.update(
       { ...updateRatingTopicDto },
       { where: { id } },
     );
 
-    if (linhasAfetadas > 0) {
-      return await ProjectModel.findByPk(id);
+    if (rowsAffected > 0) {
+      return await RatingTopicModel.findByPk(id);
     } else {
       throw new Error(`Unable to find a rating topic type with id ${id}`);
     }
