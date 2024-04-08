@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Res,
 } from '@nestjs/common';
@@ -14,7 +15,17 @@ import UserRatingTopicService from '@project/shared/service/userRatingTopic.serv
 @Controller('/user-rating-topic')
 @ApiTags('UserRatingTopic')
 export class UserRatingTopicController {
-  constructor(private readonly userRatingTopicService: UserRatingTopicService) {}
+  constructor(private readonly userRatingTopicService: UserRatingTopicService) { }
+
+  @Get()
+  async listUserRatingTopics(@Res() response: Response) {
+    try {
+      const userRatingTopics = await this.userRatingTopicService.getAllUserRatingTopics();
+      return response.json(userRatingTopics);
+    } catch (error) {
+      return response.status(500).json({ message: error.message });
+    }
+  }
 
   @Post()
   async createUserRatingTopic(
