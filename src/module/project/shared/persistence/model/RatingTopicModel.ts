@@ -10,9 +10,9 @@ import {
 } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'projectRatingTopic',
+  tableName: 'ratingTopic',
 })
-export default class ProjectModel extends Model {
+export default class RatingTopicModel extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.BIGINT)

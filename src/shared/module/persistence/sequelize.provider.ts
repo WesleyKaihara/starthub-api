@@ -4,6 +4,8 @@ import ProjectModel from '@project/shared/persistence/model/ProjectModel';
 import ProjectVerticalModel from '@project/shared/persistence/model/ProjectVerticalModel';
 import UserModel from '@identity/shared/persistence/model/user.model';
 import UserAbilityModel from '@identity/shared/persistence/model/UserAbilityModel';
+import RatingTopicModel from '@project/shared/persistence/model/RatingTopicModel';
+import UserRatingTopicModel from '@project/shared/persistence/model/UserRatingTopicModel';
 
 export const sequelizeProvider = {
   provide: 'SEQUELIZE',
@@ -18,9 +20,13 @@ export const sequelizeProvider = {
       database: process.env.DB_NAME,
     });
     sequelize.addModels([
+      // Identity
       UserModel,
       UserAbilityModel,
+      // Project
       ProjectModel,
+      RatingTopicModel,
+      UserRatingTopicModel,
       ProjectVerticalModel,
     ]);
 

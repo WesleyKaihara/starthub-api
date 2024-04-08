@@ -13,7 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { ZodError } from 'zod';
-import ProjectRatingTopicService from '@project/shared/service/projectRatingTopic.service';
+import ProjectRatingTopicService from '@project/shared/service/ratingTopic.service';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import {
   UpdateRatingTopicDto,

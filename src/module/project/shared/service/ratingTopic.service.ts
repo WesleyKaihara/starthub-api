@@ -10,7 +10,7 @@ import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRa
 import UpdateRatingTopic from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopicUseCase';
 
 @Injectable()
-export default class ProjectRatingTopicService {
+export default class RatingTopicService {
   constructor(
     private readonly ratingTopicRepository: RatingTopicRepositorySequelize,
   ) {}
