@@ -9,40 +9,53 @@ import { UpdateProjectDto } from '@project/core/useCase/Project/UpdateProjectUse
 
 @Injectable()
 export default class ProjectRepositorySequelize implements ProjectRepository {
-  public getAllProjects(): Promise<Project[]> {
-    return ProjectModel.findAll()
-      .then((projects) => {
-        return projects as Project[];
-      })
-      .catch((error) => {
-        console.error(error);
-        throw new Error(error.message);
-      });
+  async getAllProjects(): Promise<Project[]> {
+    const projects = await ProjectModel.findAll();
+
+    return projects.map((project) =>
+      Project.restore(project.name, project.description, project.private),
+    );
   }
 
-  public async findProjectById(id: number): Promise<Project> {
-    return await ProjectModel.findOne({
-      where: { id },
+  async findProjectById(id: number): Promise<Project> {
+    const project = await ProjectModel.findOne({ where: { id } });
+    if (!project) {
+      throw new Error(`Project with id ${id} not found`);
+    }
+    return Project.restore(project.name, project.description, project.private);
+  }
+
+  async createProject(input: CreateProjectDto): Promise<Project> {
+    const project: ProjectModel = await ProjectModel.create({
+      name: input.name,
+      description: input.description,
+      private: input.private,
     });
+
+    return Project.restore(project.name, project.description, project.private);
   }
 
-  public createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    return ProjectModel.create(createProjectDto as any);
-  }
-
-  public async updateProject(
+  async updateProject(
     id: number,
-    atualizarProjectDto: UpdateProjectDto,
+    updateProjectDto: UpdateProjectDto,
   ): Promise<Project> {
-    const [linhasAfetadas] = await ProjectModel.update(
-      { ...atualizarProjectDto },
+    const [rowsAffected] = await ProjectModel.update(
+      { ...updateProjectDto },
       { where: { id } },
     );
 
-    if (linhasAfetadas > 0) {
-      return await ProjectModel.findByPk(id);
+    if (rowsAffected > 0) {
+      const project = await ProjectModel.findByPk(id);
+      if (!project) {
+        throw new Error(`Project with id ${id} not found after update`);
+      }
+      return Project.restore(
+        project.name,
+        project.description,
+        project.private,
+      );
     } else {
-      throw new Error(`Unable to find a project type with id ${id}`);
+      throw new Error(`Unable to update project with id ${id}`);
     }
   }
 }
