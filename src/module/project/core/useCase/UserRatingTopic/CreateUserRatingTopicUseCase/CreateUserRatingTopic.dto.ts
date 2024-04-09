@@ -7,15 +7,15 @@ export class CreateUserRatingTopicDto {
   })
   readonly userId: number;
   @ApiProperty({
-    example: 1 
+    example: 1,
   })
   readonly projectId: number;
   @ApiProperty({
-    example: 1
+    example: 1,
   })
   readonly ratingTopicId: number;
   @ApiProperty({
-    example: 8
+    example: 8,
   })
   readonly value: number;
 }
@@ -36,4 +36,3 @@ export const CreateUserRatingTopicDtoSchema = z
     }),
   })
   .strict();
-  

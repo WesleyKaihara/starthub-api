@@ -6,9 +6,7 @@ import { UpdateProductDto } from '@src/module/product/core/useCase/Product/Updat
 
 export default interface ProductRepository {
   getAllProducts(): Promise<UserAbility[]>;
-  createProduct(
-    createProductDto: CreateProductDto,
-  ): Promise<Product>;
+  createProduct(createProductDto: CreateProductDto): Promise<Product>;
   updateProduct(
     id: number,
     updateProductDto: UpdateProductDto,

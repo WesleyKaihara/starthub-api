@@ -25,7 +25,9 @@ export default class UserRatingTopicService {
   async createUserRatingTopic(
     createUserRatingTopicDto: CreateUserRatingTopicDto,
   ): Promise<UserRatingTopic> {
-    const createUserRatingTopic = new CreateUserRatingTopic(this.userRatingTopicRepository);
+    const createUserRatingTopic = new CreateUserRatingTopic(
+      this.userRatingTopicRepository,
+    );
     return createUserRatingTopic.execute(createUserRatingTopicDto);
   }
 }

@@ -7,7 +7,9 @@ import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 import UserRatingTopicModel from '../../model/UserRatingTopicModel';
 
 @Injectable()
-export default class UserRatingTopicRepositorySequelize implements UserRatingTopicRepository {
+export default class UserRatingTopicRepositorySequelize
+  implements UserRatingTopicRepository
+{
   public getAllUserRatingTopics(): Promise<UserRatingTopic[]> {
     return UserRatingTopicModel.findAll()
       .then((userRatingTopics) => {
@@ -19,7 +21,9 @@ export default class UserRatingTopicRepositorySequelize implements UserRatingTop
       });
   }
 
-  public createUserRatingTopic(createUserRatingTopicDto: CreateUserRatingTopicDto): Promise<UserRatingTopic> {
+  public createUserRatingTopic(
+    createUserRatingTopicDto: CreateUserRatingTopicDto,
+  ): Promise<UserRatingTopic> {
     return UserRatingTopicModel.create(createUserRatingTopicDto as any);
   }
 }

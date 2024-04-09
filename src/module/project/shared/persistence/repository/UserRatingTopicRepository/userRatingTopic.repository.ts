@@ -4,5 +4,7 @@ import { CreateUserRatingTopicDto } from '@project/core/useCase/UserRatingTopic/
 
 export default interface UserRatingTopicRepository {
   getAllUserRatingTopics(): Promise<UserRatingTopic[]>;
-  createUserRatingTopic(createUserRatingTopic: CreateUserRatingTopicDto): Promise<UserRatingTopic>;
+  createUserRatingTopic(
+    createUserRatingTopic: CreateUserRatingTopicDto,
+  ): Promise<UserRatingTopic>;
 }

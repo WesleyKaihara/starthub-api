@@ -19,8 +19,12 @@ import { UserRatingTopicController } from './http/userRatingTopic.controller';
     RatingTopicRepositorySequelize,
     RatingTopicService,
     UserRatingTopicRepositorySequelize,
-    UserRatingTopicService
+    UserRatingTopicService,
   ],
-  controllers: [ProjectController, RatingTopicController, UserRatingTopicController],
+  controllers: [
+    ProjectController,
+    RatingTopicController,
+    UserRatingTopicController,
+  ],
 })
-export class ProjectModule { }
+export class ProjectModule {}

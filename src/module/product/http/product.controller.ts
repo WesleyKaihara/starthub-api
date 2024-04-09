@@ -13,8 +13,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ZodError } from 'zod';
 import ProductService from '../shared/service/product.service';
-import { CreateProductDto, CreateProductDtoSchema } from '../core/useCase/Product/CreateProductUseCase/CreateProduct.dto';
-import { UpdateProductDto, UpdateProductDtoSchema } from '../core/useCase/Product/UpdateProductUseCase/UpdateProduct.dto';
+import {
+  CreateProductDto,
+  CreateProductDtoSchema,
+} from '../core/useCase/Product/CreateProductUseCase/CreateProduct.dto';
+import {
+  UpdateProductDto,
+  UpdateProductDtoSchema,
+} from '../core/useCase/Product/UpdateProductUseCase/UpdateProduct.dto';
 
 @Controller('/product')
 @ApiTags('Product')
@@ -40,8 +46,7 @@ export class ProductController {
       const validSchema = CreateProductDtoSchema.parse(
         createProductDto,
       ) as CreateProductDto;
-      const ability =
-        await this.productService.createProduct(validSchema);
+      const ability = await this.productService.createProduct(validSchema);
       return response.json(ability);
     } catch (error) {
       if (error instanceof ZodError) {
@@ -64,8 +69,10 @@ export class ProductController {
       const validSchema = UpdateProductDtoSchema.parse(
         updateProductDto,
       ) as UpdateProductDto;
-      const updatedProduct =
-        await this.productService.updateProduct(productId, validSchema);
+      const updatedProduct = await this.productService.updateProduct(
+        productId,
+        validSchema,
+      );
       return response.json(updatedProduct);
     } catch (error) {
       if (error instanceof ZodError) {

@@ -30,7 +30,7 @@ export const sequelizeProvider = {
       UserRatingTopicModel,
       ProjectVerticalModel,
       // Product
-      ProductModel
+      ProductModel,
     ]);
 
     if (process.env.NODE_ENV === 'development') {

@@ -6,11 +6,7 @@ export default class CreateProduct {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async execute(input: CreateProductDto): Promise<Product> {
-    const product = Product.create(
-      input.name,
-      input.description,
-      input.value,
-    );
+    const product = Product.create(input.name, input.description, input.value);
     await this.productRepository.createProduct(product);
     return product;
   }

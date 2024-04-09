@@ -7,17 +7,13 @@ import Product from '../../core/entity/Product';
 
 @Injectable()
 export default class ProductService {
-  constructor(
-    private readonly productRepository: ProductRepositorySequelize,
-  ) {}
+  constructor(private readonly productRepository: ProductRepositorySequelize) {}
 
   getProducts(): Promise<Product[]> {
     return this.productRepository.getAllProducts();
   }
 
-  async createProduct(
-    createProductDto: CreateProductDto,
-  ): Promise<Product> {
+  async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     return this.productRepository.createProduct(createProductDto);
   }
 

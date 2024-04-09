@@ -5,13 +5,9 @@ import ProjectRepository from '@project/shared/persistence/repository/ProjectRep
 export default class CreateProject {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
-  async execute(input: CreateProjectDto): Promise<Project> {    
-    const project = Project.set(
-      input.name,
-      input.description,
-      input.private,
-    );
-    
+  async execute(input: CreateProjectDto): Promise<Project> {
+    const project = Project.set(input.name, input.description, input.private);
+
     await this.projectRepository.createProject(project);
     return project;
   }
