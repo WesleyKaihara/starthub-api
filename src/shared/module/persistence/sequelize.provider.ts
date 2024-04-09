@@ -6,6 +6,7 @@ import UserModel from '@identity/shared/persistence/model/user.model';
 import UserAbilityModel from '@identity/shared/persistence/model/UserAbilityModel';
 import RatingTopicModel from '@project/shared/persistence/model/RatingTopicModel';
 import UserRatingTopicModel from '@project/shared/persistence/model/UserRatingTopicModel';
+import ProductModel from '@src/module/product/shared/persistence/model/ProductModel';
 
 export const sequelizeProvider = {
   provide: 'SEQUELIZE',
@@ -28,6 +29,8 @@ export const sequelizeProvider = {
       RatingTopicModel,
       UserRatingTopicModel,
       ProjectVerticalModel,
+      // Product
+      ProductModel
     ]);
 
     if (process.env.NODE_ENV === 'development') {
