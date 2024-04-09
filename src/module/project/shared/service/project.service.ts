@@ -23,7 +23,7 @@ export default class ProjectService {
     return findProjectById.execute(projectId);
   }
 
-  async createProject(createProjectDto: CreateProjectDto): Promise<Project> {
+  createProject(createProjectDto: CreateProjectDto): Promise<Project> {
     const createProject = new CreateProject(this.projectRepository);
     return createProject.execute(createProjectDto);
   }

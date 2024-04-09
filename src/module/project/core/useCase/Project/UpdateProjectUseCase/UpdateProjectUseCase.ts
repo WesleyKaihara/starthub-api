@@ -4,16 +4,17 @@ import Project from '@project/core/entity/Project';
 
 export default class UpdateProject {
   constructor(
-    private readonly projectRatingTopicRepository: ProjectRepository,
+    private readonly projectRepository: ProjectRepository,
   ) {}
 
   async execute(projectId: number, input: UpdateProjectDto): Promise<Project> {
-    const project = Project.update(
+    const project = Project.set(
       input.name,
       input.description,
       input.private,
     );
-    await this.projectRatingTopicRepository.updateProject(projectId, project);
+
+    await this.projectRepository.updateProject(projectId, project);
     return project;
   }
 }

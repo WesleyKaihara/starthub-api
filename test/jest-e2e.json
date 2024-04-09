@@ -1,9 +1,18 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "../",
   "testEnvironment": "node",
-  "testRegex": ".e2e-spec.ts$",
+  "testMatch": [
+    "<rootDir>/src/**/__test__/e2e/*.spec.ts"
+  ],
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@src/(.*)$": "<rootDir>/src/$1",
+    "^@identity/(.*)$": "<rootDir>/src/module/identity/$1",
+    "^@project/(.*)$": "<rootDir>/src/module/project/$1",
+    "^@analysis/(.*)$": "<rootDir>/src/module/analysis/$1",
+    "^@payment/(.*)$": "<rootDir>/src/module/payment/$1"
   }
 }
