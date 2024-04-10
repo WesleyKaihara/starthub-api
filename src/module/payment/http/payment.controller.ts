@@ -12,7 +12,6 @@ import { Response } from 'express';
 
 import PaymentService from '@payment/shared/service/payment.service';
 import { PixRequest } from '@payment/core/entity/MercadoPago/Pix';
-import { firstValueFrom } from 'rxjs';
 
 @Controller('/payment')
 @ApiTags('Payment')
@@ -35,12 +34,8 @@ export class PaymentController {
     @Res() response: Response,
   ) {
     try {
-      const payment = await firstValueFrom(
-        await this.paymentService.verifyPayment(paymentId),
-      );
-      return response.json({
-        result: payment.data,
-      });
+      const payment = await this.paymentService.verifyPayment(paymentId);
+      return response.json(payment);
     } catch (error) {
       if (error.response?.data?.status === 401) {
         return response.status(401).json({

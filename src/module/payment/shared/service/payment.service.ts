@@ -15,9 +15,7 @@ export default class PaymentService {
     return generatePix.execute(pixRequest);
   }
 
-  async verifyPayment(
-    paymentId: number,
-  ): Promise<Observable<AxiosResponse<any[]>>> {
+  async verifyPayment(paymentId: number) {
     const verifyPayment = new VerifyPayment(this.httpService);
     return await verifyPayment.execute(paymentId);
   }
