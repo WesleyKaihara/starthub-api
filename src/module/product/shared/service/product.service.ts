@@ -18,11 +18,11 @@ export default class ProductService {
   }
 
   updateProduct(
-    userAbilityId: number,
+    productId: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
     return this.productRepository.updateProduct(
-      userAbilityId,
+      productId,
       updateProductDto,
     );
   }
