@@ -39,7 +39,11 @@ export class PaymentController {
     } catch (error) {
       if (error.response?.data?.status === 401) {
         return response.status(401).json({
-          mensagem: 'Payment verification was not allowed - (Unauthorized)',
+          mensagem: 'Payment verification was not allowed',
+        });
+      } else if (error.response?.data?.status === 404) {
+        return response.status(404).json({
+          mensagem: 'Payment Not Found',
         });
       }
 
