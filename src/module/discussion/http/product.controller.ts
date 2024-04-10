@@ -1,10 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -33,11 +27,11 @@ export class DiscussionController {
     @Res() response: Response,
   ) {
     try {
-      const discussion = await this.discussionService.createDiscussion(createDiscussionDto);
+      const discussion =
+        await this.discussionService.createDiscussion(createDiscussionDto);
       return response.json(discussion);
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }
   }
-
 }

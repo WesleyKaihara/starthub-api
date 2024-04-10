@@ -13,19 +13,19 @@ export default class GetCompleteAnalysis {
           properties: {
             nextStep: {
               type: 'string',
-              description: 'Qual poderia ser o proximo passo a ser executado para alcançar o resultado esperado',
+              description:
+                'Qual poderia ser o proximo passo a ser executado para alcançar o resultado esperado',
             },
             benefits: {
               type: 'string',
-              description: 'Qual o principal beneficio essa sugestão irá resultar',
+              description:
+                'Qual o principal beneficio essa sugestão irá resultar',
             },
           },
         },
       },
     },
-    required: [
-      'sugestions',
-    ],
+    required: ['sugestions'],
   };
 
   constructor() {}
@@ -34,7 +34,11 @@ export default class GetCompleteAnalysis {
     const analysis = await this.openai.chat.completions.create({
       model: 'gpt-3.5-turbo-0613',
       messages: [
-        { role: 'system', content: 'Você é um especialista na idealização e validação de projetos, com foco em inovação e destaque no mercado' },
+        {
+          role: 'system',
+          content:
+            'Você é um especialista na idealização e validação de projetos, com foco em inovação e destaque no mercado',
+        },
         {
           role: 'user',
           content: `Give me information about movie called: Frozen`,

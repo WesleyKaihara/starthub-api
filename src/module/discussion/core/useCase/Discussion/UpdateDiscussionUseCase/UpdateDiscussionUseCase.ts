@@ -6,7 +6,10 @@ import { UpdateDiscussionDto } from './UpdateDiscussion.dto';
 export default class CreateDiscussion {
   constructor(private readonly discussionRepository: DiscussionRepository) {}
 
-  async execute(discussionId: number, input: UpdateDiscussionDto): Promise<Discussion> {
+  async execute(
+    discussionId: number,
+    input: UpdateDiscussionDto,
+  ): Promise<Discussion> {
     const discussion = Discussion.set(input.title, input.context);
 
     await this.discussionRepository.updateDiscussion(discussionId, discussion);

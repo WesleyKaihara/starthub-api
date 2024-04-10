@@ -21,9 +21,6 @@ export default class ProductService {
     productId: number,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    return this.productRepository.updateProduct(
-      productId,
-      updateProductDto,
-    );
+    return this.productRepository.updateProduct(productId, updateProductDto);
   }
 }

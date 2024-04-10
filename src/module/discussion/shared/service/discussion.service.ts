@@ -8,18 +8,24 @@ import DiscussionRepositorySequelize from '../persistence/repository/DiscussionR
 
 @Injectable()
 export default class DiscussionService {
-  constructor(private readonly discussionRepository: DiscussionRepositorySequelize) {}
+  constructor(
+    private readonly discussionRepository: DiscussionRepositorySequelize,
+  ) {}
 
   getDiscussions(): Promise<Discussion[]> {
     return this.discussionRepository.getAllDiscussions();
   }
 
   findDiscussionById(discussionId: number): Promise<Discussion> {
-    const findDiscussionById = new FindDiscussionById(this.discussionRepository);
-    return findDiscussionById .execute(discussionId);
+    const findDiscussionById = new FindDiscussionById(
+      this.discussionRepository,
+    );
+    return findDiscussionById.execute(discussionId);
   }
 
-  async createDiscussion(createDiscussionDto: CreateDiscussionDto): Promise<Discussion> {
+  async createDiscussion(
+    createDiscussionDto: CreateDiscussionDto,
+  ): Promise<Discussion> {
     return this.discussionRepository.createDiscussion(createDiscussionDto);
   }
 

@@ -7,7 +7,9 @@ import { CreateDiscussionDto } from '@src/module/discussion/core/useCase/Discuss
 import { UpdateDiscussionDto } from '@src/module/discussion/core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
 
 @Injectable()
-export default class DiscussionRepositorySequelize implements DiscussionRepository {
+export default class DiscussionRepositorySequelize
+  implements DiscussionRepository
+{
   public getAllDiscussions(): Promise<Discussion[]> {
     return DiscussionModel.findAll()
       .then((Discussions) => {
@@ -25,7 +27,9 @@ export default class DiscussionRepositorySequelize implements DiscussionReposito
     });
   }
 
-  public createDiscussion(createDiscussionDto: CreateDiscussionDto): Promise<Discussion> {
+  public createDiscussion(
+    createDiscussionDto: CreateDiscussionDto,
+  ): Promise<Discussion> {
     return DiscussionModel.create(createDiscussionDto as any);
   }
 

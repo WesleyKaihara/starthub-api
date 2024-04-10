@@ -5,7 +5,8 @@ export default class FindDiscussionById {
   constructor(private readonly projectRepository: DiscussionRepository) {}
 
   async execute(discussionId: number): Promise<Discussion> {
-    const discussion = await this.projectRepository.findDiscussionById(discussionId);
+    const discussion =
+      await this.projectRepository.findDiscussionById(discussionId);
     return discussion;
   }
 }

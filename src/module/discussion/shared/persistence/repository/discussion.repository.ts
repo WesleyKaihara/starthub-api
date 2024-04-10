@@ -6,7 +6,9 @@ import { UpdateDiscussionDto } from '@src/module/discussion/core/useCase/Discuss
 export default interface DiscussionRepository {
   getAllDiscussions(): Promise<Discussion[]>;
   findDiscussionById(discussionId: number): Promise<Discussion>;
-  createDiscussion(createDiscussionDto: CreateDiscussionDto): Promise<Discussion>;
+  createDiscussion(
+    createDiscussionDto: CreateDiscussionDto,
+  ): Promise<Discussion>;
   updateDiscussion(
     id: number,
     updateProductDto: UpdateDiscussionDto,
