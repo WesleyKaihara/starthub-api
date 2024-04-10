@@ -5,64 +5,26 @@ export default class GetCompleteAnalysis {
   schema = {
     type: 'object',
     properties: {
-      release_date: {
-        type: 'string',
-        description: 'Release date of the movie in Day.Month.Year format',
-      },
-      actors: {
+      sugestions: {
         type: 'array',
-        description:
-          'Get the names of first five most important actors in this movie',
+        description: 'Enviar três sugestões relacionadas ao projeto',
         items: {
           type: 'object',
           properties: {
-            first_name: { type: 'string' },
-            last_name: { type: 'string' },
-          },
-        },
-      },
-      director: {
-        type: 'string',
-        description: 'Director of the movie',
-      },
-      summary: {
-        type: 'string',
-        description:
-          'Provide a brief summary of the movie remove any double quotes from the text.',
-      },
-      quotes: {
-        type: 'array',
-        description: 'Provide three most memorable lines from this movie',
-        items: {
-          type: 'object',
-          properties: {
-            quote: {
+            nextStep: {
               type: 'string',
+              description: 'Qual poderia ser o proximo passo a ser executado para alcançar o resultado esperado',
             },
-            actor: {
+            benefits: {
               type: 'string',
-              description: 'Actor that is saying the line.',
-            },
-            person: {
-              type: 'string',
-              description: 'Character in the movie saying the line.',
+              description: 'Qual o principal beneficio essa sugestão irá resultar',
             },
           },
         },
-      },
-      poster_description: {
-        type: 'string',
-        description:
-          'Accurate description of the movie poster for this movie in seven sentences.',
       },
     },
     required: [
-      'release_date',
-      'actors',
-      'director',
-      'summary',
-      'quotes',
-      'poster_description',
+      'sugestions',
     ],
   };
 
@@ -72,14 +34,14 @@ export default class GetCompleteAnalysis {
     const analysis = await this.openai.chat.completions.create({
       model: 'gpt-3.5-turbo-0613',
       messages: [
-        { role: 'system', content: 'You are a movie database assistant.' },
+        { role: 'system', content: 'Você é um especialista na idealização e validação de projetos, com foco em inovação e destaque no mercado' },
         {
           role: 'user',
           content: `Give me information about movie called: Frozen`,
         },
       ],
-      functions: [{ name: 'get_movie_data', parameters: this.schema }],
-      function_call: { name: 'get_movie_data' },
+      functions: [{ name: 'get_sugestions', parameters: this.schema }],
+      function_call: { name: 'get_sugestions' },
       temperature: 0,
     });
     return analysis;
