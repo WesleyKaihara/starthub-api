@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
+import DiscussionService from './shared/service/discussion.service';
+import DiscussionRepositorySequelize from './shared/persistence/repository/DiscussionRepositorySequelize';
+import { DiscussionController } from './http/product.controller';
 
 @Module({
-  providers: [],
-  controllers: [],
+  providers: [DiscussionService, DiscussionRepositorySequelize],
+  controllers: [DiscussionController],
 })
-export class ProductModule {}
+export class DiscussionModule {}

@@ -1,6 +1,6 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
-import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
+import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 export default interface RatingTopicRepository {
   getAllRatingTopic(): Promise<RatingTopic[]>;
@@ -10,6 +10,6 @@ export default interface RatingTopicRepository {
   ): Promise<RatingTopic>;
   updateRatingTopic(
     topicId: number,
-    updateRatingTopicDto: UpdateRatingTopicDto,
+    updateRatingTopicBody: UpdateRatingTopicBody,
   ): Promise<RatingTopic>;
 }

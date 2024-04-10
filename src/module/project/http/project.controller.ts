@@ -12,14 +12,9 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { ZodError } from 'zod';
-
 import ProjectService from '@project/shared/service/project.service';
-import { CreateProjectDto } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
-import {
-  UpdateProjectDto,
-  UpdateProjectDtoSchema,
-} from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
+import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 
 @Controller('/project')
 @ApiTags('Project')
@@ -41,18 +36,17 @@ export class ProjectController {
     @Param('projectId', new ParseIntPipe()) projectId: number,
     @Res() response: Response,
   ) {
-    const project = await this.projectService.findProjectById(projectId);
-    if (!project) {
-      return response.status(404).send({
-        message: `Unable to find a project with id ${projectId}.`,
-      });
+    try {
+      const project = await this.projectService.findProjectById(projectId);
+      return response.json(project);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
-    return response.json(project);
   }
 
   @Post()
   async createProject(
-    @Body() createProjectDto: CreateProjectDto,
+    @Body() createProjectDto: CreateProjectBody,
     @Res() response: Response,
   ) {
     try {
@@ -66,26 +60,14 @@ export class ProjectController {
   @Put('/:projectId')
   async updateProjectById(
     @Param('projectId', new ParseIntPipe()) projectId: number,
-    @Body() updateProjectDto: UpdateProjectDto,
+    @Body() input: UpdateProjectBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = UpdateProjectDtoSchema.parse(
-        updateProjectDto,
-      ) as UpdateProjectDto;
-      const project = await this.projectService.updateProject(
-        projectId,
-        validSchema,
-      );
+      const project = await this.projectService.updateProject(projectId, input);
       return response.json(project);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ message: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ message: error.message });
-      }
+      return response.status(500).json({ message: error.message });
     }
   }
 }

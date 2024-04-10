@@ -1,35 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { z } from 'zod';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-const PROJECT_VALIDATION = {
-  MIN_CHARACTERS_NAME: 3,
-  MIN_CHARACTERS_DESCRIPTION: 10,
-};
-
-export class UpdateProjectDto {
+export class UpdateProjectBody {
+  @IsNotEmpty({ message: 'Project name cannot be empty' })
+  @IsString({ message: 'Project name must be a string' })
   @ApiProperty({
     example: 'StartHub',
   })
   readonly name: string;
+
+  @IsNotEmpty({ message: 'Project description cannot be empty' })
+  @IsString({ message: 'Project description must be a string' })
   @ApiProperty({
     example:
       'Plataforma destina a auxiliar no processo inicial de desenvolvimento de startups',
   })
   readonly description: string;
+
   @ApiProperty({
     example: false,
   })
   readonly private: boolean;
 }
-
-export const UpdateProjectDtoSchema = z
-  .object({
-    name: z.string().min(PROJECT_VALIDATION.MIN_CHARACTERS_NAME, {
-      message: `Project name must have at least ${PROJECT_VALIDATION.MIN_CHARACTERS_NAME} characters`,
-    }),
-    description: z.string().min(PROJECT_VALIDATION.MIN_CHARACTERS_DESCRIPTION, {
-      message: `Project description must have at least ${PROJECT_VALIDATION.MIN_CHARACTERS_DESCRIPTION} characters`,
-    }),
-    private: z.boolean(),
-  })
-  .strict();

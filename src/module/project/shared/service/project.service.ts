@@ -5,9 +5,9 @@ import ProjectRepositorySequelize from '../persistence/repository/ProjectReposit
 import GetAllProjects from '@project/core/useCase/Project/GetAllProjectsUseCase/GetAllProjectsUseCase';
 import FindProjectById from '@project/core/useCase/Project/FindProjectByIdUseCase/FindProjectProjectByIdUseCase';
 import CreateProject from '@project/core/useCase/Project/CreateProjectUseCase/CreateProjectUseCase';
-import { CreateProjectDto } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
-import { UpdateProjectDto } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import UpdateProject from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProjectUseCase';
+import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
+import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 
 @Injectable()
 export default class ProjectService {
@@ -23,14 +23,14 @@ export default class ProjectService {
     return findProjectById.execute(projectId);
   }
 
-  createProject(createProjectDto: CreateProjectDto): Promise<Project> {
+  createProject(createProjectDto: CreateProjectBody): Promise<Project> {
     const createProject = new CreateProject(this.projectRepository);
     return createProject.execute(createProjectDto);
   }
 
   updateProject(
     projectId: number,
-    updateProjectDto: UpdateProjectDto,
+    updateProjectDto: UpdateProjectBody,
   ): Promise<Project> {
     const updateProject = new UpdateProject(this.projectRepository);
     return updateProject.execute(projectId, updateProjectDto);

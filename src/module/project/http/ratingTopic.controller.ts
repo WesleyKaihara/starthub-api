@@ -15,10 +15,7 @@ import { Response } from 'express';
 import { ZodError } from 'zod';
 import ProjectRatingTopicService from '@project/shared/service/ratingTopic.service';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
-import {
-  UpdateRatingTopicDto,
-  UpdateRatingTopicDtoSchema,
-} from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
+import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 @Controller('/rating-topic')
 @ApiTags('RatingTopic')
@@ -40,14 +37,14 @@ export class RatingTopicController {
     @Param('topicId', new ParseIntPipe()) topicId: number,
     @Res() response: Response,
   ) {
-    const ratingTopic =
-      await this.ratingTopicService.findRatingTopicById(topicId);
-    if (!ratingTopic) {
-      return response.status(404).send({
-        message: `Unable to find a rating topic with id ${topicId}.`,
-      });
+    try {
+      const ratingTopic =
+        await this.ratingTopicService.findRatingTopicById(topicId);
+
+      return response.json(ratingTopic);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
-    return response.json(ratingTopic);
   }
 
   @Post()
@@ -67,16 +64,13 @@ export class RatingTopicController {
   @Put('/:topicId')
   async updateRatingTopicById(
     @Param('topicId', new ParseIntPipe()) topicId: number,
-    @Body() updateRatingTopicDto: UpdateRatingTopicDto,
+    @Body() updateRatingTopicBody: UpdateRatingTopicBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = UpdateRatingTopicDtoSchema.parse(
-        updateRatingTopicDto,
-      ) as UpdateRatingTopicDto;
       const ratingTopic = await this.ratingTopicService.updateRatingTopic(
         topicId,
-        validSchema,
+        updateRatingTopicBody,
       );
       return response.json(ratingTopic);
     } catch (error) {

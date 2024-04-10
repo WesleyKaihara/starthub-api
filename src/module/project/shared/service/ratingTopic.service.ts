@@ -6,8 +6,8 @@ import GetAllRatingTopics from '@project/core/useCase/RatingTopic/GetAllRatingTo
 import FindRatingTopicById from '@project/core/useCase/RatingTopic/FindRatingTopicByIdUseCase/FindRatingTopicByIdUseCase';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import CreateRatingTopic from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopicUseCase';
-import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 import UpdateRatingTopic from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopicUseCase';
+import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 @Injectable()
 export default class RatingTopicService {
@@ -38,9 +38,9 @@ export default class RatingTopicService {
 
   updateRatingTopic(
     topicId: number,
-    updateRatingTopicDto: UpdateRatingTopicDto,
+    updateRatingTopicBody: UpdateRatingTopicBody,
   ): Promise<RatingTopic> {
     const updateRatingTopic = new UpdateRatingTopic(this.ratingTopicRepository);
-    return updateRatingTopic.execute(topicId, updateRatingTopicDto);
+    return updateRatingTopic.execute(topicId, updateRatingTopicBody);
   }
 }

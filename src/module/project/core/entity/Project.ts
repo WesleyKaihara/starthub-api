@@ -1,9 +1,10 @@
 export default class Project {
+  id?: number;
   name: string;
   description: string;
   private: boolean;
 
-  static set(name: string, description: string, _private: boolean): Project {
+  static create(name: string, description: string, _private: boolean): Project {
     const project = new Project();
     project.name = name;
     project.description = description;
@@ -12,12 +13,29 @@ export default class Project {
     return project;
   }
 
-  static restore(
+  static update(
+    id: number,
     name: string,
     description: string,
     _private: boolean,
   ): Project {
     const project = new Project();
+    project.id = id;
+    project.name = name;
+    project.description = description;
+    project.private = _private;
+    project.isValid();
+    return project;
+  }
+
+  static restore(
+    id: number,
+    name: string,
+    description: string,
+    _private: boolean,
+  ): Project {
+    const project = new Project();
+    project.id = id;
     project.name = name;
     project.description = description;
     project.private = _private;

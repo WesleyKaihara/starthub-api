@@ -3,9 +3,8 @@ import { Injectable } from '@nestjs/common';
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';
 import ProjectRepository from './project.repository';
-
-import { CreateProjectDto } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
-import { UpdateProjectDto } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
+import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 
 @Injectable()
 export default class ProjectRepositorySequelize implements ProjectRepository {
@@ -13,7 +12,12 @@ export default class ProjectRepositorySequelize implements ProjectRepository {
     const projects = await ProjectModel.findAll();
 
     return projects.map((project) =>
-      Project.restore(project.name, project.description, project.private),
+      Project.restore(
+        project.id,
+        project.name,
+        project.description,
+        project.private,
+      ),
     );
   }
 
@@ -22,22 +26,32 @@ export default class ProjectRepositorySequelize implements ProjectRepository {
     if (!project) {
       throw new Error(`Project with id ${id} not found`);
     }
-    return Project.restore(project.name, project.description, project.private);
+    return Project.restore(
+      project.id,
+      project.name,
+      project.description,
+      project.private,
+    );
   }
 
-  async createProject(input: CreateProjectDto): Promise<Project> {
+  async createProject(input: CreateProjectBody): Promise<Project> {
     const project: ProjectModel = await ProjectModel.create({
       name: input.name,
       description: input.description,
       private: input.private,
     });
 
-    return Project.restore(project.name, project.description, project.private);
+    return Project.restore(
+      project.id,
+      project.name,
+      project.description,
+      project.private,
+    );
   }
 
   async updateProject(
     id: number,
-    updateProjectDto: UpdateProjectDto,
+    updateProjectDto: UpdateProjectBody,
   ): Promise<Project> {
     const [rowsAffected] = await ProjectModel.update(
       { ...updateProjectDto },
@@ -50,6 +64,7 @@ export default class ProjectRepositorySequelize implements ProjectRepository {
         throw new Error(`Project with id ${id} not found after update`);
       }
       return Project.restore(
+        project.id,
         project.name,
         project.description,
         project.private,

@@ -1,30 +1,41 @@
 import Project from '@project/core/entity/Project';
-import { Builder } from 'test/Builder';
-import CreateProject from '../Project/CreateProjectUseCase/CreateProjectUseCase';
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
-import { CreateProjectDto } from '../Project/CreateProjectUseCase/CreateProject.dto';
 
-export class ProjectBuilder implements Builder<Project> {
-  protected project;
+class ProjectBuilder {
+  private id: number;
+  private name: string;
+  private description: string;
+  private isPrivate: boolean;
 
   constructor() {
-    this.project = {
-      name: '',
-      description: '',
-      private: false,
-    };
+    this.id = 1;
+    this.name = 'Default Project Name';
+    this.description = 'Default Project Description';
+    this.isPrivate = false;
   }
 
-  create() {
-    const projectData: CreateProjectDto = {
-      name: this.project.name,
-      description: this.project.description,
-      private: this.project.private,
-    };
+  withName(name: string): ProjectBuilder {
+    this.name = name;
     return this;
   }
 
-  build() {
-    return this.project;
+  withDescription(description: string): ProjectBuilder {
+    this.description = description;
+    return this;
+  }
+
+  withPrivate(isPrivate: boolean): ProjectBuilder {
+    this.isPrivate = isPrivate;
+    return this;
+  }
+
+  build(): Project {
+    return Project.restore(
+      this.id,
+      this.name,
+      this.description,
+      this.isPrivate,
+    );
   }
 }
+
+export default ProjectBuilder;

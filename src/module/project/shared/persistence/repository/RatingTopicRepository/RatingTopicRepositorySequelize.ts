@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import RatingTopicModel from '../../model/RatingTopicModel';
 import RatingTopicRepository from './RatingTopic.repository';
 import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
-import { UpdateRatingTopicDto } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 import RatingTopic from '@project/core/entity/RatingTopic';
+import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 @Injectable()
 export default class RatingTopicRepositorySequelize
@@ -35,10 +35,10 @@ export default class RatingTopicRepositorySequelize
 
   public async updateRatingTopic(
     id: number,
-    updateRatingTopicDto: UpdateRatingTopicDto,
+    updateRatingTopicBody: UpdateRatingTopicBody,
   ): Promise<RatingTopic> {
     const [rowsAffected] = await RatingTopicModel.update(
-      { ...updateRatingTopicDto },
+      { ...updateRatingTopicBody },
       { where: { id } },
     );
 
