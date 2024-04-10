@@ -1,36 +1,56 @@
-import { Controller, Get, Param, ParseIntPipe, Res } from '@nestjs/common';
-
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import PaymentService from '@payment/core/service/payment.service';
+import PaymentService from '@payment/shared/service/payment.service';
+import { PixRequest } from '@payment/core/entity/MercadoPago/Pix';
+import { firstValueFrom } from 'rxjs';
 
 @Controller('/payment')
 @ApiTags('Payment')
-export class ProjectController {
+export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Get()
-  async getAllPayments(@Res() response: Response) {
+  @Post('/pix')
+  generatePix(@Body() pixRequest: PixRequest, @Res() response: Response) {
     try {
-      const payments = await this.paymentService.getAllPayments();
-      return response.json(payments);
+      const payment = this.paymentService.generatePix(pixRequest);
+      return response.json(payment);
     } catch (error) {
       return response.status(500).json({ message: error.message });
     }
   }
 
-  @Get('/:paymentId')
-  async getPaymentById(
+  @Get('/verify/:paymentId')
+  async verifyPayment(
     @Param('paymentId', new ParseIntPipe()) paymentId: number,
     @Res() response: Response,
   ) {
-    const payment = await this.paymentService.getPaymentById();
-    // if (!payment) {
-    //   return response.status(404).send({
-    //     message: `Unable to find a payment with id ${paymentId}.`,
-    //   });
-    // }
-    return response.json(payment);
+    try {
+      const payment = await firstValueFrom(
+        await this.paymentService.verifyPayment(paymentId),
+      );
+      return response.json({
+        result: payment.data,
+      });
+    } catch (error) {
+      if (error.response?.data?.status === 401) {
+        return response.status(401).json({
+          mensagem: 'Payment verification was not allowed - (Unauthorized)',
+        });
+      }
+
+      return response.status(500).json({
+        mensagem: error.message,
+      });
+    }
   }
 }

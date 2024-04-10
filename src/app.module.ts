@@ -13,6 +13,7 @@ import { IdentityModule } from '@identity/identity.module';
 import { PersistenceModule } from './shared/module/persistence/persistence.module';
 import { AnalysisModule } from '@analysis/analysis.module';
 import { ProductModule } from './module/product/product.module';
+import { PaymentModule } from '@payment/payment.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ProductModule } from './module/product/product.module';
     AuthModule,
     IdentityModule,
     PersistenceModule,
+    PaymentModule,
     ProjectModule,
     ProductModule,
   ],
