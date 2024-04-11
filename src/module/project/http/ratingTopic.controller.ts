@@ -14,7 +14,7 @@ import { Response } from 'express';
 
 import { ZodError } from 'zod';
 import ProjectRatingTopicService from '@project/shared/service/ratingTopic.service';
-import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
 @Controller('/rating-topic')
@@ -49,12 +49,12 @@ export class RatingTopicController {
 
   @Post()
   async createRatingTopic(
-    @Body() createRatingTopicDto: CreateRatingTopicDto,
+    @Body() input: CreateRatingTopicBody,
     @Res() response: Response,
   ) {
     try {
       const ratingTopic =
-        await this.ratingTopicService.createRatingTopic(createRatingTopicDto);
+        await this.ratingTopicService.createRatingTopic(input);
       return response.json(ratingTopic);
     } catch (error) {
       return response.status(400).json({ message: error.message });

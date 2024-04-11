@@ -41,7 +41,7 @@ export default class GetCompleteAnalysis {
         },
         {
           role: 'user',
-          content: `Give me information about movie called: Frozen`,
+          content: `Me de algumas sugestões relacionadas a uma plataforma com foco na idealização e as etapas iniciais de uma startup`,
         },
       ],
       functions: [{ name: 'get_sugestions', parameters: this.schema }],

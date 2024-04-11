@@ -4,7 +4,7 @@ import RatingTopic from '@project/core/entity/RatingTopic';
 import RatingTopicRepositorySequelize from '../persistence/repository/RatingTopicRepository/RatingTopicRepositorySequelize';
 import GetAllRatingTopics from '@project/core/useCase/RatingTopic/GetAllRatingTopicsUseCase/GetAllRatingTopicsUseCase';
 import FindRatingTopicById from '@project/core/useCase/RatingTopic/FindRatingTopicByIdUseCase/FindRatingTopicByIdUseCase';
-import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import CreateRatingTopic from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopicUseCase';
 import UpdateRatingTopic from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopicUseCase';
 import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
@@ -29,11 +29,9 @@ export default class RatingTopicService {
     return findRatingTopicById.execute(topicId);
   }
 
-  async createRatingTopic(
-    createRatingTopicDto: CreateRatingTopicDto,
-  ): Promise<RatingTopic> {
+  async createRatingTopic(input: CreateRatingTopicBody): Promise<RatingTopic> {
     const createRatingTopic = new CreateRatingTopic(this.ratingTopicRepository);
-    return createRatingTopic.execute(createRatingTopicDto);
+    return createRatingTopic.execute(input);
   }
 
   updateRatingTopic(

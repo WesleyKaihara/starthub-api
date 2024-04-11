@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import RatingTopicModel from '../../model/RatingTopicModel';
 import RatingTopicRepository from './RatingTopic.repository';
-import { CreateRatingTopicDto } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import RatingTopic from '@project/core/entity/RatingTopic';
 import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
@@ -10,42 +10,60 @@ import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateR
 export default class RatingTopicRepositorySequelize
   implements RatingTopicRepository
 {
-  public getAllRatingTopic(): Promise<RatingTopic[]> {
-    return RatingTopicModel.findAll()
-      .then((ratingTopics) => {
-        return ratingTopics as RatingTopic[];
-      })
-      .catch((error) => {
-        console.error(error);
-        throw new Error(error.message);
-      });
+  async getAllRatingTopics(): Promise<RatingTopic[]> {
+    const ratingTopics = await RatingTopicModel.findAll();
+
+    return ratingTopics.map((project) =>
+      RatingTopic.restore(project.id, project.name, project.description),
+    );
   }
 
   public async findRatingTopicById(id: number): Promise<RatingTopic> {
-    return await RatingTopicModel.findOne({
-      where: { id },
-    });
+    const ratingTopic = await RatingTopicModel.findOne({ where: { id } });
+    if (!ratingTopic) {
+      throw new Error(`Rating Topic with id ${id} not found`);
+    }
+    return RatingTopic.restore(
+      ratingTopic.id,
+      ratingTopic.name,
+      ratingTopic.description,
+    );
   }
 
-  public createRatingTopic(
-    createRatingTopicDto: CreateRatingTopicDto,
-  ): Promise<RatingTopic> {
-    return RatingTopicModel.create(createRatingTopicDto as any);
+  async createRatingTopic(input: CreateRatingTopicBody): Promise<RatingTopic> {
+    const ratingTopic: RatingTopicModel = await RatingTopicModel.create({
+      name: input.name,
+      description: input.description,
+    });
+
+    return RatingTopic.restore(
+      ratingTopic.id,
+      ratingTopic.name,
+      ratingTopic.description,
+    );
   }
 
   public async updateRatingTopic(
     id: number,
-    updateRatingTopicBody: UpdateRatingTopicBody,
+    input: UpdateRatingTopicBody,
   ): Promise<RatingTopic> {
     const [rowsAffected] = await RatingTopicModel.update(
-      { ...updateRatingTopicBody },
+      { ...input },
       { where: { id } },
     );
 
     if (rowsAffected > 0) {
-      return await RatingTopicModel.findByPk(id);
+      const ratingTopic = await RatingTopicModel.findByPk(id);
+      if (!ratingTopic) {
+        throw new Error(`Rating Topic with id ${id} not found after update`);
+      }
+      return RatingTopic.restore(
+        ratingTopic.id,
+        ratingTopic.name,
+        ratingTopic.description,
+      );
     } else {
-      throw new Error(`Unable to find a rating topic type with id ${id}`);
+      throw new Error(`Unable to update rating topic with id ${id}`);
     }
   }
 }
