@@ -1,7 +1,7 @@
 import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
-import FindProjectById from '@project/core/useCase/Project/FindProjectByIdUseCase/FindProjectProjectByIdUseCase';
 import ProjectBuilder from '../../ProjectBuilder';
 import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
+import FindProjectById from '@project/core/useCase/Project/FindProjectById/FindProjectByIdUseCase';
 
 describe('FindProjectById', () => {
   let findProjectById: FindProjectById;

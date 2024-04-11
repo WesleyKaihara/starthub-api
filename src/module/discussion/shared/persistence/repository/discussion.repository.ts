@@ -11,6 +11,6 @@ export default interface DiscussionRepository {
   ): Promise<Discussion>;
   updateDiscussion(
     id: number,
-    updateProductDto: UpdateDiscussionDto,
+    input: UpdateDiscussionDto,
   ): Promise<Discussion>;
 }

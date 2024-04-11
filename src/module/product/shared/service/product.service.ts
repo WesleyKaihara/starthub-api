@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import ProductRepositorySequelize from '../persistence/repository/ProductRepositorySequelize';
-import { CreateProductDto } from '../../core/useCase/Product/CreateProductUseCase/CreateProduct.dto';
-import { UpdateProductDto } from '../../core/useCase/Product/UpdateProductUseCase/UpdateProduct.dto';
+import { CreateProductBody } from '../../core/useCase/Product/CreateProduct/CreateProduct.dto';
+import { UpdateProductBody } from '../../core/useCase/Product/UpdateProduct/UpdateProduct.dto';
 import Product from '../../core/entity/Product';
 
 @Injectable()
@@ -13,14 +13,11 @@ export default class ProductService {
     return this.productRepository.getAllProducts();
   }
 
-  async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-    return this.productRepository.createProduct(createProductDto);
+  async createProduct(input: CreateProductBody): Promise<Product> {
+    return this.productRepository.createProduct(input);
   }
 
-  updateProduct(
-    productId: number,
-    updateProductDto: UpdateProductDto,
-  ): Promise<Product> {
-    return this.productRepository.updateProduct(productId, updateProductDto);
+  updateProduct(productId: number, input: UpdateProductBody): Promise<Product> {
+    return this.productRepository.updateProduct(productId, input);
   }
 }

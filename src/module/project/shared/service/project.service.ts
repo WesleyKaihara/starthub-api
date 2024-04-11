@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 import Project from '../../core/entity/Project';
 import ProjectRepositorySequelize from '../persistence/repository/ProjectRepository/ProjectRepositorySequelize';
 import GetAllProjects from '@project/core/useCase/Project/GetAllProjectsUseCase/GetAllProjectsUseCase';
-import FindProjectById from '@project/core/useCase/Project/FindProjectByIdUseCase/FindProjectProjectByIdUseCase';
 import CreateProject from '@project/core/useCase/Project/CreateProjectUseCase/CreateProjectUseCase';
 import UpdateProject from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProjectUseCase';
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import FindProjectById from '@project/core/useCase/Project/FindProjectById/FindProjectByIdUseCase';
 
 @Injectable()
 export default class ProjectService {

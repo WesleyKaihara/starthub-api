@@ -11,16 +11,10 @@ import {
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { ZodError } from 'zod';
+
 import ProductService from '../shared/service/product.service';
-import {
-  CreateProductDto,
-  CreateProductDtoSchema,
-} from '../core/useCase/Product/CreateProductUseCase/CreateProduct.dto';
-import {
-  UpdateProductDto,
-  UpdateProductDtoSchema,
-} from '../core/useCase/Product/UpdateProductUseCase/UpdateProduct.dto';
+import { CreateProductBody } from '../core/useCase/Product/CreateProduct/CreateProduct.dto';
+import { UpdateProductBody } from '../core/useCase/Product/UpdateProduct/UpdateProduct.dto';
 
 @Controller('/product')
 @ApiTags('Product')
@@ -39,49 +33,31 @@ export class ProductController {
 
   @Post()
   async createProduct(
-    @Body() createProductDto: CreateProductDto,
+    @Body() input: CreateProductBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = CreateProductDtoSchema.parse(
-        createProductDto,
-      ) as CreateProductDto;
-      const ability = await this.productService.createProduct(validSchema);
+      const ability = await this.productService.createProduct(input);
       return response.json(ability);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ mensagem: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ mensagem: error.message });
-      }
+      return response.status(500).json({ mensagem: error.message });
     }
   }
 
   @Put('/:productId')
   async updateProductById(
     @Param('productId', new ParseIntPipe()) productId: number,
-    @Body() updateProductDto: UpdateProductDto,
+    @Body() input: UpdateProductBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = UpdateProductDtoSchema.parse(
-        updateProductDto,
-      ) as UpdateProductDto;
       const updatedProduct = await this.productService.updateProduct(
         productId,
-        validSchema,
+        input,
       );
       return response.json(updatedProduct);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ mensagem: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ mensagem: error.message });
-      }
+      return response.status(500).json({ mensagem: error.message });
     }
   }
 }
