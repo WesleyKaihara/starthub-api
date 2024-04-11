@@ -44,11 +44,11 @@ export default class Product {
 
   private isValid() {
     if (this.name.length < 5) {
-      throw new Error('Product Name must have at least 5 caracteres');
+      throw new Error('Product Name must have at least 5 characters');
     }
 
     if (this.description.length < 10) {
-      throw new Error('Product Description must have at least 10 caracteres');
+      throw new Error('Product Description must have at least 10 characters');
     }
 
     if (this.value < 0) {

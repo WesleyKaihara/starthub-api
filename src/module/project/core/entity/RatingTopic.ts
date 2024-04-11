@@ -30,12 +30,12 @@ export default class RatingTopic {
 
   private isValid() {
     if (this.name.length < 5) {
-      throw new Error('Rating Topic Name must have at least 5 caracteres');
+      throw new Error('Rating Topic Name must have at least 5 characters');
     }
 
     if (this.description.length < 10) {
       throw new Error(
-        'Rating Topic Description must have at least 10 caracteres',
+        'Rating Topic Description must have at least 10 characters',
       );
     }
   }

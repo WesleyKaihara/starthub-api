@@ -22,6 +22,6 @@ export const CreateUserDtoSchema = z
     email: z.string().email({ message: 'E-mail inválido' }),
     password: z
       .string()
-      .min(8, { message: 'Senha deve ter no mínimo 8 caracteres' }),
+      .min(8, { message: 'Senha deve ter no mínimo 8 characters' }),
   })
   .strict();

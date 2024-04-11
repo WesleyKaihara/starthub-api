@@ -44,11 +44,11 @@ export default class Project {
 
   private isValid() {
     if (this.name.length < 5) {
-      throw new Error('Project Name must have at least 5 caracteres');
+      throw new Error('Project Name must have at least 5 characters');
     }
 
     if (this.description.length < 10) {
-      throw new Error('Project Description must have at least 10 caracteres');
+      throw new Error('Project Description must have at least 10 characters');
     }
   }
 }
