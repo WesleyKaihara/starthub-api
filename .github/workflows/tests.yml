@@ -1,0 +1,30 @@
+name: Testing
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Instalação das dependências
+        run: yarn install --frozen-lockfile
+      
+      - name: Testes Unitários
+        run: yarn test:unit
+
+      - name: Testes E2E
+        run: yarn test:e2e
