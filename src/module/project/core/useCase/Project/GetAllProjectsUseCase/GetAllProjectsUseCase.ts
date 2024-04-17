@@ -1,5 +1,6 @@
 import Project from '@project/core/entity/Project';
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
+
+import { ProjectRepository } from '@project/shared/persistence';
 
 export class GetAllProjects {
   constructor(private readonly projectRepository: ProjectRepository) {}

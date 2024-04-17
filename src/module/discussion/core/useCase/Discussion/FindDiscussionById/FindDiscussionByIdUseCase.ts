@@ -1,7 +1,7 @@
 import DiscussionRepository from '@src/module/discussion/shared/persistence/repository/Discussion/discussion.repository';
 import Discussion from '../../../entity/Discussion';
 
-export default class FindDiscussionById {
+export class FindDiscussionById {
   constructor(private readonly projectRepository: DiscussionRepository) {}
 
   async execute(discussionId: number): Promise<Discussion> {

@@ -1,14 +1,14 @@
 import Project from '@project/core/entity/Project';
-import GetAllProjects from '@project/core/useCase/Project/GetAllProjectsUseCase/GetAllProjectsUseCase';
-import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
+
+import { GetAllProjects } from '@project/core/useCase';
+import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
 
 describe('GetAllProjects', () => {
   let getAllProjects: GetAllProjects;
   let projectRepository: ProjectRepository;
 
   beforeEach(() => {
-    projectRepository = new InMemoryProjectRepository();
+    projectRepository = new ProjectRepositoryInMemory();
     getAllProjects = new GetAllProjects(projectRepository);
   });
 

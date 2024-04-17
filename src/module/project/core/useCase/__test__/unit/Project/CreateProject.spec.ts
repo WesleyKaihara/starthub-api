@@ -1,14 +1,14 @@
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
-import CreateProject from '@project/core/useCase/Project/CreateProjectUseCase/CreateProjectUseCase';
-import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
+
+import { CreateProject } from '@project/core/useCase';
+import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
 
 describe('CreateProject', () => {
   let createProject: CreateProject;
   let projectRepository: ProjectRepository;
 
   beforeEach(() => {
-    projectRepository = new InMemoryProjectRepository();
+    projectRepository = new ProjectRepositoryInMemory();
     createProject = new CreateProject(projectRepository);
   });
 

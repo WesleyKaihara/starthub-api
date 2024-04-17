@@ -1,8 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { GeneratePix, VerifyPayment } from '@payment/core/useCase';
 import { PixRequest } from '@payment/core/entity/MercadoPago/Pix';
-import GeneratePix from '@payment/core/useCase/Payment/GeneratePix/GeneratePixUseCase';
-import VerifyPayment from '@payment/core/useCase/Payment/VerifyPayment/VerifyPaymentUseCase';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 

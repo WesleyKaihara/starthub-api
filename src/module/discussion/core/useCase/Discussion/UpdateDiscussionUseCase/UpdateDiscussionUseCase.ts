@@ -3,7 +3,7 @@ import Discussion from '../../../entity/Discussion';
 import DiscussionRepository from '@src/module/discussion/shared/persistence/repository/Discussion/discussion.repository';
 import { UpdateDiscussionBody } from './UpdateDiscussion.dto';
 
-export default class CreateDiscussion {
+export class UpdateDiscussion {
   constructor(private readonly discussionRepository: DiscussionRepository) {}
 
   async execute(

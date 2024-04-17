@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import ProjectRepositorySequelize from './shared/persistence/repository/ProjectRepository/ProjectRepositorySequelize';
 import { ProjectController } from './http/project.controller';
 import ProjectService from './shared/service/project.service';
 
@@ -11,6 +10,7 @@ import RatingTopicService from './shared/service/ratingTopic.service';
 import UserRatingTopicRepositorySequelize from './shared/persistence/repository/UserRatingTopicRepository/UserRatingTopicRepositorySequelize';
 import UserRatingTopicService from './shared/service/userRatingTopic.service';
 import { UserRatingTopicController } from './http/userRatingTopic.controller';
+import { ProjectRepositorySequelize } from './shared/persistence';
 
 @Module({
   providers: [

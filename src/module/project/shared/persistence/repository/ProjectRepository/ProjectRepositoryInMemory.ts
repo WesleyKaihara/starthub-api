@@ -1,8 +1,8 @@
 import Project from '@project/core/entity/Project';
-import ProjectRepository from './project.repository';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import { ProjectRepository } from './project.repository';
 
-class InMemoryProjectRepository implements ProjectRepository {
+export class ProjectRepositoryInMemory implements ProjectRepository {
   private projects: Project[];
   private nextId: number;
 
@@ -51,5 +51,3 @@ class InMemoryProjectRepository implements ProjectRepository {
     return null;
   }
 }
-
-export default InMemoryProjectRepository;

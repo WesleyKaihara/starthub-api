@@ -18,10 +18,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@project/*": ["./src/module/project/*"],
+      "@analysis/*": ["./src/module/analysis/*"],
+      "@discussion/*": ["./src/module/discussion/*"],
       "@identity/*": ["./src/module/identity/*"],
       "@payment/*": ["./src/module/payment/*"],
-      "@analysis/*": ["./src/module/analysis/*"],
+      "@project/*": ["./src/module/project/*"],
+      "@product/*": ["./src/module/product/*"],
       "@src/*": ["./src/*"],
     },
   }

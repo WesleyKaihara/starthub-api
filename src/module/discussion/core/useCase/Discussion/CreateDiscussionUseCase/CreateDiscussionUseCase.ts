@@ -2,7 +2,7 @@ import DiscussionRepository from '@src/module/discussion/shared/persistence/repo
 import { CreateDiscussionBody } from './CreateDiscussion.dto';
 import Discussion from '../../../entity/Discussion';
 
-export default class CreateDiscussion {
+export class CreateDiscussion {
   constructor(private readonly discussionRepository: DiscussionRepository) {}
 
   async execute(input: CreateDiscussionBody): Promise<Discussion> {

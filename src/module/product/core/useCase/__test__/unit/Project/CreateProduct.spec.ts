@@ -1,7 +1,8 @@
 import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import CreateProduct from '../../../Product/CreateProduct/CreateProductUseCase';
 import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
 import { CreateProductBody } from '../../../Product/CreateProduct/CreateProduct.dto';
+
+import { CreateProduct } from '@product/core/useCase';
 
 describe('CreateProduct', () => {
   let createProduct: CreateProduct;

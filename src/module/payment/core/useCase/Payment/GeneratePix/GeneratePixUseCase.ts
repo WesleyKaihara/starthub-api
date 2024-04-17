@@ -3,7 +3,7 @@ import { PixRequest } from '@payment/core/entity/MercadoPago/Pix';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
 
-export default class GeneratePix {
+export class GeneratePix {
   constructor(private readonly httpService: HttpService) {}
 
   execute(pixRequest: PixRequest): Observable<AxiosResponse<any[]>> {

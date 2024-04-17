@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import Discussion from '../../core/entity/Discussion';
-import { CreateDiscussionBody } from '../../core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
-import { UpdateDiscussionBody } from '../../core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
-import FindDiscussionById from '../../core/useCase/Discussion/FindDiscussionById/FindDiscussionByIdUseCase';
 import DiscussionRepositorySequelize from '../persistence/repository/Discussion/DiscussionRepositorySequelize';
+import { CreateDiscussionBody, FindDiscussionById, UpdateDiscussionBody } from '@discussion/core/useCase';
 
 @Injectable()
 export default class DiscussionService {

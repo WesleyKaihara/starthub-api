@@ -1,14 +1,14 @@
-import UpdateProject from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProjectUseCase';
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
 import ProjectBuilder from '../../ProjectBuilder';
-import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
+
+import { UpdateProject } from '@project/core/useCase';
+import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
 
 describe('UpdateProject', () => {
   let updateProject: UpdateProject;
   let projectRepository: ProjectRepository;
 
   beforeEach(() => {
-    projectRepository = new InMemoryProjectRepository();
+    projectRepository = new ProjectRepositoryInMemory();
     updateProject = new UpdateProject(projectRepository);
   });
 

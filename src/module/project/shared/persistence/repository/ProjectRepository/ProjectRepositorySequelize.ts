@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';
-import ProjectRepository from './project.repository';
 
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import { ProjectRepository } from './project.repository';
 
 @Injectable()
-export default class ProjectRepositorySequelize implements ProjectRepository {
+export class ProjectRepositorySequelize implements ProjectRepository {
   async getAllProjects(): Promise<Project[]> {
     const projects = await ProjectModel.findAll();
 

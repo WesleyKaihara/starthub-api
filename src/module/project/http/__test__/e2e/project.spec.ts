@@ -1,12 +1,11 @@
 import * as request from 'supertest';
 
-import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositorySequelize';
-import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
-
 import { AppModule } from '@src/app.module';
 import { TestingModule, Test } from '@nestjs/testing';
 import ProjectService from '@project/shared/service/project.service';
 import Project from '@project/core/entity/Project';
+
+import { ProjectRepositoryInMemory, ProjectRepositorySequelize } from '@project/shared/persistence';
 
 describe('ProjectController (e2e)', () => {
   let app;
@@ -16,7 +15,7 @@ describe('ProjectController (e2e)', () => {
       imports: [AppModule],
     })
       .overrideProvider(ProjectRepositorySequelize)
-      .useClass(InMemoryProjectRepository)
+      .useClass(ProjectRepositoryInMemory)
       .compile();
 
     app = moduleFixture.createNestApplication();

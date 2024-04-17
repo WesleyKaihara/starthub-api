@@ -1,7 +1,8 @@
 import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import GetAllProducts from '../../../Product/GetAllProjects/GetAllProjectsUseCase';
 import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
 import Product from '@src/module/product/core/entity/Product';
+
+import { GetAllProducts } from '@product/core/useCase';
 
 describe('GetAllProducts', () => {
   let getAllProducts: GetAllProducts;

@@ -1,6 +1,7 @@
-import ProjectRepository from '@project/shared/persistence/repository/ProjectRepository/project.repository';
 import Project from '@project/core/entity/Project';
 import { UpdateProjectBody } from './UpdateProject.dto';
+
+import { ProjectRepository } from '@project/shared/persistence';
 
 export class UpdateProject {
   constructor(private readonly projectRepository: ProjectRepository) {}

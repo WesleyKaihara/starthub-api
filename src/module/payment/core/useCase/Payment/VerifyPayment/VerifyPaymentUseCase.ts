@@ -3,7 +3,7 @@ import { PaymentResponse } from '@payment/core/entity/MercadoPago/PaymentRespons
 import Payment from '@payment/core/entity/Payment';
 import { firstValueFrom, map } from 'rxjs';
 
-export default class VerifyPayment {
+export class VerifyPayment {
   constructor(private readonly httpService: HttpService) {}
 
   async execute(paymentId: number): Promise<Payment> {

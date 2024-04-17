@@ -1,7 +1,8 @@
 import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import FindProductById from '../../../Product/FindProductById/FindProductByIdUseCase';
 import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
 import ProductBuilder from '../../ProductBuilder';
+
+import { FindProductById } from '@product/core/useCase';
 
 describe('FindProductById', () => {
   let findProductById: FindProductById;

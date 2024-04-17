@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import Project from '../../core/entity/Project';
-import ProjectRepositorySequelize from '../persistence/repository/ProjectRepository/ProjectRepositorySequelize';
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import { CreateProject, FindProjectById, GetAllProjects, UpdateProject } from '@project/core/useCase';
+import { ProjectRepositorySequelize } from '../persistence';
 
 @Injectable()
 export default class ProjectService {

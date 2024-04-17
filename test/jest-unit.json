@@ -1,5 +1,9 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
   "rootDir": "../",
   "testEnvironment": "node",
   "testMatch": [
@@ -13,6 +17,7 @@
     "^@identity/(.*)$": "<rootDir>/src/module/identity/$1",
     "^@project/(.*)$": "<rootDir>/src/module/project/$1",
     "^@analysis/(.*)$": "<rootDir>/src/module/analysis/$1",
-    "^@payment/(.*)$": "<rootDir>/src/module/payment/$1"
+    "^@payment/(.*)$": "<rootDir>/src/module/payment/$1",
+    "^@product/(.*)$": "<rootDir>/src/module/product/$1"
   }
 }

@@ -1,7 +1,8 @@
 import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import UpdateProduct from '../../../Product/UpdateProduct/UpdateProductUseCase';
 import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
 import ProductBuilder from '../../ProductBuilder';
+
+import { UpdateProduct } from '@product/core/useCase';
 
 describe('UpdateProduct', () => {
   let updateProduct: UpdateProduct;
