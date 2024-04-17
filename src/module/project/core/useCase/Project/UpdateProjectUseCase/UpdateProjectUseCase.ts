@@ -2,7 +2,7 @@ import ProjectRepository from '@project/shared/persistence/repository/ProjectRep
 import Project from '@project/core/entity/Project';
 import { UpdateProjectBody } from './UpdateProject.dto';
 
-export default class UpdateProject {
+export class UpdateProject {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
   async execute(projectId: number, input: UpdateProjectBody): Promise<Project> {

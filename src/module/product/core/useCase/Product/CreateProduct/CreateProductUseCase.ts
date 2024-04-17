@@ -2,7 +2,7 @@ import ProductRepository from '@src/module/product/shared/persistence/repository
 import { CreateProductBody } from './CreateProduct.dto';
 import Product from '../../../entity/Product';
 
-export default class CreateProduct {
+export class CreateProduct {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async execute(input: CreateProductBody): Promise<Product> {

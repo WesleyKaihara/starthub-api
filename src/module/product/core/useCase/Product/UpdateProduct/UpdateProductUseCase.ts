@@ -2,7 +2,7 @@ import ProductRepository from '@src/module/product/shared/persistence/repository
 import Product from '../../../entity/Product';
 import { UpdateProductBody } from './UpdateProduct.dto';
 
-export default class UpdateProduct {
+export class UpdateProduct {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async execute(productId: number, input: UpdateProductBody): Promise<Product> {
