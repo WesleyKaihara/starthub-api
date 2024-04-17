@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import DiscussionService from '../shared/service/discussion.service';
-import { CreateDiscussionDto } from '../core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
+import { CreateDiscussionBody } from '../core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 
 @Controller('/discussion')
 @ApiTags('Discussion')
@@ -23,12 +23,12 @@ export class DiscussionController {
 
   @Post()
   async createDiscussion(
-    @Body() createDiscussionDto: CreateDiscussionDto,
+    @Body() input: CreateDiscussionBody,
     @Res() response: Response,
   ) {
     try {
       const discussion =
-        await this.discussionService.createDiscussion(createDiscussionDto);
+        await this.discussionService.createDiscussion(input);
       return response.json(discussion);
     } catch (error) {
       return response.status(400).json({ message: error.message });

@@ -1,4 +1,4 @@
-import DiscussionRepository from '@src/module/discussion/shared/persistence/repository/discussion.repository';
+import DiscussionRepository from '@src/module/discussion/shared/persistence/repository/Discussion/discussion.repository';
 import Discussion from '../../../entity/Discussion';
 
 export default class FindDiscussionById {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import Discussion from '../../core/entity/Discussion';
-import { CreateDiscussionDto } from '../../core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
-import { UpdateDiscussionDto } from '../../core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
+import { CreateDiscussionBody } from '../../core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
+import { UpdateDiscussionBody } from '../../core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
 import FindDiscussionById from '../../core/useCase/Discussion/FindDiscussionById/FindDiscussionByIdUseCase';
-import DiscussionRepositorySequelize from '../persistence/repository/DiscussionRepositorySequelize';
+import DiscussionRepositorySequelize from '../persistence/repository/Discussion/DiscussionRepositorySequelize';
 
 @Injectable()
 export default class DiscussionService {
@@ -24,18 +24,18 @@ export default class DiscussionService {
   }
 
   async createDiscussion(
-    createDiscussionDto: CreateDiscussionDto,
+    input: CreateDiscussionBody,
   ): Promise<Discussion> {
-    return this.discussionRepository.createDiscussion(createDiscussionDto);
+    return this.discussionRepository.createDiscussion(input);
   }
 
   updateDiscussion(
     discussionId: number,
-    updateDiscussionDto: UpdateDiscussionDto,
+    input: UpdateDiscussionBody,
   ): Promise<Discussion> {
     return this.discussionRepository.updateDiscussion(
       discussionId,
-      updateDiscussionDto,
+      input,
     );
   }
 }

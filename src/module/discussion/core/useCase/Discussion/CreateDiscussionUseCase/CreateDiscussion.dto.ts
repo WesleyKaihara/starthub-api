@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateDiscussionDto {
+export class CreateDiscussionBody {
   @ApiProperty({
     example: 'IA para idealização de projetos',
   })
