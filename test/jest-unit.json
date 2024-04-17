@@ -14,6 +14,7 @@
   },
   "moduleNameMapper": {
     "^@src/(.*)$": "<rootDir>/src/$1",
+    "^@discussion/(.*)$": "<rootDir>/src/module/discussion/$1",
     "^@identity/(.*)$": "<rootDir>/src/module/identity/$1",
     "^@project/(.*)$": "<rootDir>/src/module/project/$1",
     "^@analysis/(.*)$": "<rootDir>/src/module/analysis/$1",
