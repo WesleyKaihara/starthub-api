@@ -1,9 +1,12 @@
 import * as request from 'supertest';
 
-import { TestingModule, Test } from '@nestjs/testing';
+import ProjectRepositorySequelize from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositorySequelize';
 import InMemoryProjectRepository from '@project/shared/persistence/repository/ProjectRepository/ProjectRepositoryInMemory';
+
 import { AppModule } from '@src/app.module';
+import { TestingModule, Test } from '@nestjs/testing';
 import ProjectService from '@project/shared/service/project.service';
+import Project from '@project/core/entity/Project';
 
 describe('ProjectController (e2e)', () => {
   let app;
@@ -12,16 +15,12 @@ describe('ProjectController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-      .overrideProvider(InMemoryProjectRepository)
+      .overrideProvider(ProjectRepositorySequelize)
       .useClass(InMemoryProjectRepository)
       .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
-  });
-
-  afterAll(async () => {
-    await app.close();
   });
 
   afterAll(async () => {
@@ -56,6 +55,12 @@ describe('ProjectController (e2e)', () => {
   });
 
   it('/project/:projectId (GET)', () => {
+    const project = Project.restore(1, "Project 1", "Description 1", false);
+
+    jest
+      .spyOn(app.get(ProjectService), 'findProjectById')
+      .mockResolvedValue(project);
+
     return request(app.getHttpServer())
       .get('/project/1')
       .expect(200)
@@ -65,7 +70,7 @@ describe('ProjectController (e2e)', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
         expect(response.body).toHaveProperty('private');
-      });
+      })
   });
 
   it('should return 400 error when project id is not a number', () => {

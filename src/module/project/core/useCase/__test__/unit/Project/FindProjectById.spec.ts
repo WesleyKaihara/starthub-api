@@ -27,7 +27,7 @@ describe('FindProjectById', () => {
   });
 
   it('should return null if project is not found', async () => {
-    const projectId = 2;
+    const projectId = 999;
     const project = await findProjectById.execute(projectId);
 
     expect(project).toBeNull();
