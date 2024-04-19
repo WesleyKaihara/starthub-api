@@ -27,7 +27,22 @@ export class ProductController {
       const products = await this.productService.getProducts();
       return response.json(products);
     } catch (error) {
-      return response.status(500).json({ mensagem: error.message });
+      return response.status(500).json({ message: error.message });
+    }
+  }
+
+  @Get('/:productId')
+  async findProductById(
+    @Param('productId', new ParseIntPipe()) productId: number,
+    @Res() response: Response,
+  ) {
+    try {
+      const product = await this.productService.findProductById(
+        productId,
+      );
+      return response.json(product);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
   }
 
@@ -40,7 +55,7 @@ export class ProductController {
       const ability = await this.productService.createProduct(input);
       return response.json(ability);
     } catch (error) {
-      return response.status(500).json({ mensagem: error.message });
+      return response.status(400).json({ message: error.message });
     }
   }
 
@@ -57,7 +72,7 @@ export class ProductController {
       );
       return response.json(updatedProduct);
     } catch (error) {
-      return response.status(500).json({ mensagem: error.message });
+      return response.status(400).json({ message: error.message });
     }
   }
 }

@@ -2,7 +2,7 @@ import { CreateProductBody } from '@src/module/product/core/useCase/Product/Crea
 import Product from '@src/module/product/core/entity/Product';
 import { UpdateProductBody } from '@src/module/product/core/useCase/Product/UpdateProduct/UpdateProduct.dto';
 
-export default interface ProductRepository {
+export interface ProductRepository {
   getAllProducts(): Promise<Product[]>;
   findProductById(productId: number): Promise<Product>;
   createProduct(createProductBody: CreateProductBody): Promise<Product>;

@@ -1,9 +1,9 @@
-import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
+import { ProductRepository } from '@src/module/product/shared/persistence';
 import Product from '../../../entity/Product';
 import { UpdateProductBody } from './UpdateProduct.dto';
 
 export class UpdateProduct {
-  constructor(private readonly productRepository: ProductRepository) {}
+  constructor(private readonly productRepository: ProductRepository) { }
 
   async execute(productId: number, input: UpdateProductBody): Promise<Product> {
     const product = Product.update(

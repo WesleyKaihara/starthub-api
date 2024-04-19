@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import Product from '@src/module/product/core/entity/Product';
 import ProductModel from '../model/ProductModel';
-import ProductRepository from './product.repository';
+import { ProductRepository } from './product.repository';
 import { UpdateProductBody } from '@src/module/product/core/useCase/Product/UpdateProduct/UpdateProduct.dto';
 import { CreateProductBody } from '@src/module/product/core/useCase/Product/CreateProduct/CreateProduct.dto';
 
 @Injectable()
-export default class ProductRepositorySequelize implements ProductRepository {
+export class ProductRepositorySequelize implements ProductRepository {
   async getAllProducts(): Promise<Product[]> {
     const products = await ProductModel.findAll();
 

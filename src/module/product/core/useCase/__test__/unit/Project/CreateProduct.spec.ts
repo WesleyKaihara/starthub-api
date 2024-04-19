@@ -1,5 +1,4 @@
-import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
+import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
 import { CreateProductBody } from '../../../Product/CreateProduct/CreateProduct.dto';
 
 import { CreateProduct } from '@product/core/useCase';
@@ -9,7 +8,7 @@ describe('CreateProduct', () => {
   let productRepository: ProductRepository;
 
   beforeEach(() => {
-    productRepository = new InMemoryProductRepository();
+    productRepository = new ProductRepositoryInMemory();
     createProduct = new CreateProduct(productRepository);
   });
 

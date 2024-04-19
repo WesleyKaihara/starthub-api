@@ -1,23 +1,38 @@
 import { Injectable } from '@nestjs/common';
 
-import ProductRepositorySequelize from '../persistence/repository/ProductRepositorySequelize';
-import { CreateProductBody } from '../../core/useCase/Product/CreateProduct/CreateProduct.dto';
-import { UpdateProductBody } from '../../core/useCase/Product/UpdateProduct/UpdateProduct.dto';
+import { ProductRepositorySequelize } from '../persistence';
 import Product from '../../core/entity/Product';
+import { CreateProduct, CreateProductBody, FindProductById, GetAllProducts, UpdateProduct, UpdateProductBody } from '@product/core/useCase';
 
 @Injectable()
 export default class ProductService {
-  constructor(private readonly productRepository: ProductRepositorySequelize) {}
+  constructor(private readonly productRepository: ProductRepositorySequelize) { }
 
   getProducts(): Promise<Product[]> {
-    return this.productRepository.getAllProducts();
+    const getAllDiscussions = new GetAllProducts(this.productRepository);
+    return getAllDiscussions.execute();
   }
 
-  async createProduct(input: CreateProductBody): Promise<Product> {
-    return this.productRepository.createProduct(input);
+  async findProductById(
+    productId: number
+  ): Promise<Product> {
+    const findProductById = new FindProductById(this.productRepository);
+    return findProductById.execute(productId);
   }
 
-  updateProduct(productId: number, input: UpdateProductBody): Promise<Product> {
-    return this.productRepository.updateProduct(productId, input);
+  async createProduct(
+    input: CreateProductBody,
+  ): Promise<Product> {
+    const createProduct = new CreateProduct(this.productRepository);
+    return createProduct.execute(input);
   }
+
+  updateProduct(
+    discussionId: number,
+    input: UpdateProductBody,
+  ): Promise<Product> {
+    const updateDiscussion = new UpdateProduct(this.productRepository);
+    return updateDiscussion.execute(discussionId, input);
+  }
+
 }

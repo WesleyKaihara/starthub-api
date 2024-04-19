@@ -1,9 +1,9 @@
 import Product from '@src/module/product/core/entity/Product';
-import ProductRepository from './product.repository';
+import { ProductRepository } from './product.repository';
 import { UpdateProductBody } from '@src/module/product/core/useCase/Product/UpdateProduct/UpdateProduct.dto';
 import { CreateProductBody } from '@src/module/product/core/useCase/Product/CreateProduct/CreateProduct.dto';
 
-class InMemoryProductRepository implements ProductRepository {
+export class ProductRepositoryInMemory implements ProductRepository {
   private products: Product[];
   private nextId: number;
 
@@ -48,5 +48,3 @@ class InMemoryProductRepository implements ProductRepository {
     return null;
   }
 }
-
-export default InMemoryProductRepository;

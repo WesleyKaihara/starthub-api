@@ -1,15 +1,14 @@
-import ProductRepository from '@src/module/product/shared/persistence/repository/product.repository';
-import InMemoryProductRepository from '@src/module/product/shared/persistence/repository/ProductRepositoryInMemory';
 import Product from '@src/module/product/core/entity/Product';
 
 import { GetAllProducts } from '@product/core/useCase';
+import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
 
 describe('GetAllProducts', () => {
   let getAllProducts: GetAllProducts;
   let productRepository: ProductRepository;
 
   beforeEach(() => {
-    productRepository = new InMemoryProductRepository();
+    productRepository = new ProductRepositoryInMemory();
     getAllProducts = new GetAllProducts(productRepository);
   });
 
