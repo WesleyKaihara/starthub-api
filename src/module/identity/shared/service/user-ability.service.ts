@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import UserAbility from '../entity/UserAbility';
 
 import { CreateUserAbilityDto } from '@identity/http/dto/userAbility/create-user-ability.dto';
 import { UpdateUserAbilityDto } from '@identity/http/dto/userAbility/update-user-ability.dto';
-
-import UserAbilityRepositorySequelize from '@identity/shared/persistence/repository/UserAbilityRepositorySequelize';
+import UserAbility from '@identity/core/entity/UserAbility';
+import { UserAbilityRepositorySequelize } from '../persistence';
 
 @Injectable()
 export default class UserAbilityService {
   constructor(
     private readonly userAbilityRepository: UserAbilityRepositorySequelize,
-  ) {}
+  ) { }
 
   getUserAbilities(): Promise<UserAbility[]> {
     return this.userAbilityRepository.getAllUserAbilities();

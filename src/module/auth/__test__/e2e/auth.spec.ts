@@ -3,9 +3,9 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 
 import SignInDto from '../../http/dto/signin.dto';
-import User from '@identity/core/entity/user.entity';
-import UserService from '@identity/core/service/user.service';
 import { AppModule } from '@src/app.module';
+import UserService from '@identity/shared/service/user.service';
+import User from '@identity/core/entity/User';
 
 describe('Auth - Test (e2e)', () => {
   let app: INestApplication;
@@ -38,13 +38,7 @@ describe('Auth - Test (e2e)', () => {
         password: 'TestUser123',
       };
 
-      const user: User = {
-        id: 9999,
-        name: 'Test user',
-        email: 'test.user@email.com',
-        password:
-          '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
-      };
+      const user = User.restore(999, 'Test user', 'test.user@email.com', '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey')
 
       mockUserService.findUserByEmail.mockReturnValue(user);
 
@@ -62,13 +56,8 @@ describe('Auth - Test (e2e)', () => {
         password: 'Incorrect User',
       };
 
-      const user: User = {
-        id: 9999,
-        name: 'Test user',
-        email: 'test.user@email.com',
-        password:
-          '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
-      };
+
+      const user = User.restore(999, 'Test user', 'test.user@email.com', '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey')
 
       mockUserService.findUserByEmail.mockReturnValue(user);
 

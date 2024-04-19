@@ -12,16 +12,13 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { CreateUserDto, CreateUserDtoSchema } from './dto/create-user.dto';
-
-import { ZodError } from 'zod';
-import UserService from '../core/service/user.service';
-import AtualizarUserDto, { UpdateUserDtoSchema } from './dto/update-user.dto';
+import { CreateUserBody, UpdateUserBody } from '@identity/core/useCase';
+import UserService from '@identity/shared/service/user.service';
 
 @Controller('/user')
 @ApiTags('User')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Get()
   async listUsers(@Res() response: Response) {
@@ -29,7 +26,7 @@ export class UserController {
       const userList = await this.userService.listUsers();
       return response.json(userList);
     } catch (error) {
-      return response.status(500).json({ mensagem: error.message });
+      return response.status(500).json({ message: error.message });
     }
   }
 
@@ -38,60 +35,41 @@ export class UserController {
     @Param('userId', new ParseIntPipe()) userId: number,
     @Res() response: Response,
   ) {
-    const user = await this.userService.findUserById(userId);
-    if (!user) {
-      return response.status(404).send({
-        mensagem: `Unable to find a user with id ${userId}.`,
-      });
+    try {
+      const user = await this.userService.findUserById(userId);
+      return response.json(user);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
-    return response.json(user);
   }
 
   @Post()
   async createUser(
-    @Body() createUserDto: CreateUserDto,
+    @Body() input: CreateUserBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = CreateUserDtoSchema.parse(
-        createUserDto,
-      ) as CreateUserDto;
-      const newUser = await this.userService.createUser(validSchema);
-      return response.json(newUser);
+      const user = await this.userService.createUser(input);
+      return response.json(user);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ mensagem: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ mensagem: error.message });
-      }
+      return response.status(400).json({ message: error.message });
     }
   }
 
   @Put('/:userId')
   async updateUserById(
     @Param('userId', new ParseIntPipe()) userId: number,
-    @Body() updateUserDto: AtualizarUserDto,
+    @Body() input: UpdateUserBody,
     @Res() response: Response,
   ) {
     try {
-      const validSchema = UpdateUserDtoSchema.parse(
-        updateUserDto,
-      ) as AtualizarUserDto;
-      const updatedUser = await this.userService.updateUser(
+      const user = await this.userService.updateUser(
         userId,
-        validSchema,
+        input,
       );
-      return response.json(updatedUser);
+      return response.json(user);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ mensagem: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ mensagem: error.message });
-      }
+      return response.status(400).json({ message: error.message });
     }
   }
 }

@@ -1,21 +1,20 @@
 import { Module } from '@nestjs/common';
-import UserAbilityRepositorySequelize from './shared/persistence/repository/UserAbilityRepositorySequelize';
 
-import UserService from './core/service/user.service';
 import { UserController } from './http/user.controller';
 
-import UserAbilityService from './core/service/user-ability.service';
 import { UserAbilityController } from './http/user-ability.controller';
-import UserRepository from './shared/persistence/repository/user.repository';
+import { UserAbilityRepositorySequelize, UserRepositorySequelize } from './shared/persistence';
+import UserService from './shared/service/user.service';
+import UserAbilityService from './shared/service/user-ability.service';
 
 @Module({
   providers: [
     UserService,
-    UserRepository,
     UserAbilityRepositorySequelize,
+    UserRepositorySequelize,
     UserAbilityService,
   ],
   controllers: [UserController, UserAbilityController],
   exports: [UserService, UserAbilityService],
 })
-export class IdentityModule {}
+export class IdentityModule { }

@@ -2,15 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 import UserAbilityModel from '../model/UserAbilityModel';
 import UserAbility from '@identity/core/entity/UserAbility';
-import UserAbilityRepository from './UserAbilityRepository';
+import { UserAbilityRepository } from './UserAbilityRepository';
 
 import { CreateUserAbilityDto } from '@identity/http/dto/userAbility/create-user-ability.dto';
 import { UpdateUserAbilityDto } from '@identity/http/dto/userAbility/update-user-ability.dto';
 
 @Injectable()
-export default class UserAbilityRepositorySequelize
-  implements UserAbilityRepository
-{
+export class UserAbilityRepositorySequelize
+  implements UserAbilityRepository {
   public getAllUserAbilities(): Promise<UserAbility[]> {
     return UserAbilityModel.findAll()
       .then((abilities) => {

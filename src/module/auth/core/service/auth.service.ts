@@ -8,8 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import RefreshDto from '../../http/dto/refresh.dto';
-import User from 'src/module/identity/core/entity/user.entity';
-import UserService from '@identity/core/service/user.service';
+import UserService from '@identity/shared/service/user.service';
+import User from '@identity/core/entity/User';
 
 @Injectable()
 export class AuthService {

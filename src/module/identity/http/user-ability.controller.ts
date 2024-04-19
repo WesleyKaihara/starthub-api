@@ -17,16 +17,16 @@ import {
   CreateUserAbilityDto,
   CreateUserAbilityDtoSchema,
 } from './dto/userAbility/create-user-ability.dto';
-import UserAbilityService from '@identity/core/service/user-ability.service';
 import {
   UpdateUserAbilityDto,
   UpdateUserAbilityDtoSchema,
 } from './dto/userAbility/update-user-ability.dto';
+import UserAbilityService from '@identity/shared/service/user-ability.service';
 
 @Controller('/user-ability')
 @ApiTags('UserAbility')
 export class UserAbilityController {
-  constructor(private readonly userAbilityService: UserAbilityService) {}
+  constructor(private readonly userAbilityService: UserAbilityService) { }
 
   @Get()
   async getUserAbilities(@Res() response: Response) {
