@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
-import ProductService from './shared/service/upload.service';
-import ProductRepositorySequelize from './shared/persistence/repository/ProductRepositorySequelize';
-import { ProductController } from './http/product.controller';
 
 @Module({
-  providers: [ProductService, ProductRepositorySequelize],
-  controllers: [ProductController],
+  providers: [],
+  controllers: [],
 })
-export class ProductModule {}
+export class UploadModule {}

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
 import Discussion from '@src/module/discussion/core/entity/Discussion';
-import DiscussionRepository from './discussion.repository';
+import { DiscussionRepository } from './discussion.repository';
 import DiscussionModel from '../../model/DiscussionModel';
 
 import { CreateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 import { UpdateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
 
 @Injectable()
-export default class DiscussionRepositorySequelize implements DiscussionRepository {
+export class DiscussionRepositorySequelize implements DiscussionRepository {
   async getAllDiscussions(): Promise<Discussion[]> {
     const discussions = await DiscussionModel.findAll();
 

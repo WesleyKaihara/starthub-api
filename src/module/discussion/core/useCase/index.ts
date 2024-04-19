@@ -1,3 +1,13 @@
+// Interaction
+export { UpdateInteractionBody } from './Interaction/UpdateInteraction/UpdateInteraction.dto';
+export { CreateInteractionBody } from './Interaction/CreateInteraction/CreateInteraction.dto';
+
+export { CreateInteraction } from './Interaction/CreateInteraction/CreateDiscussionUseCase';
+export { GetAllInteractions } from './Interaction/GetAllInteractions/GetAllInteractionsUseCase';
+export { UpdateInteraction } from './Interaction/UpdateInteraction/UpdateInteractionUseCase';
+
+
+// Discussion
 export { CreateDiscussionBody } from './Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 export { UpdateDiscussionBody } from './Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
 

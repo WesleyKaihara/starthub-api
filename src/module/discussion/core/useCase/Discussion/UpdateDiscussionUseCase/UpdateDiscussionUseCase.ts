@@ -1,10 +1,10 @@
 import Discussion from '../../../entity/Discussion';
 
-import DiscussionRepository from '@src/module/discussion/shared/persistence/repository/Discussion/discussion.repository';
+import { DiscussionRepository } from '@src/module/discussion/shared/persistence';
 import { UpdateDiscussionBody } from './UpdateDiscussion.dto';
 
 export class UpdateDiscussion {
-  constructor(private readonly discussionRepository: DiscussionRepository) {}
+  constructor(private readonly discussionRepository: DiscussionRepository) { }
 
   async execute(
     discussionId: number,

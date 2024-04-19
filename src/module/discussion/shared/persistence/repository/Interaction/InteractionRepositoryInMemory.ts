@@ -1,9 +1,9 @@
 import Interaction from '@src/module/discussion/core/entity/Interaction';
-import InteractionRepository from './interaction.repository';
+import { InteractionRepository } from './interaction.repository';
 import { CreateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/CreateInteraction/CreateInteraction.dto';
 import { UpdateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/UpdateInteraction/UpdateInteraction.dto';
 
-class InMemoryInteractionRepository implements InteractionRepository {
+export class InteractionRepositoryInMemory implements InteractionRepository {
   private interactions: Interaction[];
   private nextId: number;
 
@@ -43,5 +43,3 @@ class InMemoryInteractionRepository implements InteractionRepository {
     return null;
   }
 }
-
-export default InMemoryInteractionRepository;

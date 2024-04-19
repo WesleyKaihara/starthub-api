@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import InteractionRepository from './interaction.repository';
+import { InteractionRepository } from './interaction.repository';
 import Interaction from '@src/module/discussion/core/entity/Interaction';
 import InteractionModel from '../../model/InteractionModel';
 import { UpdateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/UpdateInteraction/UpdateInteraction.dto';
 import { CreateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/CreateInteraction/CreateInteraction.dto';
 
 @Injectable()
-export default class InteractionRepositorySequelize
-  implements InteractionRepository
-{
+export class InteractionRepositorySequelize
+  implements InteractionRepository {
   async getAllInteractions(): Promise<Interaction[]> {
     const interactions = await InteractionModel.findAll();
 

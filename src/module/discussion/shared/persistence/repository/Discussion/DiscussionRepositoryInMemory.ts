@@ -1,9 +1,9 @@
 import Discussion from '@src/module/discussion/core/entity/Discussion';
 import { CreateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 import { UpdateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
-import DiscussionRepository from './discussion.repository';
+import { DiscussionRepository } from './discussion.repository';
 
-class DiscussionRepositoryInMemory implements DiscussionRepository {
+export class DiscussionRepositoryInMemory implements DiscussionRepository {
   private discussions: Discussion[];
   private nextId: number;
 
@@ -50,5 +50,3 @@ class DiscussionRepositoryInMemory implements DiscussionRepository {
     return null;
   }
 }
-
-export default DiscussionRepositoryInMemory;

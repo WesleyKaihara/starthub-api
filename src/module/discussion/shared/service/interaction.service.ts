@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import InteractionRepositorySequelize from '../persistence/repository/Interaction/InteractionRepositorySequelize';
 import Interaction from '../../core/entity/Interaction';
+import { InteractionRepositorySequelize } from '../persistence';
 import { CreateInteractionBody } from '../../core/useCase/Interaction/CreateInteraction/CreateInteraction.dto';
 import { UpdateInteractionBody } from '../../core/useCase/Interaction/UpdateInteraction/UpdateInteraction.dto';
 
@@ -8,7 +8,7 @@ import { UpdateInteractionBody } from '../../core/useCase/Interaction/UpdateInte
 export default class InteractionService {
   constructor(
     private readonly interactionRepository: InteractionRepositorySequelize,
-  ) {}
+  ) { }
 
   getInteractions(): Promise<Interaction[]> {
     return this.interactionRepository.getAllInteractions();

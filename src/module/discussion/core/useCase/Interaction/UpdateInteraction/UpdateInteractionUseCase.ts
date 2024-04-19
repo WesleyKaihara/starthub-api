@@ -1,9 +1,9 @@
 import { UpdateInteractionBody } from './UpdateInteraction.dto';
 import Interaction from '../../../entity/Interaction';
-import InteractionRepository from '@src/module/discussion/shared/persistence/repository/Interaction/interaction.repository';
+import { InteractionRepository } from '@src/module/discussion/shared/persistence';
 
-export default class CreateInteraction {
-  constructor(private readonly interactionRepository: InteractionRepository) {}
+export class UpdateInteraction {
+  constructor(private readonly interactionRepository: InteractionRepository) { }
 
   async execute(
     interactionId: number,

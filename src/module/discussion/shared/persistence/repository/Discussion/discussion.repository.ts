@@ -3,7 +3,7 @@ import Discussion from '@src/module/discussion/core/entity/Discussion';
 import { CreateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 import { UpdateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
 
-export default interface DiscussionRepository {
+export interface DiscussionRepository {
   getAllDiscussions(): Promise<Discussion[]>;
   findDiscussionById(discussionId: number): Promise<Discussion>;
   createDiscussion(
