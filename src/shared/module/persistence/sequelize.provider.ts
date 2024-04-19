@@ -3,7 +3,6 @@ import { Sequelize } from 'sequelize-typescript';
 import ProjectModel from '@project/shared/persistence/model/ProjectModel';
 import ProjectVerticalModel from '@project/shared/persistence/model/ProjectVerticalModel';
 import UserModel from '@identity/shared/persistence/model/user.model';
-import UserAbilityModel from '@identity/shared/persistence/model/UserAbilityModel';
 import RatingTopicModel from '@project/shared/persistence/model/RatingTopicModel';
 import UserRatingTopicModel from '@project/shared/persistence/model/UserRatingTopicModel';
 import ProductModel from '@src/module/product/shared/persistence/model/ProductModel';
@@ -25,7 +24,6 @@ export const sequelizeProvider = {
     sequelize.addModels([
       // Identity
       UserModel,
-      UserAbilityModel,
       // Discussion
       DiscussionModel,
       InteractionModel,
