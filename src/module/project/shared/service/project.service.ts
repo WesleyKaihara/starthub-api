@@ -20,16 +20,16 @@ export default class ProjectService {
     return findProjectById.execute(projectId);
   }
 
-  createProject(createProjectDto: CreateProjectBody): Promise<Project> {
+  createProject(input: CreateProjectBody): Promise<Project> {
     const createProject = new CreateProject(this.projectRepository);
-    return createProject.execute(createProjectDto);
+    return createProject.execute(input);
   }
 
   updateProject(
     projectId: number,
-    updateProjectDto: UpdateProjectBody,
+    input: UpdateProjectBody,
   ): Promise<Project> {
     const updateProject = new UpdateProject(this.projectRepository);
-    return updateProject.execute(projectId, updateProjectDto);
+    return updateProject.execute(projectId, input);
   }
 }
