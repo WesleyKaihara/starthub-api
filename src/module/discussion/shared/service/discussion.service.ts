@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import Discussion from '../../core/entity/Discussion';
 import { DiscussionRepositorySequelize } from '../persistence/repository/Discussion/DiscussionRepositorySequelize';
-import { CreateDiscussionBody, FindDiscussionById, UpdateDiscussionBody } from '@discussion/core/useCase';
+import { CreateDiscussionBody, FindDiscussionById, GetAllDiscussions, UpdateDiscussion, UpdateDiscussionBody } from '@discussion/core/useCase';
 
 @Injectable()
 export default class DiscussionService {
@@ -11,13 +11,12 @@ export default class DiscussionService {
   ) { }
 
   getDiscussions(): Promise<Discussion[]> {
-    return this.discussionRepository.getAllDiscussions();
+    const getAllDiscussions = new GetAllDiscussions(this.discussionRepository);
+    return getAllDiscussions.execute();
   }
 
   findDiscussionById(discussionId: number): Promise<Discussion> {
-    const findDiscussionById = new FindDiscussionById(
-      this.discussionRepository,
-    );
+    const findDiscussionById = new FindDiscussionById(this.discussionRepository);
     return findDiscussionById.execute(discussionId);
   }
 
@@ -31,9 +30,7 @@ export default class DiscussionService {
     discussionId: number,
     input: UpdateDiscussionBody,
   ): Promise<Discussion> {
-    return this.discussionRepository.updateDiscussion(
-      discussionId,
-      input,
-    );
+    const updateDiscussion = new UpdateDiscussion(this.discussionRepository);
+    return updateDiscussion.execute(discussionId, input);
   }
 }
