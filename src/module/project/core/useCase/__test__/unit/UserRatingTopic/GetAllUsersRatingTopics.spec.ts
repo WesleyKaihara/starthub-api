@@ -1,6 +1,12 @@
 import UserRatingTopic from '@project/core/entity/UserRatingTopic';
-import { CreateUserRatingTopicBody, GetAllUserRatingTopics } from '@project/core/useCase';
-import { UserRatingTopicRepository, UserRatingTopicRepositoryInMemory } from '@project/shared/persistence';
+import {
+  CreateUserRatingTopicBody,
+  GetAllUserRatingTopics,
+} from '@project/core/useCase';
+import {
+  UserRatingTopicRepository,
+  UserRatingTopicRepositoryInMemory,
+} from '@project/shared/persistence';
 import UserRatingTopicBuilder from '../../UserRatingTopicBuilder';
 
 describe('GetAllUserRatingTopic', () => {
@@ -9,7 +15,9 @@ describe('GetAllUserRatingTopic', () => {
 
   beforeEach(() => {
     userRatingTopicRepository = new UserRatingTopicRepositoryInMemory();
-    getAllUserRatingTopics = new GetAllUserRatingTopics(userRatingTopicRepository);
+    getAllUserRatingTopics = new GetAllUserRatingTopics(
+      userRatingTopicRepository,
+    );
   });
 
   it('should get all userRatingTopics', async () => {

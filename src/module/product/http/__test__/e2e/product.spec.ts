@@ -3,7 +3,10 @@ import * as request from 'supertest';
 import { AppModule } from '@src/app.module';
 import { TestingModule, Test } from '@nestjs/testing';
 import ProductService from '@product/shared/service/product.service';
-import { ProductRepositoryInMemory, ProductRepositorySequelize } from '@product/shared/persistence';
+import {
+  ProductRepositoryInMemory,
+  ProductRepositorySequelize,
+} from '@product/shared/persistence';
 import Product from '@product/core/entity/Product';
 
 describe('ProductController (e2e)', () => {
@@ -53,7 +56,7 @@ describe('ProductController (e2e)', () => {
   });
 
   it('/product/:productId (GET)', () => {
-    const product = Product.restore(1, "Product 1", "Description 1", 25);
+    const product = Product.restore(1, 'Product 1', 'Description 1', 25);
 
     jest
       .spyOn(app.get(ProductService), 'findProductById')
@@ -68,7 +71,7 @@ describe('ProductController (e2e)', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
         expect(response.body).toHaveProperty('value');
-      })
+      });
   });
 
   it('should return 400 error when product is not found', () => {
@@ -97,7 +100,7 @@ describe('ProductController (e2e)', () => {
       .send({
         name: 'Test Product',
         description: 'Test Description',
-        value: 25
+        value: 25,
       })
       .expect(201)
       .expect('Content-Type', /json/)
@@ -160,7 +163,7 @@ describe('ProductController (e2e)', () => {
       .send({
         name: 'test',
         description: 'Valid Description',
-        value: 25
+        value: 25,
       })
       .expect(400)
       .expect('Content-Type', /json/)
@@ -178,7 +181,7 @@ describe('ProductController (e2e)', () => {
       .send({
         name: 'Product Name',
         description: 'Valid Description',
-        value: -5
+        value: -5,
       })
       .expect(400)
       .expect('Content-Type', /json/)

@@ -1,7 +1,10 @@
 import DiscussionBuilder from '../../DiscussionBuilder';
 
 import { UpdateDiscussion } from '@discussion/core/useCase';
-import { DiscussionRepository, DiscussionRepositoryInMemory } from '@discussion/shared/persistence';
+import {
+  DiscussionRepository,
+  DiscussionRepositoryInMemory,
+} from '@discussion/shared/persistence';
 
 describe('UpdateDiscussion', () => {
   let updateDiscussion: UpdateDiscussion;
@@ -61,5 +64,4 @@ describe('UpdateDiscussion', () => {
       updateDiscussion.execute(discussionId, updateDiscussionDto),
     ).rejects.toThrow(/Discussion context must have at least 30 characters/);
   });
-
 });

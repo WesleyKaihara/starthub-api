@@ -1,7 +1,10 @@
 import ProjectBuilder from '../../ProjectBuilder';
 
 import { UpdateProject } from '@project/core/useCase';
-import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
+import {
+  ProjectRepository,
+  ProjectRepositoryInMemory,
+} from '@project/shared/persistence';
 
 describe('UpdateProject', () => {
   let updateProject: UpdateProject;

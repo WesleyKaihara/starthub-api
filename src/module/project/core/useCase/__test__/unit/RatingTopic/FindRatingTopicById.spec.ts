@@ -1,5 +1,8 @@
 import { FindRatingTopicById } from '@project/core/useCase';
-import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
+import {
+  RatingTopicRepository,
+  RatingTopicRepositoryInMemory,
+} from '@project/shared/persistence';
 import RatingTopicBuilder from '../../RatingTopicBuilder';
 
 describe('FindRatingTopicById', () => {
@@ -27,8 +30,8 @@ describe('FindRatingTopicById', () => {
   it('should return null if ratingTopic is not found', async () => {
     const ratingTopicId = 2;
 
-    expect(findRatingTopicById.execute(ratingTopicId))
-      .rejects
-      .toThrow(`Rating Topic with id ${ratingTopicId} not found`);
+    expect(findRatingTopicById.execute(ratingTopicId)).rejects.toThrow(
+      `Rating Topic with id ${ratingTopicId} not found`,
+    );
   });
 });

@@ -13,11 +13,7 @@ export class DiscussionRepositorySequelize implements DiscussionRepository {
     const discussions = await DiscussionModel.findAll();
 
     return discussions.map((discussion) =>
-      Discussion.restore(
-        discussion.id,
-        discussion.title,
-        discussion.context,
-      ),
+      Discussion.restore(discussion.id, discussion.title, discussion.context),
     );
   }
 

@@ -5,5 +5,3 @@ export { UpdateUserBody } from './User/UpdateUser/UpdateUser.dto';
 
 export { CreateUserBody } from './User/CreateUser/CreateUser.dto';
 export { CreateUser } from './User/CreateUser/CreateUserUseCase';
-
-

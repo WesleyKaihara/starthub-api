@@ -1,4 +1,7 @@
-import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
+import {
+  ProductRepository,
+  ProductRepositoryInMemory,
+} from '@product/shared/persistence';
 import { CreateProductBody } from '../../../Product/CreateProduct/CreateProduct.dto';
 
 import { CreateProduct } from '@product/core/useCase';

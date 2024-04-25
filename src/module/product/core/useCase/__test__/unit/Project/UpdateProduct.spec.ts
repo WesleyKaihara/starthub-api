@@ -1,4 +1,7 @@
-import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
+import {
+  ProductRepository,
+  ProductRepositoryInMemory,
+} from '@product/shared/persistence';
 import ProductBuilder from '../../ProductBuilder';
 
 import { UpdateProduct } from '@product/core/useCase';

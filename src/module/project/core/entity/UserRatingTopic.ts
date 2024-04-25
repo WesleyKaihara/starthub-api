@@ -54,20 +54,20 @@ export default class UserRatingTopic {
   }
 
   isValid() {
-    if(this.value < 0) {
-      throw new Error("Value of rating needs greater than 0");
+    if (this.value < 0) {
+      throw new Error('Value of rating needs greater than 0');
     }
 
-    if(this.userId < 0) {
-      throw new Error("User ID needs greater than 0");
+    if (this.userId < 0) {
+      throw new Error('User ID needs greater than 0');
     }
 
-    if(this.projectId < 0) {
-      throw new Error("Project ID needs greater than 0");
+    if (this.projectId < 0) {
+      throw new Error('Project ID needs greater than 0');
     }
 
-    if(this.ratingTopicId < 0) {
-      throw new Error("Rating Topic ID needs greater than 0");
+    if (this.ratingTopicId < 0) {
+      throw new Error('Rating Topic ID needs greater than 0');
     }
   }
 }

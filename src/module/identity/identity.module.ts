@@ -6,11 +6,8 @@ import { UserRepositorySequelize } from './shared/persistence';
 import UserService from './shared/service/user.service';
 
 @Module({
-  providers: [
-    UserService,
-    UserRepositorySequelize,
-  ],
-  controllers: [UserController,],
+  providers: [UserService, UserRepositorySequelize],
+  controllers: [UserController],
   exports: [UserService],
 })
-export class IdentityModule { }
+export class IdentityModule {}

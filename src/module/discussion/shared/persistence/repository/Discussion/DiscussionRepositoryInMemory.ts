@@ -17,7 +17,9 @@ export class DiscussionRepositoryInMemory implements DiscussionRepository {
   }
 
   async findDiscussionById(discussionId: number): Promise<Discussion> {
-    const discussion = this.discussions.find((discussion) => discussion.id === discussionId) || null;
+    const discussion =
+      this.discussions.find((discussion) => discussion.id === discussionId) ||
+      null;
     if (!discussion) {
       throw new Error(`Discussion with id ${discussionId} not found`);
     }
@@ -25,10 +27,7 @@ export class DiscussionRepositoryInMemory implements DiscussionRepository {
   }
 
   async createDiscussion(input: CreateDiscussionBody): Promise<Discussion> {
-    const discussion = Discussion.create(
-      input.title,
-      input.context,
-    );
+    const discussion = Discussion.create(input.title, input.context);
     discussion.id = this.nextId++;
     this.discussions.push(discussion);
     return discussion;

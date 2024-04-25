@@ -31,9 +31,7 @@ export class UserRatingTopicController {
   ) {
     try {
       const ratingTopic =
-        await this.userRatingTopicService.createUserRatingTopic(
-          input,
-        );
+        await this.userRatingTopicService.createUserRatingTopic(input);
       return response.json(ratingTopic);
     } catch (error) {
       return response.status(400).json({ message: error.message });

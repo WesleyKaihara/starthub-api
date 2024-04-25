@@ -38,7 +38,12 @@ describe('Auth - Test (e2e)', () => {
         password: 'TestUser123',
       };
 
-      const user = User.restore(999, 'Test user', 'test.user@email.com', '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey')
+      const user = User.restore(
+        999,
+        'Test user',
+        'test.user@email.com',
+        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
+      );
 
       mockUserService.findUserByEmail.mockReturnValue(user);
 
@@ -56,8 +61,12 @@ describe('Auth - Test (e2e)', () => {
         password: 'Incorrect User',
       };
 
-
-      const user = User.restore(999, 'Test user', 'test.user@email.com', '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey')
+      const user = User.restore(
+        999,
+        'Test user',
+        'test.user@email.com',
+        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
+      );
 
       mockUserService.findUserByEmail.mockReturnValue(user);
 

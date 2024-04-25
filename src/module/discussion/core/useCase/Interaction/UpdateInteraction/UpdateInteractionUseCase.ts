@@ -3,7 +3,7 @@ import Interaction from '../../../entity/Interaction';
 import { InteractionRepository } from '@src/module/discussion/shared/persistence';
 
 export class UpdateInteraction {
-  constructor(private readonly interactionRepository: InteractionRepository) { }
+  constructor(private readonly interactionRepository: InteractionRepository) {}
 
   async execute(
     interactionId: number,

@@ -1,5 +1,11 @@
-import { CreateRatingTopic, CreateRatingTopicBody } from '@project/core/useCase';
-import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
+import {
+  CreateRatingTopic,
+  CreateRatingTopicBody,
+} from '@project/core/useCase';
+import {
+  RatingTopicRepository,
+  RatingTopicRepositoryInMemory,
+} from '@project/shared/persistence';
 
 describe('CreateRatingTopic', () => {
   let createRatingTopic: CreateRatingTopic;

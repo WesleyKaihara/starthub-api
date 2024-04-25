@@ -1,5 +1,5 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
-import {RatingTopicRepository} from '@project/shared/persistence';
+import { RatingTopicRepository } from '@project/shared/persistence';
 
 export class FindRatingTopicById {
   constructor(private readonly ratingTopicRepository: RatingTopicRepository) {}

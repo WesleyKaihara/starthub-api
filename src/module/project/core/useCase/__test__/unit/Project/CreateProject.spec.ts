@@ -1,7 +1,10 @@
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 
 import { CreateProject } from '@project/core/useCase';
-import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
+import {
+  ProjectRepository,
+  ProjectRepositoryInMemory,
+} from '@project/shared/persistence';
 
 describe('CreateProject', () => {
   let createProject: CreateProject;

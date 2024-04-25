@@ -6,8 +6,7 @@ import { UpdateInteractionBody } from '@src/module/discussion/core/useCase/Inter
 import { CreateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/CreateInteraction/CreateInteraction.dto';
 
 @Injectable()
-export class InteractionRepositorySequelize
-  implements InteractionRepository {
+export class InteractionRepositorySequelize implements InteractionRepository {
   async getAllInteractions(): Promise<Interaction[]> {
     const interactions = await InteractionModel.findAll();
 

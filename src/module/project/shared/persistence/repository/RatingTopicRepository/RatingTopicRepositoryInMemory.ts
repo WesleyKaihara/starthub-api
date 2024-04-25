@@ -15,12 +15,10 @@ export class RatingTopicRepositoryInMemory implements RatingTopicRepository {
     return this.ratingTopics;
   }
 
-  async findRatingTopicById(
-    ratingTopicId: number,
-  ): Promise<RatingTopic> {
+  async findRatingTopicById(ratingTopicId: number): Promise<RatingTopic> {
     const ratingTopic = this.ratingTopics.find(
       (ratingTopic) => ratingTopic.id === ratingTopicId,
-    )
+    );
     if (!ratingTopic) {
       throw new Error(`Rating Topic with id ${ratingTopicId} not found`);
     }

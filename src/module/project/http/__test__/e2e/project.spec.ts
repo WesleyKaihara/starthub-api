@@ -5,7 +5,10 @@ import { TestingModule, Test } from '@nestjs/testing';
 import ProjectService from '@project/shared/service/project.service';
 import Project from '@project/core/entity/Project';
 
-import { ProjectRepositoryInMemory, ProjectRepositorySequelize } from '@project/shared/persistence';
+import {
+  ProjectRepositoryInMemory,
+  ProjectRepositorySequelize,
+} from '@project/shared/persistence';
 
 describe('ProjectController (e2e)', () => {
   let app;
@@ -54,7 +57,7 @@ describe('ProjectController (e2e)', () => {
   });
 
   it('/project/:projectId (GET)', () => {
-    const project = Project.restore(1, "Project 1", "Description 1", false);
+    const project = Project.restore(1, 'Project 1', 'Description 1', false);
 
     jest
       .spyOn(app.get(ProjectService), 'findProjectById')
@@ -69,7 +72,7 @@ describe('ProjectController (e2e)', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
         expect(response.body).toHaveProperty('private');
-      })
+      });
   });
 
   it('should return 400 error when project id is not a number', () => {

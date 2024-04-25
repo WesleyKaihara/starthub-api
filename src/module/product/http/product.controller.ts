@@ -37,9 +37,7 @@ export class ProductController {
     @Res() response: Response,
   ) {
     try {
-      const product = await this.productService.findProductById(
-        productId,
-      );
+      const product = await this.productService.findProductById(productId);
       return response.json(product);
     } catch (error) {
       return response.status(400).json({ message: error.message });

@@ -2,7 +2,10 @@ import * as request from 'supertest';
 
 import { AppModule } from '@src/app.module';
 import { TestingModule, Test } from '@nestjs/testing';
-import { RatingTopicRepositoryInMemory, RatingTopicRepositorySequelize } from '@project/shared/persistence';
+import {
+  RatingTopicRepositoryInMemory,
+  RatingTopicRepositorySequelize,
+} from '@project/shared/persistence';
 import RatingTopic from '@project/core/entity/RatingTopic';
 import RatingTopicService from '@project/shared/service/ratingTopic.service';
 
@@ -53,7 +56,11 @@ describe('RatingTopicController (e2e)', () => {
   });
 
   it('/rating-topic/:ratingTopicId (GET)', () => {
-    const ratingTopic = RatingTopic.restore(1, "RatingTopic 1", "Description 1");
+    const ratingTopic = RatingTopic.restore(
+      1,
+      'RatingTopic 1',
+      'Description 1',
+    );
 
     jest
       .spyOn(app.get(RatingTopicService), 'findRatingTopicById')
@@ -67,7 +74,7 @@ describe('RatingTopicController (e2e)', () => {
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
-      })
+      });
   });
 
   it('shoud return expection when rating topic not found', () => {
@@ -78,9 +85,9 @@ describe('RatingTopicController (e2e)', () => {
       .then((response) => {
         expect(response.body).toHaveProperty(
           'message',
-          'Rating Topic with id 1 not found'
+          'Rating Topic with id 1 not found',
         );
-      })
+      });
   });
 
   it('should return 400 error when ratingTopic id is not a number', () => {
@@ -115,7 +122,7 @@ describe('RatingTopicController (e2e)', () => {
       .post('/rating-topic')
       .send({
         name: 'Test RatingTopic',
-        description: 'Test Description'
+        description: 'Test Description',
       })
       .expect(201)
       .expect('Content-Type', /json/)
@@ -158,7 +165,7 @@ describe('RatingTopicController (e2e)', () => {
       .put('/rating-topic/1')
       .send({
         name: 'Updated RatingTopic',
-        description: 'Updated Description'
+        description: 'Updated Description',
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -173,7 +180,7 @@ describe('RatingTopicController (e2e)', () => {
       .put('/rating-topic/1')
       .send({
         name: 'test',
-        description: 'Valid Description'
+        description: 'Valid Description',
       })
       .expect(400)
       .expect('Content-Type', /json/)

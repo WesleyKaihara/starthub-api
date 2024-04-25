@@ -3,7 +3,7 @@ import { RatingTopicRepository } from '@project/shared/persistence';
 import { UpdateRatingTopicBody } from './UpdateRatingTopic.dto';
 
 export class UpdateRatingTopic {
-  constructor(private readonly ratingTopicRepository: RatingTopicRepository) { }
+  constructor(private readonly ratingTopicRepository: RatingTopicRepository) {}
 
   async execute(
     topicId: number,

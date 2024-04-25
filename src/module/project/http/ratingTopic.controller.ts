@@ -19,7 +19,7 @@ import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateR
 @Controller('/rating-topic')
 @ApiTags('RatingTopic')
 export class RatingTopicController {
-  constructor(private readonly ratingTopicService: ProjectRatingTopicService) { }
+  constructor(private readonly ratingTopicService: ProjectRatingTopicService) {}
 
   @Get()
   async listRatingTopics(@Res() response: Response) {

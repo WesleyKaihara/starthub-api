@@ -30,13 +30,9 @@ export class UserRepositoryInMemory implements UserRepository {
     }
     return user;
   }
-  
+
   async createUser(input: CreateUserBody): Promise<User> {
-    const user = User.create(
-      input.name,
-      input.email,
-      input.password
-    );
+    const user = User.create(input.name, input.email, input.password);
     user.id = this.nextId++;
     this.users.push(user);
     return user;
@@ -46,15 +42,13 @@ export class UserRepositoryInMemory implements UserRepository {
     userId: number,
     input: UpdateUserBody,
   ): Promise<User | null> {
-    const userIndex = this.users.findIndex(
-      (user) => user.id === userId,
-    );
+    const userIndex = this.users.findIndex((user) => user.id === userId);
     if (userIndex !== -1) {
       const updatedUser = User.restore(
         userId,
         input.name,
         input.email,
-        input.password
+        input.password,
       );
       updatedUser.id = userId;
       this.users[userIndex] = updatedUser;

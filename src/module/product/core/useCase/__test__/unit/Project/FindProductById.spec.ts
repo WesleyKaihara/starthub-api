@@ -1,4 +1,7 @@
-import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
+import {
+  ProductRepository,
+  ProductRepositoryInMemory,
+} from '@product/shared/persistence';
 import ProductBuilder from '../../ProductBuilder';
 
 import { FindProductById } from '@product/core/useCase';
@@ -29,8 +32,8 @@ describe('FindProductById', () => {
   it('should return null if product is not found', async () => {
     const productId = 2;
 
-    expect(findProductById.execute(productId))
-      .rejects
-      .toThrow("Product with id 2 not found");
+    expect(findProductById.execute(productId)).rejects.toThrow(
+      'Product with id 2 not found',
+    );
   });
 });

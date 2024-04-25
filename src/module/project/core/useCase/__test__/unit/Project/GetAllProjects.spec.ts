@@ -1,7 +1,10 @@
 import Project from '@project/core/entity/Project';
 
 import { GetAllProjects } from '@project/core/useCase';
-import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
+import {
+  ProjectRepository,
+  ProjectRepositoryInMemory,
+} from '@project/shared/persistence';
 
 describe('GetAllProjects', () => {
   let getAllProjects: GetAllProjects;

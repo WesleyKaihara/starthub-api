@@ -18,7 +18,7 @@ import UserService from '@identity/shared/service/user.service';
 @Controller('/user')
 @ApiTags('User')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Get()
   async listUsers(@Res() response: Response) {
@@ -44,10 +44,7 @@ export class UserController {
   }
 
   @Post()
-  async createUser(
-    @Body() input: CreateUserBody,
-    @Res() response: Response,
-  ) {
+  async createUser(@Body() input: CreateUserBody, @Res() response: Response) {
     try {
       const user = await this.userService.createUser(input);
       return response.json(user);
@@ -63,10 +60,7 @@ export class UserController {
     @Res() response: Response,
   ) {
     try {
-      const user = await this.userService.updateUser(
-        userId,
-        input,
-      );
+      const user = await this.userService.updateUser(userId, input);
       return response.json(user);
     } catch (error) {
       return response.status(400).json({ message: error.message });

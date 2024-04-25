@@ -2,7 +2,10 @@ import * as request from 'supertest';
 
 import { AppModule } from '@src/app.module';
 import { TestingModule, Test } from '@nestjs/testing';
-import { UserRepositoryInMemory, UserRepositorySequelize } from '@identity/shared/persistence';
+import {
+  UserRepositoryInMemory,
+  UserRepositorySequelize,
+} from '@identity/shared/persistence';
 import UserService from '@identity/shared/service/user.service';
 import User from '@identity/core/entity/User';
 
@@ -53,7 +56,7 @@ describe('UserController (e2e)', () => {
   });
 
   it('/user/:userId (GET)', () => {
-    const user = User.restore(1, "User 1", "user@email.com", "Secret1231d$");
+    const user = User.restore(1, 'User 1', 'user@email.com', 'Secret1231d$');
 
     jest
       .spyOn(app.get(UserService), 'findUserById')
@@ -68,7 +71,7 @@ describe('UserController (e2e)', () => {
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('email');
         expect(response.body).toHaveProperty('password');
-      })
+      });
   });
 
   it('should be throw an expection when user not found', () => {
@@ -81,7 +84,7 @@ describe('UserController (e2e)', () => {
           'message',
           'User with id 1 not found',
         );
-      })
+      });
   });
 
   it('should return 400 error when user id is not a number', () => {
@@ -104,10 +107,7 @@ describe('UserController (e2e)', () => {
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
-        expect(response.body).toHaveProperty(
-          'message',
-          'Failed to find user',
-        );
+        expect(response.body).toHaveProperty('message', 'Failed to find user');
       });
   });
 
@@ -117,7 +117,7 @@ describe('UserController (e2e)', () => {
       .send({
         name: 'Test User',
         email: 'user@email.com',
-        password: "SeCret124$"
+        password: 'SeCret124$',
       })
       .expect(201)
       .expect('Content-Type', /json/)
@@ -130,7 +130,7 @@ describe('UserController (e2e)', () => {
   it('should return error when creating user with invalid name length', () => {
     return request(app.getHttpServer())
       .post('/user')
-      .send({ name: 'AA', email: 'user@email.com', password: "SeCret124$" })
+      .send({ name: 'AA', email: 'user@email.com', password: 'SeCret124$' })
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -147,7 +147,7 @@ describe('UserController (e2e)', () => {
       .send({
         name: 'Updated User',
         email: 'user@email.com',
-        password: "SeCret124$"
+        password: 'SeCret124$',
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -164,7 +164,7 @@ describe('UserController (e2e)', () => {
       .send({
         name: 'AA',
         email: 'user@email.com',
-        password: "SeCret124$"
+        password: 'SeCret124$',
       })
       .expect(400)
       .expect('Content-Type', /json/)
@@ -175,5 +175,4 @@ describe('UserController (e2e)', () => {
         );
       });
   });
-
 });

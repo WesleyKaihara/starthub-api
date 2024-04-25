@@ -1,5 +1,8 @@
 import { UpdateUser } from '@identity/core/useCase/User/UpdateUser/UpdateUserUseCase';
-import { UserRepository, UserRepositoryInMemory } from '@identity/shared/persistence';
+import {
+  UserRepository,
+  UserRepositoryInMemory,
+} from '@identity/shared/persistence';
 import UserBuilder from '../../UserBuilder';
 
 describe('UpdateUser', () => {
@@ -26,10 +29,7 @@ describe('UpdateUser', () => {
       .withPassword('SeCret123$')
       .build();
 
-    const updatedUser = await updateUser.execute(
-      userId,
-      updateUserDto,
-    );
+    const updatedUser = await updateUser.execute(userId, updateUserDto);
 
     expect(updatedUser).toBeDefined();
     expect(updatedUser.name).toBe('Updated User Name');
@@ -44,8 +44,8 @@ describe('UpdateUser', () => {
       .withPassword('SeCret123$')
       .build();
 
-    await expect(
-      updateUser.execute(userId, updateUserDto),
-    ).rejects.toThrow(/User Name must have at least 3 characters/);
+    await expect(updateUser.execute(userId, updateUserDto)).rejects.toThrow(
+      /User Name must have at least 3 characters/,
+    );
   });
 });

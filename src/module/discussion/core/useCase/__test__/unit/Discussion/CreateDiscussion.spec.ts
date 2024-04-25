@@ -1,5 +1,11 @@
-import { CreateDiscussion, CreateDiscussionBody } from '@discussion/core/useCase';
-import { DiscussionRepository, DiscussionRepositoryInMemory } from '@discussion/shared/persistence';
+import {
+  CreateDiscussion,
+  CreateDiscussionBody,
+} from '@discussion/core/useCase';
+import {
+  DiscussionRepository,
+  DiscussionRepositoryInMemory,
+} from '@discussion/shared/persistence';
 
 describe('CreateDiscussion', () => {
   let createDiscussion: CreateDiscussion;

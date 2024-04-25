@@ -14,4 +14,3 @@ export default class UpdatePermissionDto {
   })
   readonly delete: boolean;
 }
-

@@ -8,7 +8,11 @@ import RatingTopicService from './shared/service/ratingTopic.service';
 import ProjectService from './shared/service/project.service';
 import UserRatingTopicService from './shared/service/userRatingTopic.service';
 
-import { ProjectRepositorySequelize, RatingTopicRepositorySequelize, UserRatingTopicRepositorySequelize } from './shared/persistence';
+import {
+  ProjectRepositorySequelize,
+  RatingTopicRepositorySequelize,
+  UserRatingTopicRepositorySequelize,
+} from './shared/persistence';
 
 @Module({
   providers: [
@@ -25,4 +29,4 @@ import { ProjectRepositorySequelize, RatingTopicRepositorySequelize, UserRatingT
     UserRatingTopicController,
   ],
 })
-export class ProjectModule { }
+export class ProjectModule {}

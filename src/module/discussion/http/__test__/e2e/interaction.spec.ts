@@ -2,7 +2,10 @@ import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '@src/app.module';
 
-import { InteractionRepositoryInMemory, InteractionRepositorySequelize } from '@discussion/shared/persistence';
+import {
+  InteractionRepositoryInMemory,
+  InteractionRepositorySequelize,
+} from '@discussion/shared/persistence';
 import InteractionService from '@discussion/shared/service/interaction.service';
 import Interaction from '@discussion/core/entity/Interaction';
 
@@ -62,7 +65,9 @@ describe('InteractionController (e2e)', () => {
       .expect(201)
       .expect('Content-Type', /json/)
       .then((response) => {
-        expect(response.body.message).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+        expect(response.body.message).toBe(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        );
       });
   });
 
@@ -85,13 +90,15 @@ describe('InteractionController (e2e)', () => {
       .put('/interaction/1')
       .send({
         discussionId: 1,
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       })
       .expect(200)
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('id');
-        expect(response.body.message).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+        expect(response.body.message).toBe(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        );
       });
   });
 

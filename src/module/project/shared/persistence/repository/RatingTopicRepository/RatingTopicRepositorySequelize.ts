@@ -3,11 +3,13 @@ import { Injectable } from '@nestjs/common';
 import RatingTopicModel from '../../model/RatingTopicModel';
 import { RatingTopicRepository } from './RatingTopic.repository';
 import RatingTopic from '@project/core/entity/RatingTopic';
-import { UpdateRatingTopicBody, CreateRatingTopicBody } from '@project/core/useCase';
+import {
+  UpdateRatingTopicBody,
+  CreateRatingTopicBody,
+} from '@project/core/useCase';
 
 @Injectable()
-export class RatingTopicRepositorySequelize
-  implements RatingTopicRepository {
+export class RatingTopicRepositorySequelize implements RatingTopicRepository {
   async getAllRatingTopics(): Promise<RatingTopic[]> {
     const ratingTopics = await RatingTopicModel.findAll();
 

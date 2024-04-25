@@ -1,7 +1,10 @@
 import Discussion from '@discussion/core/entity/Discussion';
 
 import { GetAllDiscussions } from '@discussion/core/useCase';
-import { DiscussionRepository, DiscussionRepositoryInMemory } from '@discussion/shared/persistence';
+import {
+  DiscussionRepository,
+  DiscussionRepositoryInMemory,
+} from '@discussion/shared/persistence';
 
 describe('GetAllDiscussions', () => {
   let getAllDiscussions: GetAllDiscussions;
@@ -13,8 +16,14 @@ describe('GetAllDiscussions', () => {
   });
 
   it('should get all discussions', async () => {
-    const discussion1 = Discussion.create('Discussion 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1');
-    const discussion2 = Discussion.create('Discussion 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2');
+    const discussion1 = Discussion.create(
+      'Discussion 1',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1',
+    );
+    const discussion2 = Discussion.create(
+      'Discussion 2',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2',
+    );
     await discussionRepository.createDiscussion(discussion1);
     await discussionRepository.createDiscussion(discussion2);
 
@@ -22,9 +31,13 @@ describe('GetAllDiscussions', () => {
 
     expect(discussions).toHaveLength(2);
     expect(discussions[0].title).toBe('Discussion 1');
-    expect(discussions[0].context).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1');
+    expect(discussions[0].context).toBe(
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1',
+    );
 
     expect(discussions[1].title).toBe('Discussion 2');
-    expect(discussions[1].context).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2');
+    expect(discussions[1].context).toBe(
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2',
+    );
   });
 });

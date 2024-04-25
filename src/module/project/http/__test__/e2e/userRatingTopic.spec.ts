@@ -2,7 +2,10 @@ import * as request from 'supertest';
 
 import { AppModule } from '@src/app.module';
 import { TestingModule, Test } from '@nestjs/testing';
-import { UserRatingTopicRepositoryInMemory, UserRatingTopicRepositorySequelize } from '@project/shared/persistence';
+import {
+  UserRatingTopicRepositoryInMemory,
+  UserRatingTopicRepositorySequelize,
+} from '@project/shared/persistence';
 import UserRatingTopicService from '@project/shared/service/userRatingTopic.service';
 
 describe('UserRatingTopicController (e2e)', () => {
@@ -83,9 +86,7 @@ describe('UserRatingTopicController (e2e)', () => {
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('message');
-        expect(response.body.message).toContain(
-          'User ID needs greater than 0',
-        );
+        expect(response.body.message).toContain('User ID needs greater than 0');
       });
   });
 

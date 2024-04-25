@@ -1,5 +1,10 @@
 import User from '@identity/core/entity/User';
-import { CreateUser, CreateUserBody, UpdateUser, UpdateUserBody } from '@identity/core/useCase';
+import {
+  CreateUser,
+  CreateUserBody,
+  UpdateUser,
+  UpdateUserBody,
+} from '@identity/core/useCase';
 import { Injectable } from '@nestjs/common';
 
 import * as bcrypt from 'bcrypt';
@@ -7,7 +12,7 @@ import { UserRepositorySequelize } from '../persistence';
 
 @Injectable()
 export default class UserService {
-  constructor(private readonly userRepository: UserRepositorySequelize) { }
+  constructor(private readonly userRepository: UserRepositorySequelize) {}
 
   listUsers(): Promise<User[]> {
     return this.userRepository.getAllUsers();
@@ -27,10 +32,7 @@ export default class UserService {
     return createUser.execute(input);
   }
 
-  updateUser(
-    userId: number,
-    input: UpdateUserBody,
-  ): Promise<User> {
+  updateUser(userId: number, input: UpdateUserBody): Promise<User> {
     const updateUser = new UpdateUser(this.userRepository);
     return updateUser.execute(userId, input);
   }

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Res,
+} from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -10,7 +19,7 @@ import { UpdateDiscussionBody } from '@discussion/core/useCase';
 @Controller('/discussion')
 @ApiTags('Discussion')
 export class DiscussionController {
-  constructor(private readonly discussionService: DiscussionService) { }
+  constructor(private readonly discussionService: DiscussionService) {}
 
   @Get()
   async listDiscussions(@Res() response: Response) {
@@ -28,7 +37,8 @@ export class DiscussionController {
     @Res() response: Response,
   ) {
     try {
-      const discussion = await this.discussionService.findDiscussionById(discussionId);
+      const discussion =
+        await this.discussionService.findDiscussionById(discussionId);
       return response.json(discussion);
     } catch (error) {
       return response.status(400).json({ message: error.message });
@@ -41,8 +51,7 @@ export class DiscussionController {
     @Res() response: Response,
   ) {
     try {
-      const discussion =
-        await this.discussionService.createDiscussion(input);
+      const discussion = await this.discussionService.createDiscussion(input);
       return response.json(discussion);
     } catch (error) {
       return response.status(400).json({ message: error.message });
@@ -56,7 +65,10 @@ export class DiscussionController {
     @Res() response: Response,
   ) {
     try {
-      const project = await this.discussionService.updateDiscussion(discussionId, input);
+      const project = await this.discussionService.updateDiscussion(
+        discussionId,
+        input,
+      );
       return response.json(project);
     } catch (error) {
       return response.status(400).json({ message: error.message });

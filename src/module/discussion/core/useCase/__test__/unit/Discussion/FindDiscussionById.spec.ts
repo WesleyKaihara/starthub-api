@@ -1,6 +1,8 @@
-
 import DiscussionBuilder from '../../DiscussionBuilder';
-import { DiscussionRepository, DiscussionRepositoryInMemory } from '@discussion/shared/persistence';
+import {
+  DiscussionRepository,
+  DiscussionRepositoryInMemory,
+} from '@discussion/shared/persistence';
 import { FindDiscussionById } from '@discussion/core/useCase';
 
 describe('FindDiscussionById', () => {
@@ -29,7 +31,8 @@ describe('FindDiscussionById', () => {
     const discussionId = 2;
     expect.assertions(1);
 
-    expect(findDiscussionById.execute(discussionId))
-      .rejects.toThrow(`Discussion with id ${discussionId} not found`);
+    expect(findDiscussionById.execute(discussionId)).rejects.toThrow(
+      `Discussion with id ${discussionId} not found`,
+    );
   });
 });

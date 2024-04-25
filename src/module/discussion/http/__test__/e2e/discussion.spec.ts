@@ -5,7 +5,10 @@ import { TestingModule, Test } from '@nestjs/testing';
 import DiscussionService from '@discussion/shared/service/discussion.service';
 import Discussion from '@discussion/core/entity/Discussion';
 
-import { DiscussionRepositoryInMemory, DiscussionRepositorySequelize } from '@discussion/shared/persistence';
+import {
+  DiscussionRepositoryInMemory,
+  DiscussionRepositorySequelize,
+} from '@discussion/shared/persistence';
 
 describe('DiscussionController (e2e)', () => {
   let app;
@@ -63,11 +66,15 @@ describe('DiscussionController (e2e)', () => {
           'message',
           'Discussion with id 8 not found',
         );
-      })
+      });
   });
 
   it('/discussion/:discussionId (GET)', () => {
-    const discussion = Discussion.restore(1, "Discussion title", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+    const discussion = Discussion.restore(
+      1,
+      'Discussion title',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    );
 
     jest
       .spyOn(app.get(DiscussionService), 'findDiscussionById')
@@ -81,7 +88,7 @@ describe('DiscussionController (e2e)', () => {
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('title');
         expect(response.body).toHaveProperty('context');
-      })
+      });
   });
 
   it('should return 400 error when discussion id is not a number', () => {
@@ -122,7 +129,9 @@ describe('DiscussionController (e2e)', () => {
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body.title).toBe('Test Discussion');
-        expect(response.body.context).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+        expect(response.body.context).toBe(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        );
       });
   });
 
@@ -145,14 +154,16 @@ describe('DiscussionController (e2e)', () => {
       .put('/discussion/1')
       .send({
         title: 'Updated Discussion',
-        context: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+        context: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       })
       .expect(200)
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('id');
         expect(response.body.title).toBe('Updated Discussion');
-        expect(response.body.context).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+        expect(response.body.context).toBe(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        );
       });
   });
 

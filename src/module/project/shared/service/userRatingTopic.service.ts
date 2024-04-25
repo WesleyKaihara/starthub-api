@@ -2,8 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 
-import {UserRatingTopicRepositorySequelize} from '../persistence';
-import { CreateUserRatingTopic, CreateUserRatingTopicBody, GetAllUserRatingTopics } from '@project/core/useCase';
+import { UserRatingTopicRepositorySequelize } from '../persistence';
+import {
+  CreateUserRatingTopic,
+  CreateUserRatingTopicBody,
+  GetAllUserRatingTopics,
+} from '@project/core/useCase';
 
 @Injectable()
 export default class UserRatingTopicService {

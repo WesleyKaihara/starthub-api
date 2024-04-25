@@ -1,5 +1,8 @@
 import { FindUserById } from '@identity/core/useCase/User/FindUserById/FindUserByIdUseCase';
-import { UserRepository, UserRepositoryInMemory } from '@identity/shared/persistence';
+import {
+  UserRepository,
+  UserRepositoryInMemory,
+} from '@identity/shared/persistence';
 import UserBuilder from '../../UserBuilder';
 
 describe('FindUserById', () => {
@@ -28,8 +31,8 @@ describe('FindUserById', () => {
   it('should throw and expection if user is not found', async () => {
     const userId = 2;
 
-    expect(findUserById.execute(userId))
-      .rejects
-      .toThrow(`User with id ${userId} not found`)
+    expect(findUserById.execute(userId)).rejects.toThrow(
+      `User with id ${userId} not found`,
+    );
   });
 });

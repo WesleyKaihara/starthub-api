@@ -7,4 +7,4 @@ import { ProductController } from './http/product.controller';
   providers: [ProductService, ProductRepositorySequelize],
   controllers: [ProductController],
 })
-export class ProductModule { }
+export class ProductModule {}

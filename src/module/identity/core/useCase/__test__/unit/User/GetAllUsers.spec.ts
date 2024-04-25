@@ -1,6 +1,9 @@
 import User from '@identity/core/entity/User';
 import { GetAllUsers } from '@identity/core/useCase/User/GetAllUsers/GetAllUsersUseCase';
-import { UserRepository, UserRepositoryInMemory } from '@identity/shared/persistence';
+import {
+  UserRepository,
+  UserRepositoryInMemory,
+} from '@identity/shared/persistence';
 
 describe('GetAllUsers', () => {
   let getAllUsers: GetAllUsers;
@@ -12,7 +15,7 @@ describe('GetAllUsers', () => {
   });
 
   it('should get all users', async () => {
-    const user1 = User.create('User 1', 'user01@email.com', "SEcret123%");
+    const user1 = User.create('User 1', 'user01@email.com', 'SEcret123%');
     const user2 = User.create('User 2', 'user02@email.com', '123Secret#');
     await userRepository.createUser(user1);
     await userRepository.createUser(user2);

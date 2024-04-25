@@ -5,7 +5,7 @@ import { UserRatingTopicRepository } from '@project/shared/persistence';
 export class CreateUserRatingTopic {
   constructor(
     private readonly userRatingTopicRepository: UserRatingTopicRepository,
-  ) { }
+  ) {}
 
   async execute(input: CreateUserRatingTopicBody): Promise<UserRatingTopic> {
     const ratingTopic = UserRatingTopic.create(

@@ -1,4 +1,7 @@
-import { ProjectRepository, ProjectRepositoryInMemory } from '@project/shared/persistence';
+import {
+  ProjectRepository,
+  ProjectRepositoryInMemory,
+} from '@project/shared/persistence';
 import ProjectBuilder from '../../ProjectBuilder';
 import { FindProjectById } from '@project/core/useCase';
 
@@ -28,8 +31,8 @@ describe('FindProjectById', () => {
   it('should return exeption if project is not found', async () => {
     const projectId = 999;
 
-    expect(findProjectById.execute(projectId))
-      .rejects
-      .toThrow(`Project with id ${projectId} not found`)
+    expect(findProjectById.execute(projectId)).rejects.toThrow(
+      `Project with id ${projectId} not found`,
+    );
   });
 });

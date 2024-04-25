@@ -6,9 +6,7 @@ import { UpdateDiscussionBody } from '@src/module/discussion/core/useCase/Discus
 export interface DiscussionRepository {
   getAllDiscussions(): Promise<Discussion[]>;
   findDiscussionById(discussionId: number): Promise<Discussion>;
-  createDiscussion(
-    input: CreateDiscussionBody,
-  ): Promise<Discussion>;
+  createDiscussion(input: CreateDiscussionBody): Promise<Discussion>;
   updateDiscussion(
     id: number,
     input: UpdateDiscussionBody,

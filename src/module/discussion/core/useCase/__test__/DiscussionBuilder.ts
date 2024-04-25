@@ -21,7 +21,6 @@ class DiscussionBuilder {
     return this;
   }
 
-
   build(): Discussion {
     return Discussion.restore(this.id, this.title, this.context);
   }

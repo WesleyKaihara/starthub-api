@@ -1,5 +1,11 @@
-import { CreateInteraction, CreateInteractionBody } from '@discussion/core/useCase';
-import { InteractionRepository, InteractionRepositoryInMemory } from '@discussion/shared/persistence';
+import {
+  CreateInteraction,
+  CreateInteractionBody,
+} from '@discussion/core/useCase';
+import {
+  InteractionRepository,
+  InteractionRepositoryInMemory,
+} from '@discussion/shared/persistence';
 
 describe('CreateInteraction', () => {
   let createInteraction: CreateInteraction;
@@ -13,20 +19,20 @@ describe('CreateInteraction', () => {
   it('should create a interaction', async () => {
     const input: CreateInteractionBody = {
       discussionId: 1,
-      message: "Test message",
+      message: 'Test message',
     };
 
     const interaction = await createInteraction.execute(input);
 
     expect(interaction).toBeDefined();
     expect(interaction.discussionId).toBe(1);
-    expect(interaction.message).toBe("Test message");
+    expect(interaction.message).toBe('Test message');
   });
 
   it('should throw error if interaction description is too short', async () => {
     const input: CreateInteractionBody = {
       discussionId: 1,
-      message: "Test",
+      message: 'Test',
     };
 
     await expect(createInteraction.execute(input)).rejects.toThrow(

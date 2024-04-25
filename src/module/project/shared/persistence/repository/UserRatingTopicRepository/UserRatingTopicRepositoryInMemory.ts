@@ -2,7 +2,9 @@ import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 import { UserRatingTopicRepository } from './userRatingTopic.repository';
 import { CreateUserRatingTopicBody } from '@project/core/useCase';
 
-export class UserRatingTopicRepositoryInMemory implements UserRatingTopicRepository {
+export class UserRatingTopicRepositoryInMemory
+  implements UserRatingTopicRepository
+{
   private userRatingTopics: UserRatingTopic[];
   private nextId: number;
 
@@ -15,7 +17,9 @@ export class UserRatingTopicRepositoryInMemory implements UserRatingTopicReposit
     return this.userRatingTopics;
   }
 
-  async createUserRatingTopic(input: CreateUserRatingTopicBody): Promise<UserRatingTopic> {
+  async createUserRatingTopic(
+    input: CreateUserRatingTopicBody,
+  ): Promise<UserRatingTopic> {
     const userRatingTopic = UserRatingTopic.create(
       input.userId,
       input.projectId,
@@ -27,4 +31,3 @@ export class UserRatingTopicRepositoryInMemory implements UserRatingTopicReposit
     return userRatingTopic;
   }
 }
-

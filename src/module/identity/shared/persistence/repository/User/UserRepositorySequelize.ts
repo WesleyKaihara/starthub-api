@@ -10,12 +10,7 @@ export class UserRepositorySequelize implements UserRepository {
     const users = await UserModel.findAll();
 
     return users.map((user) =>
-      User.restore(
-        user.id,
-        user.name,
-        user.email,
-        user.password
-      ),
+      User.restore(user.id, user.name, user.email, user.password),
     );
   }
 
@@ -24,12 +19,7 @@ export class UserRepositorySequelize implements UserRepository {
     if (!user) {
       throw new Error(`User with id ${id} not found`);
     }
-    return User.restore(
-      user.id,
-      user.name,
-      user.email,
-      user.password
-    );
+    return User.restore(user.id, user.name, user.email, user.password);
   }
 
   public async findUserByEmail(email: string): Promise<User> {
@@ -37,12 +27,7 @@ export class UserRepositorySequelize implements UserRepository {
     if (!user) {
       throw new Error(`User with email ${email} not found`);
     }
-    return User.restore(
-      user.id,
-      user.name,
-      user.email,
-      user.password
-    );
+    return User.restore(user.id, user.name, user.email, user.password);
   }
 
   async createUser(input: CreateUserBody): Promise<User> {
@@ -52,18 +37,10 @@ export class UserRepositorySequelize implements UserRepository {
       password: input.password,
     });
 
-    return User.restore(
-      user.id,
-      user.name,
-      user.email,
-      user.password
-    );
+    return User.restore(user.id, user.name, user.email, user.password);
   }
 
-  public async updateUser(
-    id: number,
-    input: UpdateUserBody,
-  ): Promise<User> {
+  public async updateUser(id: number, input: UpdateUserBody): Promise<User> {
     const [rowsAffected] = await UserModel.update(
       { ...input },
       { where: { id } },
@@ -74,12 +51,7 @@ export class UserRepositorySequelize implements UserRepository {
       if (!user) {
         throw new Error(`User with id ${id} not found after update`);
       }
-      return User.restore(
-        user.id,
-        user.name,
-        user.email,
-        user.password
-      );
+      return User.restore(user.id, user.name, user.email, user.password);
     } else {
       throw new Error(`Unable to update user with id ${id}`);
     }

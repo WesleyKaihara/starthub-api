@@ -4,7 +4,7 @@ export default class User {
   email: string;
   password: string;
 
-  static create(name: string, email: string, password: string ): User {
+  static create(name: string, email: string, password: string): User {
     const user = new User();
     user.name = name;
     user.email = email;
@@ -47,5 +47,4 @@ export default class User {
       throw new Error('User Name must have at least 3 characters');
     }
   }
-
 }

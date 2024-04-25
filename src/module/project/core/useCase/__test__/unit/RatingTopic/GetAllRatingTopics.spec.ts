@@ -1,6 +1,9 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
 import { GetAllRatingTopics } from '@project/core/useCase';
-import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
+import {
+  RatingTopicRepository,
+  RatingTopicRepositoryInMemory,
+} from '@project/shared/persistence';
 
 describe('GetAllRatingTopic', () => {
   let getAllRatingTopics: GetAllRatingTopics;

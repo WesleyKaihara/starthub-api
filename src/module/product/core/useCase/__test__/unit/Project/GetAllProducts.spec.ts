@@ -1,7 +1,10 @@
 import Product from '@src/module/product/core/entity/Product';
 
 import { GetAllProducts } from '@product/core/useCase';
-import { ProductRepository, ProductRepositoryInMemory } from '@product/shared/persistence';
+import {
+  ProductRepository,
+  ProductRepositoryInMemory,
+} from '@product/shared/persistence';
 
 describe('GetAllProducts', () => {
   let getAllProducts: GetAllProducts;
