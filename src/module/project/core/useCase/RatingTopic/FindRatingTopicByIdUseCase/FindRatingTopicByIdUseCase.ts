@@ -1,7 +1,7 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
-import RatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatingTopic.repository';
+import {RatingTopicRepository} from '@project/shared/persistence';
 
-export default class FindRatingTopicById {
+export class FindRatingTopicById {
   constructor(private readonly ratingTopicRepository: RatingTopicRepository) {}
 
   async execute(topicId: number): Promise<RatingTopic> {

@@ -1,6 +1,5 @@
-import FindRatingTopicById from '@project/core/useCase/RatingTopic/FindRatingTopicByIdUseCase/FindRatingTopicByIdUseCase';
-import InMemoryRatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatinTopicRepositoryInMemory';
-import RatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatingTopic.repository';
+import { FindRatingTopicById } from '@project/core/useCase';
+import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
 import RatingTopicBuilder from '../../RatingTopicBuilder';
 
 describe('FindRatingTopicById', () => {
@@ -8,7 +7,7 @@ describe('FindRatingTopicById', () => {
   let ratingTopicRepository: RatingTopicRepository;
 
   beforeEach(() => {
-    ratingTopicRepository = new InMemoryRatingTopicRepository();
+    ratingTopicRepository = new RatingTopicRepositoryInMemory();
     findRatingTopicById = new FindRatingTopicById(ratingTopicRepository);
   });
 

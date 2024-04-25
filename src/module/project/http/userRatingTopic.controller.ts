@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { CreateUserRatingTopicDto } from '@project/core/useCase/UserRatingTopic/CreateUserRatingTopicUseCase/CreateUserRatingTopic.dto';
+import { CreateUserRatingTopicBody } from '@project/core/useCase';
 import UserRatingTopicService from '@project/shared/service/userRatingTopic.service';
 
 @Controller('/user-rating-topic')
@@ -26,13 +26,13 @@ export class UserRatingTopicController {
 
   @Post()
   async createUserRatingTopic(
-    @Body() createUserRatingTopicDto: CreateUserRatingTopicDto,
+    @Body() input: CreateUserRatingTopicBody,
     @Res() response: Response,
   ) {
     try {
       const ratingTopic =
         await this.userRatingTopicService.createUserRatingTopic(
-          createUserRatingTopicDto,
+          input,
         );
       return response.json(ratingTopic);
     } catch (error) {

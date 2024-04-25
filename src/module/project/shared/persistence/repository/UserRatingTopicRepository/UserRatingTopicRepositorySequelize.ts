@@ -1,29 +1,43 @@
 import { Injectable } from '@nestjs/common';
 
-import UserRatingTopicRepository from './userRatingTopic.repository';
-import { CreateUserRatingTopicDto } from '@project/core/useCase/UserRatingTopic/CreateUserRatingTopicUseCase/CreateUserRatingTopic.dto';
+import { UserRatingTopicRepository } from './userRatingTopic.repository';
+import { CreateUserRatingTopicBody } from '@project/core/useCase';
 
 import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 import UserRatingTopicModel from '../../model/UserRatingTopicModel';
 
 @Injectable()
-export default class UserRatingTopicRepositorySequelize
-  implements UserRatingTopicRepository
-{
-  public getAllUserRatingTopics(): Promise<UserRatingTopic[]> {
-    return UserRatingTopicModel.findAll()
-      .then((userRatingTopics) => {
-        return userRatingTopics as UserRatingTopic[];
-      })
-      .catch((error) => {
-        console.error(error);
-        throw new Error(error.message);
-      });
+export class UserRatingTopicRepositorySequelize
+  implements UserRatingTopicRepository {
+  async getAllUserRatingTopics(): Promise<UserRatingTopic[]> {
+    const userRatingTopics = await UserRatingTopicModel.findAll();
+
+    return userRatingTopics.map((row) =>
+      UserRatingTopic.restore(row.id,
+        row.value,
+        row.userId,
+        row.projectId,
+        row.ratingTopicId),
+    );
   }
 
-  public createUserRatingTopic(
-    createUserRatingTopicDto: CreateUserRatingTopicDto,
+  async createUserRatingTopic(
+    input: CreateUserRatingTopicBody,
   ): Promise<UserRatingTopic> {
-    return UserRatingTopicModel.create(createUserRatingTopicDto as any);
+    const userRatingTopic: UserRatingTopicModel = await UserRatingTopicModel.create({
+      value: input.value,
+      userId: input.userId,
+      projectId: input.projectId,
+      ratingTopicId: input.ratingTopicId,
+    });
+
+    return UserRatingTopic.restore(
+      userRatingTopic.id,
+      userRatingTopic.value,
+      userRatingTopic.userId,
+      userRatingTopic.projectId,
+      userRatingTopic.ratingTopicId,
+    );
+
   }
 }

@@ -1,14 +1,13 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
-import GetAllRatingTopics from '@project/core/useCase/RatingTopic/GetAllRatingTopicsUseCase/GetAllRatingTopicsUseCase';
-import InMemoryRatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatinTopicRepositoryInMemory';
-import RatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatingTopic.repository';
+import { GetAllRatingTopics } from '@project/core/useCase';
+import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
 
 describe('GetAllRatingTopic', () => {
   let getAllRatingTopics: GetAllRatingTopics;
   let ratingTopicRepository: RatingTopicRepository;
 
   beforeEach(() => {
-    ratingTopicRepository = new InMemoryRatingTopicRepository();
+    ratingTopicRepository = new RatingTopicRepositoryInMemory();
     getAllRatingTopics = new GetAllRatingTopics(ratingTopicRepository);
   });
 

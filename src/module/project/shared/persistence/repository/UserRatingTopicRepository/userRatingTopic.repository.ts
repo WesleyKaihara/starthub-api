@@ -1,10 +1,10 @@
 import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 
-import { CreateUserRatingTopicDto } from '@project/core/useCase/UserRatingTopic/CreateUserRatingTopicUseCase/CreateUserRatingTopic.dto';
+import { CreateUserRatingTopicBody } from '@project/core/useCase';
 
-export default interface UserRatingTopicRepository {
+export interface UserRatingTopicRepository {
   getAllUserRatingTopics(): Promise<UserRatingTopic[]>;
   createUserRatingTopic(
-    createUserRatingTopic: CreateUserRatingTopicDto,
+    input: CreateUserRatingTopicBody,
   ): Promise<UserRatingTopic>;
 }

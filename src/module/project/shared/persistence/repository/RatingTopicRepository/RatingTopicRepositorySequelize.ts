@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
 import RatingTopicModel from '../../model/RatingTopicModel';
-import RatingTopicRepository from './RatingTopic.repository';
-import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
+import { RatingTopicRepository } from './RatingTopic.repository';
 import RatingTopic from '@project/core/entity/RatingTopic';
-import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
+import { UpdateRatingTopicBody, CreateRatingTopicBody } from '@project/core/useCase';
 
 @Injectable()
-export default class RatingTopicRepositorySequelize
-  implements RatingTopicRepository
-{
+export class RatingTopicRepositorySequelize
+  implements RatingTopicRepository {
   async getAllRatingTopics(): Promise<RatingTopic[]> {
     const ratingTopics = await RatingTopicModel.findAll();
 

@@ -1,8 +1,8 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
-import RatingTopicRepository from './RatingTopic.repository';
+import { RatingTopicRepository } from './RatingTopic.repository';
 import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
-class InMemoryRatingTopicRepository implements RatingTopicRepository {
+export class RatingTopicRepositoryInMemory implements RatingTopicRepository {
   private ratingTopics: RatingTopic[];
   private nextId: number;
 
@@ -55,5 +55,3 @@ class InMemoryRatingTopicRepository implements RatingTopicRepository {
     return null;
   }
 }
-
-export default InMemoryRatingTopicRepository;

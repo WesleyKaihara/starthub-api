@@ -1,13 +1,13 @@
 import UserRatingTopic from '@project/core/entity/UserRatingTopic';
-import { CreateUserRatingTopicDto } from './CreateUserRatingTopic.dto';
-import UserRatingTopicRepository from '@project/shared/persistence/repository/UserRatingTopicRepository/userRatingTopic.repository';
+import { CreateUserRatingTopicBody } from './CreateUserRatingTopic.dto';
+import { UserRatingTopicRepository } from '@project/shared/persistence';
 
-export default class CreateUserRatingTopic {
+export class CreateUserRatingTopic {
   constructor(
     private readonly userRatingTopicRepository: UserRatingTopicRepository,
-  ) {}
+  ) { }
 
-  async execute(input: CreateUserRatingTopicDto): Promise<UserRatingTopic> {
+  async execute(input: CreateUserRatingTopicBody): Promise<UserRatingTopic> {
     const ratingTopic = UserRatingTopic.create(
       input.userId,
       input.projectId,

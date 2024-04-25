@@ -1,14 +1,12 @@
-import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
-import CreateRatingTopic from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopicUseCase';
-import InMemoryRatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatinTopicRepositoryInMemory';
-import RatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatingTopic.repository';
+import { CreateRatingTopic, CreateRatingTopicBody } from '@project/core/useCase';
+import { RatingTopicRepository, RatingTopicRepositoryInMemory } from '@project/shared/persistence';
 
 describe('CreateRatingTopic', () => {
   let createRatingTopic: CreateRatingTopic;
   let ratingTopicRepository: RatingTopicRepository;
 
   beforeEach(() => {
-    ratingTopicRepository = new InMemoryRatingTopicRepository();
+    ratingTopicRepository = new RatingTopicRepositoryInMemory();
     createRatingTopic = new CreateRatingTopic(ratingTopicRepository);
   });
 

@@ -1,9 +1,9 @@
 import RatingTopic from '@project/core/entity/RatingTopic';
-import RatingTopicRepository from '@project/shared/persistence/repository/RatingTopicRepository/RatingTopic.repository';
+import { RatingTopicRepository } from '@project/shared/persistence';
 import { UpdateRatingTopicBody } from './UpdateRatingTopic.dto';
 
-export default class UpdateRatingTopic {
-  constructor(private readonly ratingTopicRepository: RatingTopicRepository) {}
+export class UpdateRatingTopic {
+  constructor(private readonly ratingTopicRepository: RatingTopicRepository) { }
 
   async execute(
     topicId: number,
