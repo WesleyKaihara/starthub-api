@@ -54,6 +54,19 @@ describe('DiscussionController (e2e)', () => {
   });
 
   it('/discussion/:discussionId (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/discussion/8')
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((response) => {
+        expect(response.body).toHaveProperty(
+          'message',
+          'Discussion with id 8 not found',
+        );
+      })
+  });
+
+  it('/discussion/:discussionId (GET)', () => {
     const discussion = Discussion.restore(1, "Discussion title", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 
     jest

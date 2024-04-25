@@ -33,14 +33,12 @@
     "@nestjs/throttler": "^5.1.2",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
-    "mariadb": "^3.2.3",
     "mysql2": "^3.9.2",
     "openai": "^4.33.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.1",
-    "sequelize-typescript": "^2.1.6",
-    "zod": "^3.22.4"
+    "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

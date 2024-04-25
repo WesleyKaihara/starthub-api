@@ -25,10 +25,11 @@ describe('FindDiscussionById', () => {
     expect(discussion).toEqual(expectedDiscussion);
   });
 
-  it('should return null if discussion is not found', async () => {
+  it('should return an exeption when discussion not exists', async () => {
     const discussionId = 2;
-    const discussion = await findDiscussionById.execute(discussionId);
+    expect.assertions(1);
 
-    expect(discussion).toBeNull();
+    expect(findDiscussionById.execute(discussionId))
+      .rejects.toThrow(`Discussion with id ${discussionId} not found`);
   });
 });
