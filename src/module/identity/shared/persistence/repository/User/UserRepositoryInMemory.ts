@@ -15,12 +15,20 @@ export class UserRepositoryInMemory implements UserRepository {
     return this.users;
   }
 
-  async findUserById(userId: number): Promise<User | null> {
-    return this.users.find((user) => user.id === userId) || null;
+  async findUserById(userId: number): Promise<User> {
+    const user = this.users.find((user) => user.id === userId);
+    if (!user) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+    return user;
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
-    return this.users.find((user) => user.email === email) || null;
+  async findUserByEmail(email: string): Promise<User> {
+    const user = this.users.find((user) => user.email === email);
+    if (!user) {
+      throw new Error(`User with email ${email} not found`);
+    }
+    return user;
   }
   
   async createUser(input: CreateUserBody): Promise<User> {

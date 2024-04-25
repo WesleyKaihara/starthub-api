@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { jwtConstants } from '../core/constants';
+import { jwtConstants } from '../../core/constants';
 
 export class AuthGuardMock implements CanActivate {
   canActivate(context: ExecutionContext): boolean {

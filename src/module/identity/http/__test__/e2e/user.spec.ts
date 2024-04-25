@@ -71,6 +71,19 @@ describe('UserController (e2e)', () => {
       })
   });
 
+  it('should be throw an expection when user not found', () => {
+    return request(app.getHttpServer())
+      .get('/user/1')
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((response) => {
+        expect(response.body).toHaveProperty(
+          'message',
+          'User with id 1 not found',
+        );
+      })
+  });
+
   it('should return 400 error when user id is not a number', () => {
     return request(app.getHttpServer())
       .get('/user/abc')
@@ -80,7 +93,7 @@ describe('UserController (e2e)', () => {
         expect(response.body).toHaveProperty('message');
       });
   });
-  
+
   it('should return 400 error when an error occurs while finding project by id', () => {
     jest
       .spyOn(app.get(UserService), 'findUserById')

@@ -25,10 +25,11 @@ describe('FindUserById', () => {
     expect(user).toEqual(expectedUser);
   });
 
-  it('should return null if user is not found', async () => {
+  it('should throw and expection if user is not found', async () => {
     const userId = 2;
-    const user = await findUserById.execute(userId);
 
-    expect(user).toBeNull();
+    expect(findUserById.execute(userId))
+      .rejects
+      .toThrow(`User with id ${userId} not found`)
   });
 });
