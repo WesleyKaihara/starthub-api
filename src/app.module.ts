@@ -48,6 +48,8 @@ import { DiscussionModule } from './module/discussion/discussion.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    if(configuration().NODE_ENV !== "test") {
+      consumer.apply(LoggerMiddleware).forRoutes('*');
+    }
   }
 }

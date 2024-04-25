@@ -1,4 +1,3 @@
-import UserRatingTopic from '@project/core/entity/UserRatingTopic';
 import {
   CreateUserRatingTopicBody,
   GetAllUserRatingTopics,

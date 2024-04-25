@@ -7,7 +7,6 @@ import {
   InteractionRepositorySequelize,
 } from '@discussion/shared/persistence';
 import InteractionService from '@discussion/shared/service/interaction.service';
-import Interaction from '@discussion/core/entity/Interaction';
 
 describe('InteractionController (e2e)', () => {
   let app;
