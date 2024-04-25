@@ -58,7 +58,7 @@ describe('ProjectController (e2e)', () => {
 
     jest
       .spyOn(app.get(ProjectService), 'findProjectById')
-      .mockResolvedValue(project);
+      .mockResolvedValueOnce(project);
 
     return request(app.getHttpServer())
       .get('/project/1')
@@ -79,6 +79,19 @@ describe('ProjectController (e2e)', () => {
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('message');
+      });
+  });
+
+  it('should return 400 error when project not exists', () => {
+    return request(app.getHttpServer())
+      .get('/project/5')
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((response) => {
+        expect(response.body).toHaveProperty(
+          'message',
+          'Project with id 5 not found',
+        );
       });
   });
 

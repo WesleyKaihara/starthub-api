@@ -57,7 +57,7 @@ describe('UserController (e2e)', () => {
 
     jest
       .spyOn(app.get(UserService), 'findUserById')
-      .mockResolvedValue(user);
+      .mockResolvedValueOnce(user);
 
     return request(app.getHttpServer())
       .get('/user/1')

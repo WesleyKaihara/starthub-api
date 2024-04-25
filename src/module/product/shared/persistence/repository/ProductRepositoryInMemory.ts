@@ -16,8 +16,12 @@ export class ProductRepositoryInMemory implements ProductRepository {
     return this.products;
   }
 
-  async findProductById(productId: number): Promise<Product | null> {
-    return this.products.find((product) => product.id === productId) || null;
+  async findProductById(productId: number): Promise<Product> {
+    const product = this.products.find((product) => product.id === productId);
+    if (!product) {
+      throw new Error(`Product with id ${productId} not found`);
+    }
+    return product;
   }
 
   async createProduct(input: CreateProductBody): Promise<Product> {

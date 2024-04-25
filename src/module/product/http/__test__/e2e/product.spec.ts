@@ -57,7 +57,7 @@ describe('ProductController (e2e)', () => {
 
     jest
       .spyOn(app.get(ProductService), 'findProductById')
-      .mockResolvedValue(product);
+      .mockResolvedValueOnce(product);
 
     return request(app.getHttpServer())
       .get('/product/1')
@@ -69,6 +69,16 @@ describe('ProductController (e2e)', () => {
         expect(response.body).toHaveProperty('description');
         expect(response.body).toHaveProperty('value');
       })
+  });
+
+  it('should return 400 error when product is not found', () => {
+    return request(app.getHttpServer())
+      .get('/product/7')
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((response) => {
+        expect(response.body).toHaveProperty('message');
+      });
   });
 
   it('should return 400 error when product id is not a number', () => {

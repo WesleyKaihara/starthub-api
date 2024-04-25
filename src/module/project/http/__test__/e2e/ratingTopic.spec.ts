@@ -57,7 +57,7 @@ describe('RatingTopicController (e2e)', () => {
 
     jest
       .spyOn(app.get(RatingTopicService), 'findRatingTopicById')
-      .mockResolvedValue(ratingTopic);
+      .mockResolvedValueOnce(ratingTopic);
 
     return request(app.getHttpServer())
       .get('/rating-topic/1')
@@ -67,6 +67,19 @@ describe('RatingTopicController (e2e)', () => {
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
+      })
+  });
+
+  it('shoud return expection when rating topic not found', () => {
+    return request(app.getHttpServer())
+      .get('/rating-topic/1')
+      .expect(400)
+      .expect('Content-Type', /json/)
+      .then((response) => {
+        expect(response.body).toHaveProperty(
+          'message',
+          'Rating Topic with id 1 not found'
+        );
       })
   });
 

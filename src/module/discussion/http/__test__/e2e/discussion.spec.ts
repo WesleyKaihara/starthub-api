@@ -71,7 +71,7 @@ describe('DiscussionController (e2e)', () => {
 
     jest
       .spyOn(app.get(DiscussionService), 'findDiscussionById')
-      .mockResolvedValue(discussion);
+      .mockResolvedValueOnce(discussion);
 
     return request(app.getHttpServer())
       .get('/discussion/1')

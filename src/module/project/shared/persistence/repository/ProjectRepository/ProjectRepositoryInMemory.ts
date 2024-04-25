@@ -15,8 +15,12 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     return this.projects;
   }
 
-  async findProjectById(projectId: number): Promise<Project | null> {
-    return this.projects.find((project) => project.id === projectId) || null;
+  async findProjectById(projectId: number): Promise<Project> {
+    const project = this.projects.find((project) => project.id === projectId);
+    if (!project) {
+      throw new Error(`Project with id ${projectId} not found`);
+    }
+    return project;
   }
 
   async createProject(createProjectDto: any): Promise<Project> {

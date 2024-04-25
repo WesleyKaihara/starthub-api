@@ -26,8 +26,9 @@ describe('FindRatingTopicById', () => {
 
   it('should return null if ratingTopic is not found', async () => {
     const ratingTopicId = 2;
-    const ratingTopic = await findRatingTopicById.execute(ratingTopicId);
 
-    expect(ratingTopic).toBeNull();
+    expect(findRatingTopicById.execute(ratingTopicId))
+      .rejects
+      .toThrow(`Rating Topic with id ${ratingTopicId} not found`);
   });
 });

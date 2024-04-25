@@ -28,8 +28,9 @@ describe('FindProductById', () => {
 
   it('should return null if product is not found', async () => {
     const productId = 2;
-    const product = await findProductById.execute(productId);
 
-    expect(product).toBeNull();
+    expect(findProductById.execute(productId))
+      .rejects
+      .toThrow("Product with id 2 not found");
   });
 });

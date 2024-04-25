@@ -25,10 +25,11 @@ describe('FindProjectById', () => {
     expect(project).toEqual(expectedProject);
   });
 
-  it('should return null if project is not found', async () => {
+  it('should return exeption if project is not found', async () => {
     const projectId = 999;
-    const project = await findProjectById.execute(projectId);
 
-    expect(project).toBeNull();
+    expect(findProjectById.execute(projectId))
+      .rejects
+      .toThrow(`Project with id ${projectId} not found`)
   });
 });
