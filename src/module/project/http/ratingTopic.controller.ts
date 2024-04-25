@@ -12,7 +12,6 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { ZodError } from 'zod';
 import ProjectRatingTopicService from '@project/shared/service/ratingTopic.service';
 import { CreateRatingTopicBody } from '@project/core/useCase/RatingTopic/CreateRatingTopicUseCase/CreateRatingTopic.dto';
 import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
@@ -20,7 +19,7 @@ import { UpdateRatingTopicBody } from '@project/core/useCase/RatingTopic/UpdateR
 @Controller('/rating-topic')
 @ApiTags('RatingTopic')
 export class RatingTopicController {
-  constructor(private readonly ratingTopicService: ProjectRatingTopicService) {}
+  constructor(private readonly ratingTopicService: ProjectRatingTopicService) { }
 
   @Get()
   async listRatingTopics(@Res() response: Response) {
@@ -74,13 +73,7 @@ export class RatingTopicController {
       );
       return response.json(ratingTopic);
     } catch (error) {
-      if (error instanceof ZodError) {
-        return response
-          .status(400)
-          .json({ message: 'Invalid Schema', errors: error.errors });
-      } else {
-        return response.status(500).json({ message: error.message });
-      }
+      return response.status(400).json({ message: error.message });
     }
   }
 }

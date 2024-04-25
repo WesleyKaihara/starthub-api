@@ -1,6 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { z } from 'zod';
-
 export class CreatePermissionDto {
   @ApiProperty({
     example: true,
@@ -15,11 +13,3 @@ export class CreatePermissionDto {
   })
   readonly delete: boolean;
 }
-
-export const CreatePermissionDtoSchema = z
-  .object({
-    read: z.boolean(),
-    write: z.boolean(),
-    delete: z.boolean(),
-  })
-  .strict();
