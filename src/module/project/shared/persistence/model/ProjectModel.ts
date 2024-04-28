@@ -27,6 +27,9 @@ export default class ProjectModel extends Model {
   @Column
   private: boolean;
 
+  @Column
+  image: string;
+
   @CreatedAt
   @Column({ field: 'createdAt' })
   createdAt: Date;

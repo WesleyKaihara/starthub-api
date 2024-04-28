@@ -24,6 +24,7 @@
       "@payment/*": ["./src/module/payment/*"],
       "@project/*": ["./src/module/project/*"],
       "@product/*": ["./src/module/product/*"],
+      "@upload/*": ["./src/module/upload/*"],
       "@src/*": ["./src/*"],
     },
   }

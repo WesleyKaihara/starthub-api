@@ -1,98 +1,218 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import * as request from 'supertest';
-
 import { AppModule } from '@src/app.module';
 import UserService from '@identity/shared/service/user.service';
 import User from '@identity/core/entity/User';
 import SignInDto from '../../dto/signin.dto';
+import RefreshDto from '../../dto/refresh.dto';
+import { AuthService } from '@src/module/auth/core/service/auth.service';
 
-describe('Auth - Test (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: INestApplication;
-
-  const mockUserService = {
-    findUserByEmail: jest.fn(),
-  };
+  let authService: AuthService;
+  let userService: UserService;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    })
-      .overrideProvider(UserService)
-      .useValue(mockUserService)
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
+
+    authService = moduleFixture.get(AuthService);
+    userService = moduleFixture.get(UserService);
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  describe('POST /login', () => {
-    it('deve retornar um error ao realizar login para usuário invalido', async () => {
-      const signDto: SignInDto = {
+  describe('POST /auth/login', () => {
+    it('should return an error for invalid credentials', async () => {
+      const signInDto: SignInDto = {
         email: 'test.user@email.com',
         password: 'TestUser123',
       };
 
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValueOnce(null);
+
       const response = await request(app.getHttpServer())
-        .post(`/auth/login`)
-        .send(signDto);
+        .post('/auth/login')
+        .send(signInDto);
 
       expect(response.status).toBe(401);
-      expect(response.body.mensagem).not.toEqual({
-        mensagem: `Credenciais invalidas!!`,
+      expect(response.body).toEqual({ mensagem: 'Credenciais invalidas!!' });
+    });
+
+    it('should return an error when email is missing', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({
+          password: 'TestUser123',
+        });
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({ mensagem: 'Credenciais invalidas!!' });
+    });
+
+    it('should return an error when password is missing', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({
+          email: 'test.user@email.com',
+        });
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({ mensagem: 'Credenciais invalidas!!' });
+    });
+
+    it('should return tokens for valid credentials', async () => {
+      const signInDto: SignInDto = {
+        email: 'test.user@email.com',
+        password: 'TestUser123',
+      };
+      const user = User.restore(
+        999,
+        'Test user',
+        'test.user@email.com',
+        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
+      );
+
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValueOnce(user);
+      jest
+        .spyOn(authService, 'generateToken')
+        .mockResolvedValueOnce('access_token');
+      jest
+        .spyOn(authService, 'generateRefreshToken')
+        .mockResolvedValueOnce('refresh_token');
+
+      const response = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send(signInDto);
+
+      expect(response.status).toBe(201);
+      expect(response.body).toEqual({
+        access_token: 'access_token',
+        refresh_token: 'refresh_token',
+      });
+    });
+  });
+
+  describe('POST /auth/refresh', () => {
+    it('should return an error when refresh token is missing', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send({});
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({
+        mensagem: 'Token Inválido!!',
       });
     });
 
-    it('deve retornar um token ao realizar login', async () => {
-      const signDto: SignInDto = {
-        email: 'test.user@email.com',
-        password: 'TestUser123',
+    it('should return an error for expired refresh token', async () => {
+      const refreshDto: RefreshDto = {
+        refreshToken: 'expired_refresh_token',
       };
 
-      const user = User.restore(
-        999,
-        'Test user',
-        'test.user@email.com',
-        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
-      );
-
-      mockUserService.findUserByEmail.mockReturnValueOnce(user);
+      jest.spyOn(authService, 'refresh').mockImplementationOnce(() => {
+        throw new Error('TokenExpiredError');
+      });
 
       const response = await request(app.getHttpServer())
-        .post(`/auth/login`)
-        .send(signDto);
-
-      expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('access_token');
-    });
-
-    it('deve retornar um error ao realizar login com credenciais invalidas', async () => {
-      const signDto: SignInDto = {
-        email: 'test.user@email.com',
-        password: 'Incorrect User',
-      };
-
-      const user = User.restore(
-        999,
-        'Test user',
-        'test.user@email.com',
-        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
-      );
-
-      mockUserService.findUserByEmail.mockReturnValueOnce(user);
-
-      const response = await request(app.getHttpServer())
-        .post(`/auth/login`)
-        .send(signDto);
+        .post('/auth/refresh')
+        .send(refreshDto);
 
       expect(response.status).toBe(401);
-      expect(response.body.mensagem).not.toEqual({
-        mensagem: `Credenciais invalidas!!`,
+      expect(response.body).toEqual({ mensagem: 'Token Inválido!!' });
+    });
+
+    it('should return an error for invalid signature in refresh token', async () => {
+      const refreshDto: RefreshDto = {
+        refreshToken: 'invalid_signature_refresh_token',
+      };
+
+      jest.spyOn(authService, 'refresh').mockImplementationOnce(() => {
+        throw new Error('JsonWebTokenError');
+      });
+
+      const response = await request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send(refreshDto);
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({ mensagem: 'Token Inválido!!' });
+    });
+
+    it('should return an error for invalid refresh token', async () => {
+      const refreshDto: RefreshDto = {
+        refreshToken: 'invalid_refresh_token',
+      };
+
+      jest.spyOn(authService, 'refresh').mockImplementationOnce(() => {
+        throw new Error('Invalid refresh token');
+      });
+
+      const response = await request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send(refreshDto);
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({ mensagem: 'Token Inválido!!' });
+    });
+
+    it('should return an error when user is not found for refresh token', async () => {
+      const refreshDto: RefreshDto = {
+        refreshToken: 'valid_refresh_token_but_user_not_found',
+      };
+
+      jest.spyOn(authService, 'refresh').mockImplementationOnce(() => {
+        throw new NotFoundException('User not found');
+      });
+
+      const response = await request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send(refreshDto);
+
+      expect(response.status).toBe(401);
+      expect(response.body).toEqual({ mensagem: 'Token Inválido!!' });
+    });
+
+    it('should return new tokens for valid refresh token', async () => {
+      const refreshDto: RefreshDto = {
+        refreshToken: 'valid_refresh_token',
+      };
+
+      const user = User.restore(
+        999,
+        'Test user',
+        'test.user@email.com',
+        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
+      );
+
+      jest.spyOn(authService, 'refresh').mockResolvedValueOnce(user);
+      jest
+        .spyOn(authService, 'generateToken')
+        .mockResolvedValueOnce('new_access_token');
+      jest
+        .spyOn(authService, 'generateRefreshToken')
+        .mockResolvedValueOnce('new_refresh_token');
+
+      const response = await request(app.getHttpServer())
+        .post('/auth/refresh')
+        .send(refreshDto);
+
+      expect(response.status).toBe(201);
+      expect(response.body).toEqual({
+        access_token: 'new_access_token',
+        refresh_token: 'new_refresh_token',
       });
     });
   });

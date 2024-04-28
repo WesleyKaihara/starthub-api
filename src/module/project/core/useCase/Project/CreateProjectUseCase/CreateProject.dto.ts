@@ -14,4 +14,8 @@ export class CreateProjectBody {
     example: false,
   })
   readonly private: boolean;
+  @ApiProperty({
+    example: false,
+  })
+  readonly image?: string;
 }

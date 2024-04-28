@@ -3,12 +3,19 @@ export default class Project {
   name: string;
   description: string;
   private: boolean;
+  image?: string;
 
-  static create(name: string, description: string, _private: boolean): Project {
+  static create(
+    name: string,
+    description: string,
+    _private: boolean,
+    image?: string,
+  ): Project {
     const project = new Project();
     project.name = name;
     project.description = description;
     project.private = _private;
+    project.image = image;
     project.isValid();
     return project;
   }
@@ -18,12 +25,14 @@ export default class Project {
     name: string,
     description: string,
     _private: boolean,
+    image?: string,
   ): Project {
     const project = new Project();
     project.id = id;
     project.name = name;
     project.description = description;
     project.private = _private;
+    project.image = image;
     project.isValid();
     return project;
   }
@@ -33,12 +42,14 @@ export default class Project {
     name: string,
     description: string,
     _private: boolean,
+    image?: string,
   ): Project {
     const project = new Project();
     project.id = id;
     project.name = name;
     project.description = description;
     project.private = _private;
+    project.image = image;
     return project;
   }
 

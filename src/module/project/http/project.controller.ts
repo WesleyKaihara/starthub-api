@@ -1,20 +1,25 @@
 import {
   Body,
   Controller,
+  FileTypeValidator,
   Get,
   Param,
+  ParseFilePipe,
   ParseIntPipe,
   Post,
   Put,
   Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import ProjectService from '@project/shared/service/project.service';
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('/project')
 @ApiTags('Project')
@@ -45,14 +50,48 @@ export class ProjectController {
   }
 
   @Post()
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+        data: {
+          type: 'object',
+          properties: {
+            name: { type: 'string' },
+            description: { type: 'string' },
+            private: { type: 'boolean' },
+          },
+        },
+      },
+    },
+  })
   async createProject(
-    @Body() createProjectDto: CreateProjectBody,
+    @Body() input: CreateProjectBody,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          // new MaxFileSizeValidator({ maxSize: 25000 }),
+          new FileTypeValidator({ fileType: 'image/jpeg' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
     @Res() response: Response,
   ) {
     try {
-      const project = await this.projectService.createProject(createProjectDto);
+      const project = await this.projectService.createProject(
+        JSON.parse((input as any).data),
+        file,
+      );
       return response.json(project);
     } catch (error) {
+      console.log(error);
       return response.status(400).json({ message: error.message });
     }
   }

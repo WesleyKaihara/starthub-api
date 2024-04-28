@@ -46,7 +46,7 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
         projectId,
         updateProjectDto.name,
         updateProjectDto.description,
-        updateProjectDto.private,
+        updateProjectDto.private
       );
       updatedProject.id = projectId;
       this.projects[projectIndex] = updatedProject;

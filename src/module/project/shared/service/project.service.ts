@@ -10,10 +10,14 @@ import {
   UpdateProject,
 } from '@project/core/useCase';
 import { ProjectRepositorySequelize } from '../persistence';
+import UploadService from '@upload/shared/service/upload.service';
 
 @Injectable()
 export default class ProjectService {
-  constructor(private readonly projectRepository: ProjectRepositorySequelize) {}
+  constructor(
+    private readonly projectRepository: ProjectRepositorySequelize,
+    private readonly uploadService: UploadService,
+  ) {}
 
   getAllProjects(): Promise<Project[]> {
     const getAllProjects = new GetAllProjects(this.projectRepository);
@@ -25,9 +29,15 @@ export default class ProjectService {
     return findProjectById.execute(projectId);
   }
 
-  createProject(input: CreateProjectBody): Promise<Project> {
-    const createProject = new CreateProject(this.projectRepository);
-    return createProject.execute(input);
+  createProject(
+    input: CreateProjectBody,
+    file: Express.Multer.File,
+  ): Promise<Project> {
+    const createProject = new CreateProject(
+      this.projectRepository,
+      this.uploadService,
+    );
+    return createProject.execute(input, file);
   }
 
   updateProject(projectId: number, input: UpdateProjectBody): Promise<Project> {

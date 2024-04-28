@@ -18,6 +18,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
         project.name,
         project.description,
         project.private,
+        project.image,
       ),
     );
   }
@@ -40,6 +41,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       name: input.name,
       description: input.description,
       private: input.private,
+      image: input.image,
     });
 
     return Project.restore(

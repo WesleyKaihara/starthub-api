@@ -13,6 +13,7 @@ import {
   RatingTopicRepositorySequelize,
   UserRatingTopicRepositorySequelize,
 } from './shared/persistence';
+import UploadService from '../upload/shared/service/upload.service';
 
 @Module({
   providers: [
@@ -22,6 +23,7 @@ import {
     RatingTopicService,
     UserRatingTopicRepositorySequelize,
     UserRatingTopicService,
+    UploadService,
   ],
   controllers: [
     ProjectController,
