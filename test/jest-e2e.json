@@ -19,6 +19,7 @@
     "^@project/(.*)$": "<rootDir>/src/module/project/$1",
     "^@analysis/(.*)$": "<rootDir>/src/module/analysis/$1",
     "^@payment/(.*)$": "<rootDir>/src/module/payment/$1",
-    "^@product/(.*)$": "<rootDir>/src/module/product/$1"
+    "^@product/(.*)$": "<rootDir>/src/module/product/$1",
+    "^@upload/(.*)$": "<rootDir>/src/module/upload/$1"
   }
 }

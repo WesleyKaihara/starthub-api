@@ -146,17 +146,19 @@ describe('ProjectController (e2e)', () => {
       });
   });
 
-  it('should return error when creating project with invalid description length', () => {
+  it('should return error when creating project without image', () => {
     return request(app.getHttpServer())
       .post('/project')
-      .send({ name: 'Valid Name', description: 'Test', private: true })
+      .send({
+        name: 'Valid Name',
+        description: 'Test description',
+        private: true,
+      })
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('message');
-        expect(response.body.message).toContain(
-          'Project Description must have at least 10 characters',
-        );
+        expect(response.body.message).toContain('File is required');
       });
   });
 

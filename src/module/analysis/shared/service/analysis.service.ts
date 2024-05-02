@@ -1,13 +1,24 @@
 import { Injectable } from '@nestjs/common';
 
-import GetCompleteAnalysis from '@analysis/core/useCase/GetCompleteAnalysis/GetCompleteAnalysisUseCase';
+import {
+  GetProjectSugestions,
+  GetSimilarProposals,
+} from '@analysis/core/useCase';
 
 @Injectable()
 export default class AnalysisService {
   constructor() {}
 
-  getCompleteAnalysis(): Promise<any> {
-    const getCompleteAnalysis = new GetCompleteAnalysis();
-    return getCompleteAnalysis.execute();
+  async getCompleteAnalysis(): Promise<any> {
+    const getProjectSugestions = new GetProjectSugestions();
+    const getSimilarProposals = new GetSimilarProposals();
+
+    const sugestions = await getProjectSugestions.execute();
+    const similarProposals = await getSimilarProposals.execute();
+
+    return {
+      sugestions: sugestions.data,
+      similarProposals: similarProposals.data,
+    };
   }
 }

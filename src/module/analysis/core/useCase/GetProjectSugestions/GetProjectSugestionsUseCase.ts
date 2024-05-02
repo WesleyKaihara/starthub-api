@@ -1,11 +1,11 @@
 import OpenAI from '@analysis/core/entity/OpenAI';
 
-export default class GetCompleteAnalysis {
+export class GetProjectSugestions {
   openai = OpenAI.getInstance();
   schema = {
     type: 'object',
     properties: {
-      sugestions: {
+      data: {
         type: 'array',
         description: 'Enviar três sugestões relacionadas ao projeto',
         items: {
@@ -46,8 +46,8 @@ export default class GetCompleteAnalysis {
       ],
       functions: [{ name: 'get_sugestions', parameters: this.schema }],
       function_call: { name: 'get_sugestions' },
-      temperature: 0,
+      temperature: 1.5,
     });
-    return analysis;
+    return JSON.parse(analysis.choices[0].message.function_call.arguments);
   }
 }

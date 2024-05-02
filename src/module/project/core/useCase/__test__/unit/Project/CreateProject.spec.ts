@@ -5,14 +5,24 @@ import {
   ProjectRepository,
   ProjectRepositoryInMemory,
 } from '@project/shared/persistence';
+import UploadService from '@upload/shared/service/upload.service';
+import { ConfigService } from '@nestjs/config';
+import { Readable } from 'stream';
+
+import * as awsSdk from '@aws-sdk/client-s3';
+jest.mock('@aws-sdk/client-s3');
 
 describe('CreateProject', () => {
   let createProject: CreateProject;
   let projectRepository: ProjectRepository;
+  let uploadService: UploadService;
+  let configService: ConfigService;
 
   beforeEach(() => {
     projectRepository = new ProjectRepositoryInMemory();
-    createProject = new CreateProject(projectRepository);
+    configService = new ConfigService();
+    uploadService = new UploadService(configService);
+    createProject = new CreateProject(projectRepository, uploadService);
   });
 
   it('should create a project', async () => {
@@ -22,7 +32,22 @@ describe('CreateProject', () => {
       private: false,
     };
 
-    const project = await createProject.execute(input);
+    const file: Express.Multer.File = {
+      fieldname: 'fieldname',
+      originalname: 'originalname',
+      encoding: 'encoding',
+      mimetype: 'mimetype',
+      size: 1234,
+      destination: 'destination',
+      filename: 'filename',
+      path: 'path',
+      buffer: Buffer.from('content'),
+      stream: Readable.from(['content']),
+    };
+
+    (awsSdk.S3Client.prototype.send as jest.Mock).mockResolvedValue({});
+
+    const project = await createProject.execute(input, file);
 
     expect(project).toBeDefined();
     expect(project.name).toBe('Test Project');
@@ -37,7 +62,20 @@ describe('CreateProject', () => {
       private: false,
     };
 
-    await expect(createProject.execute(input)).rejects.toThrow(
+    const file: Express.Multer.File = {
+      fieldname: 'fieldname',
+      originalname: 'originalname',
+      encoding: 'encoding',
+      mimetype: 'mimetype',
+      size: 1234,
+      destination: 'destination',
+      filename: 'filename',
+      path: 'path',
+      buffer: Buffer.from('content'),
+      stream: Readable.from(['content']),
+    };
+
+    await expect(createProject.execute(input, file)).rejects.toThrow(
       /Project Name must have at least 5/,
     );
   });
@@ -49,7 +87,20 @@ describe('CreateProject', () => {
       private: false,
     };
 
-    await expect(createProject.execute(input)).rejects.toThrow(
+    const file: Express.Multer.File = {
+      fieldname: 'fieldname',
+      originalname: 'originalname',
+      encoding: 'encoding',
+      mimetype: 'mimetype',
+      size: 1234,
+      destination: 'destination',
+      filename: 'filename',
+      path: 'path',
+      buffer: Buffer.from('content'),
+      stream: Readable.from(['content']),
+    };
+
+    await expect(createProject.execute(input, file)).rejects.toThrow(
       /Project Description must have at least 10/,
     );
   });
