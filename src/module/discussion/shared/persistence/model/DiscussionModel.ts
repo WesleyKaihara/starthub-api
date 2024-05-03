@@ -21,7 +21,9 @@ export default class DiscussionModel extends Model {
   @Column
   title: string;
 
-  @Column
+  @Column({
+    type: DataType.TEXT,
+  })
   context: string;
 
   @CreatedAt

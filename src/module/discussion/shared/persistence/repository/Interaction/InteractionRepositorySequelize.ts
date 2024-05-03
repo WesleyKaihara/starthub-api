@@ -19,6 +19,22 @@ export class InteractionRepositorySequelize implements InteractionRepository {
     );
   }
 
+  async getInteractionsByProjectId(projectId: number): Promise<Interaction[]> {
+    const interactions = await InteractionModel.findAll({
+      where: {
+        discussionId: projectId,
+      },
+    });
+
+    return interactions.map((interaction) =>
+      Interaction.restore(
+        interaction.id,
+        interaction.discussionId,
+        interaction.message,
+      ),
+    );
+  }
+
   async createInteraction(input: CreateInteractionBody): Promise<Interaction> {
     const interaction: InteractionModel = await InteractionModel.create({
       discussionId: input.discussionId,

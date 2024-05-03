@@ -4,6 +4,7 @@ import { UpdateInteractionBody } from '@src/module/discussion/core/useCase/Inter
 
 export interface InteractionRepository {
   getAllInteractions(): Promise<Interaction[]>;
+  getInteractionsByProjectId(projectId: number): Promise<Interaction[]>;
   createInteraction(
     createInteractionDto: CreateInteractionBody,
   ): Promise<Interaction>;

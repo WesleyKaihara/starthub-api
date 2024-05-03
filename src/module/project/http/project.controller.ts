@@ -77,7 +77,7 @@ export class ProjectController {
       new ParseFilePipe({
         validators: [
           // new MaxFileSizeValidator({ maxSize: 25000 }),
-          new FileTypeValidator({ fileType: 'image/jpeg' }),
+          new FileTypeValidator({ fileType: 'image/png' }),
         ],
       }),
     )

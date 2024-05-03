@@ -8,6 +8,7 @@ import {
   UpdateInteraction,
   UpdateInteractionBody,
 } from '@discussion/core/useCase';
+import { GetInteractionsByProjectId } from '@discussion/core/useCase/Interaction/GetInteractionsByProjectId/GetInteractionsByProjectIdUseCase';
 
 @Injectable()
 export default class InteractionService {
@@ -20,6 +21,13 @@ export default class InteractionService {
       this.interactionRepository,
     );
     return getAllInteractions.execute();
+  }
+
+  getInteractionsByProjectId(projectId: number): Promise<Interaction[]> {
+    const getInteractionsByProjectId = new GetInteractionsByProjectId(
+      this.interactionRepository,
+    );
+    return getInteractionsByProjectId.execute(projectId);
   }
 
   createInteraction(input: CreateInteractionBody): Promise<Interaction> {

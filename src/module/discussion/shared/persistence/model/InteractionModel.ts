@@ -28,6 +28,9 @@ export default class InteractionModel extends Model {
   @BelongsTo(() => DiscussionModel)
   discussion!: DiscussionModel;
 
+  @Column({
+    type: DataType.TEXT,
+  })
   @Column
   message: string;
 

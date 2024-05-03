@@ -16,6 +16,10 @@ export class InteractionRepositoryInMemory implements InteractionRepository {
     return this.interactions;
   }
 
+  async getInteractionsByProjectId(): Promise<Interaction[]> {
+    return this.interactions;
+  }
+
   async createInteraction(input: CreateInteractionBody): Promise<Interaction> {
     const interaction = Interaction.create(input.discussionId, input.message);
     interaction.id = this.nextId++;

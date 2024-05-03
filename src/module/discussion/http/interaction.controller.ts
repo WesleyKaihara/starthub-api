@@ -30,6 +30,20 @@ export class InteractionController {
     }
   }
 
+  @Get('/:projectId')
+  async listInteractionsByProjectId(
+    @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Res() response: Response,
+  ) {
+    try {
+      const interactions =
+        await this.interactionService.getInteractionsByProjectId(projectId);
+      return response.json(interactions);
+    } catch (error) {
+      return response.status(500).json({ message: error.message });
+    }
+  }
+
   @Post()
   async createInteraction(
     @Body() input: CreateInteractionBody,
