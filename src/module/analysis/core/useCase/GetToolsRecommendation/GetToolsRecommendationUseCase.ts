@@ -8,19 +8,34 @@ export class GetToolsRecommendation {
       data: {
         type: 'array',
         description:
-          'Apresentar algumas sugestões de ferramentas para utilizar durante o desenvolvimento do projeto, podendo ser softwares ou ideias de planilhas, as sugestões devem ser uteis para a evolução e organização do projeto. Também deve ser apresentado os motivos da escolha da ferramenta, apresentando o motivo de utilizar, valor de possíveis planos e quais empresas já utilizam essa ferramenta',
+          'Apresente algumas sugestões de ferramentas que podem ser utilizadas durante o desenvolvimento do projeto da startup. Estas ferramentas podem incluir softwares, plataformas online, frameworks, entre outros recursos. As sugestões devem ser selecionadas com base nas necessidades específicas da empresa, no estágio atual do projeto e nos objetivos de curto e longo prazo. Além disso, fornecer uma análise detalhada sobre cada ferramenta recomendada, incluindo seus principais recursos, funcionalidades, vantagens competitivas, limitações e possíveis casos de uso.',
         items: {
           type: 'object',
           properties: {
             name: {
               type: 'string',
               description:
-                'Deve retornar o nome da ferramenta sugerida para auxiliar a startup durante as possíveis atividades que serão realizadas, como planejamento, desenvolvimento do produto, organização e controle de ativos',
+                'O nome da ferramenta recomendada para auxiliar no desenvolvimento do projeto da startup.',
             },
             description: {
               type: 'string',
               description:
-                'Descreve alguns motivos de se utilizar a ferramenta encontrada, apresentando os benefícios de se utilizar, como ela pode ajudar, quais empresas utilizam essa ferramenta e por quais motivo. Se existir custo também deve ser apresentado',
+                'Uma descrição detalhada da ferramenta recomendada, destacando seus principais recursos, funcionalidades e vantagens competitivas em relação a outras opções disponíveis no mercado.',
+            },
+            advantages: {
+              type: 'string',
+              description:
+                'As vantagens competitivas da ferramenta recomendada, incluindo sua capacidade de resolver problemas específicos, aumentar a eficiência operacional, reduzir custos, melhorar a qualidade do produto final, entre outros benefícios.',
+            },
+            limitations: {
+              type: 'string',
+              description:
+                'As limitações ou desafios associados ao uso da ferramenta recomendada, como possíveis restrições de funcionalidade, compatibilidade com outros sistemas, curva de aprendizado, custos adicionais, entre outros aspectos importantes a serem considerados.',
+            },
+            useCases: {
+              type: 'string',
+              description:
+                'Alguns casos de uso práticos da ferramenta recomendada, destacando exemplos reais de sua aplicação em projetos semelhantes, histórias de sucesso de clientes, depoimentos positivos, entre outras evidências que comprovem sua eficácia e relevância para a startup.',
             },
           },
         },
@@ -44,7 +59,7 @@ export class GetToolsRecommendation {
         },
         {
           role: 'user',
-          content: `Preciso de ajuda para encontrar algumas ferramentas que podem auxiliar durante o desenvolvimento do projeto de acordo com o escopo apresentado da ideia. A ideia é ${projectDescription}.`,
+          content: `Preciso de ajuda para encontrar algumas ferramentas que podem auxiliar durante o desenvolvimento do projeto da startup. A ideia é ${projectDescription}.`,
         },
       ],
       functions: [
