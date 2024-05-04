@@ -14,3 +14,4 @@ export { CreateDiscussion } from './Discussion/CreateDiscussionUseCase/CreateDis
 export { FindDiscussionById } from './Discussion/FindDiscussionById/FindDiscussionByIdUseCase';
 export { GetAllDiscussions } from './Discussion/GetAllDiscussionsUseCase/GetAllDiscussionsUseCase';
 export { UpdateDiscussion } from './Discussion/UpdateDiscussionUseCase/UpdateDiscussionUseCase';
+export { GetAllDiscussionsByProject } from './Discussion/GetAllDiscussionsByProject/GetAllDiscussionsByProjectUseCase';

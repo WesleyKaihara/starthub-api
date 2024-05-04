@@ -6,6 +6,7 @@ import {
   CreateDiscussionBody,
   FindDiscussionById,
   GetAllDiscussions,
+  GetAllDiscussionsByProject,
   UpdateDiscussion,
   UpdateDiscussionBody,
 } from '@discussion/core/useCase';
@@ -19,6 +20,13 @@ export default class DiscussionService {
   getDiscussions(): Promise<Discussion[]> {
     const getAllDiscussions = new GetAllDiscussions(this.discussionRepository);
     return getAllDiscussions.execute();
+  }
+
+  getDiscussionsByProject(projectId: number): Promise<Discussion[]> {
+    const getAllDiscussions = new GetAllDiscussionsByProject(
+      this.discussionRepository,
+    );
+    return getAllDiscussions.execute(projectId);
   }
 
   findDiscussionById(discussionId: number): Promise<Discussion> {

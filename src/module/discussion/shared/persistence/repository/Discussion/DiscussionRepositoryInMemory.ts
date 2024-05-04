@@ -16,6 +16,17 @@ export class DiscussionRepositoryInMemory implements DiscussionRepository {
     return this.discussions;
   }
 
+  async getAllDiscussionsByProject(projectId: number): Promise<Discussion[]> {
+    const discussion =
+      this.discussions.filter(
+        (discussion) => discussion.projectId === projectId,
+      ) || null;
+    if (!discussion) {
+      throw new Error(`Discussion for project ${projectId} not found`);
+    }
+    return discussion;
+  }
+
   async findDiscussionById(discussionId: number): Promise<Discussion> {
     const discussion =
       this.discussions.find((discussion) => discussion.id === discussionId) ||
@@ -27,7 +38,11 @@ export class DiscussionRepositoryInMemory implements DiscussionRepository {
   }
 
   async createDiscussion(input: CreateDiscussionBody): Promise<Discussion> {
-    const discussion = Discussion.create(input.title, input.context);
+    const discussion = Discussion.create(
+      input.title,
+      input.context,
+      input.projectId,
+    );
     discussion.id = this.nextId++;
     this.discussions.push(discussion);
     return discussion;
@@ -45,6 +60,7 @@ export class DiscussionRepositoryInMemory implements DiscussionRepository {
         discussionId,
         input.title,
         input.context,
+        input.projectId,
       );
       updatedDiscussion.id = discussionId;
       this.discussions[discussionIndex] = updatedDiscussion;

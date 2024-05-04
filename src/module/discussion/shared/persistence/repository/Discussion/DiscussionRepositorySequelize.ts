@@ -13,7 +13,29 @@ export class DiscussionRepositorySequelize implements DiscussionRepository {
     const discussions = await DiscussionModel.findAll();
 
     return discussions.map((discussion) =>
-      Discussion.restore(discussion.id, discussion.title, discussion.context),
+      Discussion.restore(
+        discussion.id,
+        discussion.title,
+        discussion.context,
+        discussion.projectId,
+      ),
+    );
+  }
+
+  async getAllDiscussionsByProject(projectId: number): Promise<Discussion[]> {
+    const discussions = await DiscussionModel.findAll({
+      where: {
+        projectId,
+      },
+    });
+
+    return discussions.map((discussion) =>
+      Discussion.restore(
+        discussion.id,
+        discussion.title,
+        discussion.context,
+        discussion.projectId,
+      ),
     );
   }
 
@@ -26,6 +48,7 @@ export class DiscussionRepositorySequelize implements DiscussionRepository {
       discussion.id,
       discussion.title,
       discussion.context,
+      discussion.projectId,
     );
   }
 
@@ -33,21 +56,23 @@ export class DiscussionRepositorySequelize implements DiscussionRepository {
     const discussion: DiscussionModel = await DiscussionModel.create({
       title: input.title,
       context: input.context,
+      projectId: input.projectId,
     });
 
     return Discussion.restore(
       discussion.id,
       discussion.title,
       discussion.context,
+      discussion.projectId,
     );
   }
 
   async updateDiscussion(
     id: number,
-    updateDiscussionDto: UpdateDiscussionBody,
+    input: UpdateDiscussionBody,
   ): Promise<Discussion> {
     const [rowsAffected] = await DiscussionModel.update(
-      { ...updateDiscussionDto },
+      { ...input },
       { where: { id } },
     );
 
@@ -60,6 +85,7 @@ export class DiscussionRepositorySequelize implements DiscussionRepository {
         discussion.id,
         discussion.title,
         discussion.context,
+        discussion.projectId,
       );
     } else {
       throw new Error(`Unable to update discussion with id ${id}`);

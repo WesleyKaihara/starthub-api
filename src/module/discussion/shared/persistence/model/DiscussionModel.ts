@@ -1,8 +1,11 @@
+import ProjectModel from '@project/shared/persistence/model/ProjectModel';
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   CreatedAt,
   DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -25,6 +28,13 @@ export default class DiscussionModel extends Model {
     type: DataType.TEXT,
   })
   context: string;
+
+  @ForeignKey(() => ProjectModel)
+  @Column({ field: 'projectId', type: DataType.BIGINT })
+  projectId: number;
+
+  @BelongsTo(() => ProjectModel)
+  project: ProjectModel;
 
   @CreatedAt
   @Column({ field: 'createdAt' })

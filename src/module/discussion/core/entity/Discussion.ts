@@ -2,29 +2,47 @@ export default class Discussion {
   id: number;
   title: string;
   context: string;
+  projectId?: number;
 
-  static create(title: string, context: string): Discussion {
+  static create(
+    title: string,
+    context: string,
+    projectId?: number,
+  ): Discussion {
     const discussion = new Discussion();
     discussion.title = title;
     discussion.context = context;
+    discussion.projectId = projectId;
     discussion.isValid();
     return discussion;
   }
 
-  static update(id: number, title: string, context: string): Discussion {
+  static update(
+    id: number,
+    title: string,
+    context: string,
+    projectId?: number,
+  ): Discussion {
     const discussion = new Discussion();
     discussion.id = id;
     discussion.title = title;
     discussion.context = context;
+    discussion.projectId = projectId;
     discussion.isValid();
     return discussion;
   }
 
-  static restore(id: number, title: string, context: string): Discussion {
+  static restore(
+    id: number,
+    title: string,
+    context: string,
+    projectId?: number,
+  ): Discussion {
     const discussion = new Discussion();
     discussion.id = id;
     discussion.title = title;
     discussion.context = context;
+    discussion.projectId = projectId;
     return discussion;
   }
 

@@ -31,8 +31,22 @@ export class DiscussionController {
     }
   }
 
+  @Get('/project/:projectId')
+  async getDiscussionsByProject(
+    @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Res() response: Response,
+  ) {
+    try {
+      const discussion =
+        await this.discussionService.getDiscussionsByProject(projectId);
+      return response.json(discussion);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
   @Get('/:discussionId')
-  async findProjectById(
+  async getDiscussionById(
     @Param('discussionId', new ParseIntPipe()) discussionId: number,
     @Res() response: Response,
   ) {

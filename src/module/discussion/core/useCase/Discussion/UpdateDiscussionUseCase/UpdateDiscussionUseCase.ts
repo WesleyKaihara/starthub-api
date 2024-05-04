@@ -14,6 +14,7 @@ export class UpdateDiscussion {
       discussionId,
       input.title,
       input.context,
+      input.projectId,
     );
 
     await this.discussionRepository.updateDiscussion(discussionId, discussion);
