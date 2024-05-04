@@ -85,10 +85,7 @@ export class ProjectController {
     @Res() response: Response,
   ) {
     try {
-      const project = await this.projectService.createProject(
-        JSON.parse((input as any).data),
-        file,
-      );
+      const project = await this.projectService.createProject(input, file);
       return response.json(project);
     } catch (error) {
       console.log(error);

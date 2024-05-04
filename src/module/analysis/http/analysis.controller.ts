@@ -18,4 +18,14 @@ export class AnalysisController {
       return response.status(500).json({ mensagem: error.message });
     }
   }
+
+  @Get('/names')
+  async generateNames(@Res() response: Response) {
+    try {
+      const analysis = await this.analysisService.getNamesSuggestions();
+      return response.json(analysis);
+    } catch (error) {
+      return response.status(500).json({ mensagem: error.message });
+    }
+  }
 }

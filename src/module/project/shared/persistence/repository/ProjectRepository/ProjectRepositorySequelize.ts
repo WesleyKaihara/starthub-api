@@ -33,6 +33,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       project.name,
       project.description,
       project.private,
+      project.image,
     );
   }
 

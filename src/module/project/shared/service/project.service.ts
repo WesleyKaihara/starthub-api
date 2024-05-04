@@ -20,12 +20,18 @@ export default class ProjectService {
   ) {}
 
   getAllProjects(): Promise<Project[]> {
-    const getAllProjects = new GetAllProjects(this.projectRepository);
+    const getAllProjects = new GetAllProjects(
+      this.projectRepository,
+      this.uploadService,
+    );
     return getAllProjects.execute();
   }
 
   findProjectById(projectId: number): Promise<Project> {
-    const findProjectById = new FindProjectById(this.projectRepository);
+    const findProjectById = new FindProjectById(
+      this.projectRepository,
+      this.uploadService,
+    );
     return findProjectById.execute(projectId);
   }
 
