@@ -4,6 +4,7 @@ import {
   GetNamesSuggestions,
   GetProjectSugestions,
   GetSimilarProposals,
+  GetToolsRecommendation,
 } from '@analysis/core/useCase';
 
 @Injectable()
@@ -34,6 +35,18 @@ export default class AnalysisService {
 
     return {
       names,
+    };
+  }
+
+  async getToolsRecomendations(): Promise<any> {
+    const getToolsRecommendation = new GetToolsRecommendation();
+
+    const tools = await getToolsRecommendation.execute(
+      'Uma plataforma destinada a auxliar no processo de validação de startups por meio de forúns internos e IA',
+    );
+
+    return {
+      tools,
     };
   }
 }

@@ -14,6 +14,9 @@ import {
   UserRatingTopicRepositorySequelize,
 } from './shared/persistence';
 import UploadService from '../upload/shared/service/upload.service';
+import { LeanCanvasController } from './http/leanCanvas.controller';
+import LeanCanvasService from './shared/service/leanCanvas.service';
+import { LeanCanvasRepositorySequelize } from './shared/persistence/repository/LeanCanvasRepository/LeanCanvasRepositorySequelize';
 
 @Module({
   providers: [
@@ -24,11 +27,14 @@ import UploadService from '../upload/shared/service/upload.service';
     UserRatingTopicRepositorySequelize,
     UserRatingTopicService,
     UploadService,
+    LeanCanvasService,
+    LeanCanvasRepositorySequelize,
   ],
   controllers: [
     ProjectController,
     RatingTopicController,
     UserRatingTopicController,
+    LeanCanvasController,
   ],
 })
 export class ProjectModule {}

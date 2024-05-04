@@ -4,14 +4,20 @@ import {
 } from '@project/shared/persistence';
 import ProjectBuilder from '../../ProjectBuilder';
 import { FindProjectById } from '@project/core/useCase';
+import UploadService from '@upload/shared/service/upload.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('FindProjectById', () => {
   let findProjectById: FindProjectById;
   let projectRepository: ProjectRepository;
+  let uploadService: UploadService;
+  let configService: ConfigService;
 
   beforeEach(() => {
     projectRepository = new ProjectRepositoryInMemory();
-    findProjectById = new FindProjectById(projectRepository);
+    configService = new ConfigService();
+    uploadService = new UploadService(configService);
+    findProjectById = new FindProjectById(projectRepository, uploadService);
   });
 
   it('should find project by id', async () => {

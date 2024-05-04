@@ -22,8 +22,18 @@ export class AnalysisController {
   @Get('/names')
   async generateNames(@Res() response: Response) {
     try {
-      const analysis = await this.analysisService.getNamesSuggestions();
-      return response.json(analysis);
+      const names = await this.analysisService.getNamesSuggestions();
+      return response.json(names);
+    } catch (error) {
+      return response.status(500).json({ mensagem: error.message });
+    }
+  }
+
+  @Get('/tools')
+  async getToolsRecomendations(@Res() response: Response) {
+    try {
+      const tools = await this.analysisService.getToolsRecomendations();
+      return response.json(tools);
     } catch (error) {
       return response.status(500).json({ mensagem: error.message });
     }

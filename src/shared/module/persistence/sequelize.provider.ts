@@ -8,6 +8,7 @@ import UserRatingTopicModel from '@project/shared/persistence/model/UserRatingTo
 import ProductModel from '@src/module/product/shared/persistence/model/ProductModel';
 import DiscussionModel from '@src/module/discussion/shared/persistence/model/DiscussionModel';
 import InteractionModel from '@src/module/discussion/shared/persistence/model/InteractionModel';
+import LeanCanvasModel from '@project/shared/persistence/model/LeanCanvas';
 
 export const sequelizeProvider = {
   provide: 'SEQUELIZE',
@@ -28,6 +29,7 @@ export const sequelizeProvider = {
       DiscussionModel,
       InteractionModel,
       // Project
+      LeanCanvasModel,
       ProjectModel,
       RatingTopicModel,
       UserRatingTopicModel,

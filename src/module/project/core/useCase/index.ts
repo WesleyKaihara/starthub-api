@@ -1,3 +1,7 @@
+export { CreateLeanCanvas } from './LeanCanvas/CreateLeanCanvasUseCase/CreateLeanCanvasUseCase';
+export { FindLeanCanvasByProject } from './LeanCanvas/FindLeanCanvasByProject/FindLeanCanvasByProjectUseCase';
+export { UpdateLeanCanvas } from './LeanCanvas/UpdateProjectUseCase/UpdateLeanCanvasUseCase';
+
 export { UpdateRatingTopic } from './RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopicUseCase';
 export { UpdateRatingTopicBody } from './RatingTopic/UpdateRatingTopicUseCase/UpdateRatingTopic.dto';
 
