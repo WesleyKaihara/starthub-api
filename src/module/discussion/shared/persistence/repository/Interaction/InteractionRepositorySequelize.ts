@@ -4,6 +4,8 @@ import Interaction from '@src/module/discussion/core/entity/Interaction';
 import InteractionModel from '../../model/InteractionModel';
 import { UpdateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/UpdateInteraction/UpdateInteraction.dto';
 import { CreateInteractionBody } from '@src/module/discussion/core/useCase/Interaction/CreateInteraction/CreateInteraction.dto';
+import User from '@identity/core/entity/User';
+import UserModel from '@identity/shared/persistence/model/user.model';
 
 @Injectable()
 export class InteractionRepositorySequelize implements InteractionRepository {
@@ -15,6 +17,11 @@ export class InteractionRepositorySequelize implements InteractionRepository {
         interaction.id,
         interaction.discussionId,
         interaction.message,
+        User.restore(
+          interaction.user.id,
+          interaction.user.name,
+          interaction.user.email,
+        ),
       ),
     );
   }
@@ -31,20 +38,44 @@ export class InteractionRepositorySequelize implements InteractionRepository {
         interaction.id,
         interaction.discussionId,
         interaction.message,
+        User.restore(
+          interaction.user.id,
+          interaction.user.name,
+          interaction.user.email,
+        ),
       ),
     );
   }
 
   async createInteraction(input: CreateInteractionBody): Promise<Interaction> {
-    const interaction: InteractionModel = await InteractionModel.create({
-      discussionId: input.discussionId,
-      message: input.message,
-    });
+    const interaction: InteractionModel = await InteractionModel.create(
+      {
+        discussionId: input.discussionId,
+        message: input.message,
+        userId: input.userId,
+      },
+      {
+        include: [
+          {
+            model: UserModel,
+            as: 'user',
+            attributes: ['id', 'name', 'email'],
+          },
+        ],
+      },
+    );
+
+    await interaction.reload();
 
     return Interaction.restore(
       interaction.id,
       interaction.discussionId,
       interaction.message,
+      User.restore(
+        interaction.user.get('id'),
+        interaction.user.get('name'),
+        interaction.user.get('email'),
+      ),
     );
   }
 
@@ -66,6 +97,11 @@ export class InteractionRepositorySequelize implements InteractionRepository {
         interaction.id,
         interaction.discussionId,
         interaction.message,
+        User.restore(
+          interaction.user.id,
+          interaction.user.name,
+          interaction.user.email,
+        ),
       );
     } else {
       throw new Error(`Unable to update interaction with id ${id}`);

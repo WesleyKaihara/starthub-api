@@ -6,8 +6,13 @@ export class CreateInteraction {
   constructor(private readonly interactionRepository: InteractionRepository) {}
 
   async execute(input: CreateInteractionBody): Promise<Interaction> {
-    const interaction = Interaction.create(input.discussionId, input.message);
-    await this.interactionRepository.createInteraction(interaction);
-    return interaction;
+    const interaction = Interaction.create(
+      input.discussionId,
+      input.message,
+      input.userId,
+    );
+    const newInteraction =
+      await this.interactionRepository.createInteraction(interaction);
+    return newInteraction;
   }
 }

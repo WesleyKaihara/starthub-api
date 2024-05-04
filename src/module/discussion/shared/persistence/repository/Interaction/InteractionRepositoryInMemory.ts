@@ -21,7 +21,11 @@ export class InteractionRepositoryInMemory implements InteractionRepository {
   }
 
   async createInteraction(input: CreateInteractionBody): Promise<Interaction> {
-    const interaction = Interaction.create(input.discussionId, input.message);
+    const interaction = Interaction.create(
+      input.discussionId,
+      input.message,
+      input.userId,
+    );
     interaction.id = this.nextId++;
     this.interactions.push(interaction);
     return interaction;
@@ -35,10 +39,11 @@ export class InteractionRepositoryInMemory implements InteractionRepository {
       (interaction) => interaction.id === interactionId,
     );
     if (interactionIndex !== -1) {
-      const updatedInteraction = Interaction.restore(
+      const updatedInteraction = Interaction.update(
         interactionId,
         input.discussionId,
         input.message,
+        input.userId,
       );
       updatedInteraction.id = interactionId;
       this.interactions[interactionIndex] = updatedInteraction;

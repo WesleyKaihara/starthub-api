@@ -13,6 +13,7 @@ export class UpdateInteraction {
       interactionId,
       input.discussionId,
       input.message,
+      input.userId,
     );
 
     await this.interactionRepository.updateInteraction(

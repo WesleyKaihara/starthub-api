@@ -23,11 +23,13 @@ export default class InteractionService {
     return getAllInteractions.execute();
   }
 
-  getInteractionsByProjectId(projectId: number): Promise<Interaction[]> {
+  async getInteractionsByProjectId(projectId: number): Promise<Interaction[]> {
     const getInteractionsByProjectId = new GetInteractionsByProjectId(
       this.interactionRepository,
     );
-    return getInteractionsByProjectId.execute(projectId);
+    const interactions = await getInteractionsByProjectId.execute(projectId);
+
+    return interactions;
   }
 
   createInteraction(input: CreateInteractionBody): Promise<Interaction> {

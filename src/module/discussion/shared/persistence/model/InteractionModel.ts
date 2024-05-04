@@ -11,6 +11,7 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript';
 import DiscussionModel from './DiscussionModel';
+import UserModel from '@identity/shared/persistence/model/user.model';
 
 @Table({
   tableName: 'interaction',
@@ -27,6 +28,13 @@ export default class InteractionModel extends Model {
 
   @BelongsTo(() => DiscussionModel)
   discussion!: DiscussionModel;
+
+  @ForeignKey(() => UserModel)
+  @Column({ field: 'userId', type: DataType.BIGINT })
+  userId!: number;
+
+  @BelongsTo(() => UserModel)
+  user!: UserModel;
 
   @Column({
     type: DataType.TEXT,

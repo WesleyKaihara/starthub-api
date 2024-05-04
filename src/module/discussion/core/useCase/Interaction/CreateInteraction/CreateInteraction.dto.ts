@@ -9,4 +9,8 @@ export class CreateInteractionBody {
     example: '',
   })
   readonly message: string;
+  @ApiProperty({
+    example: 1,
+  })
+  readonly userId: number;
 }
