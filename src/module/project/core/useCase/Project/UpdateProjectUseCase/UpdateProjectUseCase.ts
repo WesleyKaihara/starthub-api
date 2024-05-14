@@ -12,6 +12,8 @@ export class UpdateProject {
       input.name,
       input.description,
       input.private,
+      input.userId,
+      input.image,
     );
 
     await this.projectRepository.updateProject(projectId, project);

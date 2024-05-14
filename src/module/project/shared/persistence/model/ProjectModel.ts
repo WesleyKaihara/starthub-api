@@ -1,8 +1,11 @@
+import UserModel from '@identity/shared/persistence/model/user.model';
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   CreatedAt,
   DataType,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -26,6 +29,13 @@ export default class ProjectModel extends Model {
 
   @Column
   private: boolean;
+
+  @ForeignKey(() => UserModel)
+  @Column({ field: 'userId', type: DataType.BIGINT })
+  userId!: number;
+
+  @BelongsTo(() => UserModel)
+  user!: UserModel;
 
   @Column
   image: string;

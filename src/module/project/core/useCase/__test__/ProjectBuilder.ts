@@ -5,6 +5,7 @@ class ProjectBuilder {
   private name: string;
   private description: string;
   private isPrivate: boolean;
+  private userId: number;
 
   constructor() {
     this.id = 1;
@@ -34,6 +35,7 @@ class ProjectBuilder {
       this.name,
       this.description,
       this.isPrivate,
+      this.userId,
     );
   }
 }

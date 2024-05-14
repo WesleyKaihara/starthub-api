@@ -18,10 +18,12 @@ describe('GetAllInteractions', () => {
     const interaction1 = Interaction.create(
       1,
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1',
+      1,
     );
     const interaction2 = Interaction.create(
       2,
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2',
+      1,
     );
     await interactionRepository.createInteraction(interaction1);
     await interactionRepository.createInteraction(interaction2);

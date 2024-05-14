@@ -2,36 +2,31 @@ import { Injectable } from '@nestjs/common';
 
 import {
   GetNamesSuggestions,
-  GetProjectSugestions,
-  GetSimilarProposals,
+  GetProjectAnalysis,
   GetToolsRecommendation,
 } from '@analysis/core/useCase';
+import { LeanCanvasRepositorySequelize } from '@project/shared/persistence';
 
 @Injectable()
 export default class AnalysisService {
-  constructor() {}
+  constructor(
+    private readonly leanCanvasRepository: LeanCanvasRepositorySequelize,
+  ) {}
 
-  async getCompleteAnalysis(): Promise<any> {
-    const getProjectSugestions = new GetProjectSugestions();
-    const getSimilarProposals = new GetSimilarProposals();
-
-    const sugestions = await getProjectSugestions.execute();
-    const similarProposals = await getSimilarProposals.execute(
-      'Uma plataforma destinada a auxliar no processo de validação de startups por meio de forúns internos e IA',
+  async getCompleteAnalysis(projectId: number): Promise<any> {
+    const getProjectAnalysis = new GetProjectAnalysis(
+      this.leanCanvasRepository,
     );
 
-    return {
-      sugestions: sugestions.data,
-      similarProposals: similarProposals.data,
-    };
+    const analysis = await getProjectAnalysis.execute(projectId);
+
+    return analysis;
   }
 
-  async getNamesSuggestions(): Promise<any> {
+  async getNamesSuggestions(projectDescription: string): Promise<any> {
     const getNamesSuggestions = new GetNamesSuggestions();
 
-    const names = await getNamesSuggestions.execute(
-      'Uma plataforma destinada a auxliar no processo de validação de startups por meio de forúns internos e IA',
-    );
+    const names = await getNamesSuggestions.execute(projectDescription);
 
     return {
       names,
@@ -42,7 +37,7 @@ export default class AnalysisService {
     const getToolsRecommendation = new GetToolsRecommendation();
 
     const tools = await getToolsRecommendation.execute(
-      'Uma plataforma destinada a auxliar no processo de validação de startups por meio de forúns internos e IA',
+      `Starthub é uma plataforma destinada a startups, possui diversas funcionalidades destinadas a auxiliar no processo de idealização e validação de ideias`,
     );
 
     return {

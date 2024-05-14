@@ -49,6 +49,19 @@ export class ProjectController {
     }
   }
 
+  @Get('/user/:userId')
+  async listUserProjects(
+    @Param('userId', new ParseIntPipe()) userId: number,
+    @Res() response: Response,
+  ) {
+    try {
+      const project = await this.projectService.getAllUserProjects(userId);
+      return response.json(project);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
   @Post()
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('file'))
@@ -88,7 +101,6 @@ export class ProjectController {
       const project = await this.projectService.createProject(input, file);
       return response.json(project);
     } catch (error) {
-      console.log(error);
       return response.status(400).json({ message: error.message });
     }
   }

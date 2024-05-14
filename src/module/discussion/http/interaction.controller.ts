@@ -50,7 +50,6 @@ export class InteractionController {
     @Res() response: Response,
   ) {
     try {
-      console.log(input)
       const interaction =
         await this.interactionService.createInteraction(input);
       return response.json(interaction);

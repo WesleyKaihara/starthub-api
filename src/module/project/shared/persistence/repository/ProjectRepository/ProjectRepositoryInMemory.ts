@@ -1,6 +1,7 @@
 import Project from '@project/core/entity/Project';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import { ProjectRepository } from './project.repository';
+import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 
 export class ProjectRepositoryInMemory implements ProjectRepository {
   private projects: Project[];
@@ -15,6 +16,16 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     return this.projects;
   }
 
+  async getAllUserProjects(userId: number): Promise<Project[]> {
+    const projects = this.projects.filter(
+      (project) => project.userId === userId,
+    );
+    if (projects.length === 0) {
+      throw new Error(`Projects for user ${userId} not found`);
+    }
+    return projects;
+  }
+
   async findProjectById(projectId: number): Promise<Project> {
     const project = this.projects.find((project) => project.id === projectId);
     if (!project) {
@@ -23,11 +34,13 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     return project;
   }
 
-  async createProject(createProjectDto: any): Promise<Project> {
+  async createProject(input: CreateProjectBody): Promise<Project> {
     const project = Project.create(
-      createProjectDto.name,
-      createProjectDto.description,
-      createProjectDto.private,
+      input.name,
+      input.description,
+      input.private,
+      input.userId,
+      input.image,
     );
     project.id = this.nextId++;
     this.projects.push(project);
@@ -36,7 +49,7 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
 
   async updateProject(
     projectId: number,
-    updateProjectDto: UpdateProjectBody,
+    input: UpdateProjectBody,
   ): Promise<Project | null> {
     const projectIndex = this.projects.findIndex(
       (project) => project.id === projectId,
@@ -44,9 +57,11 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     if (projectIndex !== -1) {
       const updatedProject = Project.restore(
         projectId,
-        updateProjectDto.name,
-        updateProjectDto.description,
-        updateProjectDto.private
+        input.name,
+        input.description,
+        input.private,
+        input.userId,
+        input.image,
       );
       updatedProject.id = projectId;
       this.projects[projectIndex] = updatedProject;

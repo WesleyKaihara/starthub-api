@@ -3,12 +3,14 @@ export default class Project {
   name: string;
   description: string;
   private: boolean;
+  userId: number;
   image?: string;
 
   static create(
     name: string,
     description: string,
     _private: boolean,
+    userId: number,
     image?: string,
   ): Project {
     const project = new Project();
@@ -16,6 +18,7 @@ export default class Project {
     project.description = description;
     project.private = _private;
     project.image = image;
+    project.userId = userId;
     project.isValid();
     return project;
   }
@@ -25,6 +28,7 @@ export default class Project {
     name: string,
     description: string,
     _private: boolean,
+    userId: number,
     image?: string,
   ): Project {
     const project = new Project();
@@ -33,6 +37,7 @@ export default class Project {
     project.description = description;
     project.private = _private;
     project.image = image;
+    project.userId = userId;
     project.isValid();
     return project;
   }
@@ -42,6 +47,7 @@ export default class Project {
     name: string,
     description: string,
     _private: boolean,
+    userId: number,
     image?: string,
   ): Project {
     const project = new Project();
@@ -49,6 +55,7 @@ export default class Project {
     project.name = name;
     project.description = description;
     project.private = _private;
+    project.userId = userId;
     project.image = image;
     return project;
   }

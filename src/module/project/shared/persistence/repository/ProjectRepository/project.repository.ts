@@ -5,6 +5,7 @@ import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUs
 export interface ProjectRepository {
   getAllProjects(): Promise<Project[]>;
   findProjectById(projectId: number): Promise<Project>;
+  getAllUserProjects(userId: number): Promise<Project[]>;
   createProject(createProjectDto: CreateProjectBody): Promise<Project>;
   updateProject(
     projectId: number,

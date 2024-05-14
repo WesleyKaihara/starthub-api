@@ -25,8 +25,8 @@ import { DiscussionModule } from './module/discussion/discussion.module';
     }),
     ThrottlerModule.forRoot([
       {
-        ttl: 60000,
-        limit: 10,
+        ttl: 1000,
+        limit: 20,
       },
     ]),
     AnalysisModule,

@@ -18,6 +18,7 @@ export class CreateProject {
       input.name,
       input.description,
       input.private,
+      input.userId,
     );
 
     const fileName = `${Date.now()}_${file.originalname}`;

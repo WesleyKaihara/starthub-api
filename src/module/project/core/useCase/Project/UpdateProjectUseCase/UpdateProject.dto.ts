@@ -18,7 +18,17 @@ export class UpdateProjectBody {
   readonly description: string;
 
   @ApiProperty({
+    example: 1,
+  })
+  readonly userId: number;
+
+  @ApiProperty({
     example: false,
   })
   readonly private: boolean;
+
+  @ApiProperty({
+    example: '',
+  })
+  readonly image?: string;
 }

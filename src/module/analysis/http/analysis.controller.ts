@@ -1,28 +1,46 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Res,
+} from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import AnalysisService from '../shared/service/analysis.service';
+import { GenerateNamesSugestionBody } from '@analysis/core/useCase';
 
 @Controller('/analysis')
 @ApiTags('Analysis')
 export class AnalysisController {
   constructor(private readonly analysisService: AnalysisService) {}
 
-  @Get()
-  async getCompleteAnalysis(@Res() response: Response) {
+  @Get('/complete/:projectId')
+  async getCompleteAnalysis(
+    @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Res() response: Response,
+  ) {
     try {
-      const analysis = await this.analysisService.getCompleteAnalysis();
-      return response.json(analysis);
+      const analysis =
+        await this.analysisService.getCompleteAnalysis(projectId);
+      return response.json({ analysis });
     } catch (error) {
       return response.status(500).json({ mensagem: error.message });
     }
   }
 
-  @Get('/names')
-  async generateNames(@Res() response: Response) {
+  @Post('/names')
+  async generateNames(
+    @Body() input: GenerateNamesSugestionBody,
+    @Res() response: Response,
+  ) {
     try {
-      const names = await this.analysisService.getNamesSuggestions();
+      const names = await this.analysisService.getNamesSuggestions(
+        input.projectDescription,
+      );
       return response.json(names);
     } catch (error) {
       return response.status(500).json({ mensagem: error.message });

@@ -30,6 +30,7 @@ describe('CreateProject', () => {
       name: 'Test Project',
       description: 'This is a test project.',
       private: false,
+      userId: 1,
     };
 
     const file: Express.Multer.File = {
@@ -60,6 +61,7 @@ describe('CreateProject', () => {
       name: 'Test',
       description: 'This is a test project.',
       private: false,
+      userId: 1,
     };
 
     const file: Express.Multer.File = {
@@ -85,6 +87,7 @@ describe('CreateProject', () => {
       name: 'Test Project',
       description: 'Test',
       private: false,
+      userId: 1,
     };
 
     const file: Express.Multer.File = {

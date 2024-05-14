@@ -18,6 +18,24 @@ export class ProjectRepositorySequelize implements ProjectRepository {
         project.name,
         project.description,
         project.private,
+        project.userId,
+        project.image,
+      ),
+    );
+  }
+
+  async getAllUserProjects(userId: number): Promise<Project[]> {
+    const projects = await ProjectModel.findAll({
+      where: { userId },
+    });
+
+    return projects.map((project) =>
+      Project.restore(
+        project.id,
+        project.name,
+        project.description,
+        project.private,
+        project.userId,
         project.image,
       ),
     );
@@ -33,6 +51,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       project.name,
       project.description,
       project.private,
+      project.userId,
       project.image,
     );
   }
@@ -50,6 +69,8 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       project.name,
       project.description,
       project.private,
+      project.userId,
+      project.image,
     );
   }
 
@@ -72,6 +93,8 @@ export class ProjectRepositorySequelize implements ProjectRepository {
         project.name,
         project.description,
         project.private,
+        project.userId,
+        project.image,
       );
     } else {
       throw new Error(`Unable to update project with id ${id}`);

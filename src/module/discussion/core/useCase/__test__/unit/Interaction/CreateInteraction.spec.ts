@@ -20,6 +20,7 @@ describe('CreateInteraction', () => {
     const input: CreateInteractionBody = {
       discussionId: 1,
       message: 'Test message',
+      userId: 1,
     };
 
     const interaction = await createInteraction.execute(input);
@@ -33,6 +34,7 @@ describe('CreateInteraction', () => {
     const input: CreateInteractionBody = {
       discussionId: 1,
       message: 'Test',
+      userId: 1,
     };
 
     await expect(createInteraction.execute(input)).rejects.toThrow(

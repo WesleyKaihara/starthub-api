@@ -7,6 +7,7 @@ import {
   CreateProject,
   FindProjectById,
   GetAllProjects,
+  GetAllUserProjects,
   UpdateProject,
 } from '@project/core/useCase';
 import { ProjectRepositorySequelize } from '../persistence';
@@ -25,6 +26,14 @@ export default class ProjectService {
       this.uploadService,
     );
     return getAllProjects.execute();
+  }
+
+  getAllUserProjects(userId: number): Promise<Project[]> {
+    const getAllProjects = new GetAllUserProjects(
+      this.projectRepository,
+      this.uploadService,
+    );
+    return getAllProjects.execute(userId);
   }
 
   findProjectById(projectId: number): Promise<Project> {

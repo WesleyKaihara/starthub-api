@@ -19,3 +19,4 @@ export { CreateProject } from './Project/CreateProjectUseCase/CreateProjectUseCa
 export { GetAllProjects } from './Project/GetAllProjectsUseCase/GetAllProjectsUseCase';
 export { UpdateProject } from './Project/UpdateProjectUseCase/UpdateProjectUseCase';
 export { FindProjectById } from './Project/FindProjectById/FindProjectByIdUseCase';
+export { GetAllUserProjects } from './Project/GetAllUserProjects/GetAllUserProjectsUseCase';

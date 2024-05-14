@@ -12,3 +12,8 @@ export { UserRatingTopicRepositoryInMemory } from './repository/UserRatingTopicR
 export { RatingTopicRepositoryInMemory } from './repository/RatingTopicRepository/RatingTopicRepositoryInMemory';
 export { RatingTopicRepositorySequelize } from './repository/RatingTopicRepository/RatingTopicRepositorySequelize';
 export { RatingTopicRepository } from './repository/RatingTopicRepository/RatingTopic.repository';
+
+// Lean Canvas
+export { LeanCanvasRepositoryInMemory } from './repository/LeanCanvasRepository/LeanCanvasRepositoryInMemory';
+export { LeanCanvasRepositorySequelize } from './repository/LeanCanvasRepository/LeanCanvasRepositorySequelize';
+export { LeanCanvasRepository } from './repository/LeanCanvasRepository/leanCanvas.repository';

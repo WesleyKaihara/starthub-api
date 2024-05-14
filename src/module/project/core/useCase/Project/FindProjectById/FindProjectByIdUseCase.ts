@@ -11,13 +11,14 @@ export class FindProjectById {
 
   async execute(projectId: number): Promise<Project> {
     const project = await this.projectRepository.findProjectById(projectId);
-    console.log(project);
-    const image = await this.uploadService.getFile(
-      project.image,
-      'starthub-bucket',
-    );
+    if (project.image) {
+      const image = await this.uploadService.getFile(
+        project.image,
+        'starthub-bucket',
+      );
 
-    project.image = image;
+      project.image = image;
+    }
 
     return project;
   }
