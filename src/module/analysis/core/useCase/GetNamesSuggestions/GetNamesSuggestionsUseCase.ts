@@ -56,7 +56,7 @@ export class GetNamesSuggestions {
 
   async execute(projectDescription: string): Promise<any> {
     const namesSuggestions: any[] = [];
-    while (namesSuggestions.length < 5) {
+    while (namesSuggestions.length < 3) {
       const names = await this.getNamesSuggestions(projectDescription);
       namesSuggestions.push(...names);
     }

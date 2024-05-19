@@ -40,6 +40,7 @@ export class InteractionController {
         await this.interactionService.getInteractionsByProjectId(projectId);
       return response.json(interactions);
     } catch (error) {
+      console.log(error)
       return response.status(500).json({ message: error.message });
     }
   }

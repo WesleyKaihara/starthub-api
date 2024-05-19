@@ -1,6 +1,6 @@
 import OpenAI from '@analysis/core/entity/OpenAI';
 
-export class GetProjectSugestions {
+export class GetMarketTendencies {
   openai = OpenAI.getInstance();
   schema = {
     type: 'object',
@@ -42,7 +42,7 @@ export class GetProjectSugestions {
 
   constructor() {}
 
-  async generateSuggestions(): Promise<any[]> {
+  async getMarketTendencies(): Promise<any[]> {
     const analysis = await this.openai.chat.completions.create({
       model: 'gpt-3.5-turbo-0613',
       messages: [
@@ -56,9 +56,9 @@ export class GetProjectSugestions {
           content: `Me dê sugestões extremamente detalhadas relacionadas a uma estratégia para aumentar o sucesso do projeto. Quero saber os benefícios de seguir essa estratégia, como ela pode ser realizada, exemplos de empresas e projetos bem-sucedidos, o tempo recomendado para implementação, os principais pontos de atenção e os indicadores de sucesso.`,
         },
       ],
-      functions: [{ name: 'get_suggestions', parameters: this.schema }],
-      function_call: { name: 'get_suggestions' },
-      temperature: 1.5,
+      functions: [{ name: 'getMarketTendencies', parameters: this.schema }],
+      function_call: { name: 'getMarketTendencies' },
+      temperature: 0.8,
       max_tokens: 1000,
     });
 
@@ -69,7 +69,7 @@ export class GetProjectSugestions {
     const suggestions: any[] = [];
 
     while (suggestions.length < 3) {
-      const newSuggestions = await this.generateSuggestions();
+      const newSuggestions = await this.getMarketTendencies();
       suggestions.push(...newSuggestions);
     }
 

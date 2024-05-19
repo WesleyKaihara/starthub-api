@@ -33,15 +33,17 @@ export class InteractionRepositorySequelize implements InteractionRepository {
       },
     });
 
+    console.log(interactions);
+
     return interactions.map((interaction) =>
       Interaction.restore(
-        interaction.id,
-        interaction.discussionId,
-        interaction.message,
+        interaction.getDataValue('id'),
+        interaction.getDataValue('discussionId'),
+        interaction.getDataValue('message'),
         User.restore(
-          interaction.user.id,
-          interaction.user.name,
-          interaction.user.email,
+          interaction.getDataValue('user'),
+          interaction.getDataValue('user'),
+          interaction.getDataValue('user'),
         ),
       ),
     );

@@ -21,6 +21,11 @@ export class GetProjectAnalysis {
       model: 'gpt-4',
       messages: [
         {
+          role: 'system',
+          content:
+            'Você é um especialista no desenvolvimento de projetos e startups, com conhecimento amplo sobre o mercado e tendências de inovação.',
+        },
+        {
           role: 'user',
           content: `Especialista no desenvolvimento de projetos `,
         },
