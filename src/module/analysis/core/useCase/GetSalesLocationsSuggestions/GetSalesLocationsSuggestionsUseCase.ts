@@ -50,7 +50,6 @@ export class GenerateSalesLocationsSuggestion {
   async execute(projectDescription: string): Promise<any> {
     const salesLocations =
       await this.generateSalesLocationsSuggestion(projectDescription);
-    console.log(salesLocations);
 
     return salesLocations;
   }

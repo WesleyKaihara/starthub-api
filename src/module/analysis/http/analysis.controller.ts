@@ -1,9 +1,12 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import AnalysisService from '../shared/service/analysis.service';
-import { GenerateNamesSugestionBody } from '@analysis/core/useCase';
+import {
+  GenerateNamesSugestionBody,
+  GetImportanceDataBody,
+} from '@analysis/core/useCase';
 import { GenerateSalesLocationsSuggestionBody } from '@analysis/core/useCase/GetSalesLocationsSuggestions/GetSalesLocationsSuggestions.dto';
 
 @Controller('/analysis')
@@ -12,7 +15,7 @@ export class AnalysisController {
   constructor(private readonly analysisService: AnalysisService) {}
 
   @Post('/sales-locations')
-  async getCompleteAnalysis(
+  async getSalesLocations(
     @Body() input: GenerateSalesLocationsSuggestionBody,
     @Res() response: Response,
   ) {
@@ -41,11 +44,16 @@ export class AnalysisController {
     }
   }
 
-  @Get('/tools')
-  async getToolsRecomendations(@Res() response: Response) {
+  @Post('/importance-data')
+  async getImportanceData(
+    @Body() input: GetImportanceDataBody,
+    @Res() response: Response,
+  ) {
     try {
-      const tools = await this.analysisService.getToolsRecomendations();
-      return response.json(tools);
+      const importanceData = await this.analysisService.getImportanceData(
+        input.projectDescription,
+      );
+      return response.json({ importanceData });
     } catch (error) {
       return response.status(500).json({ mensagem: error.message });
     }

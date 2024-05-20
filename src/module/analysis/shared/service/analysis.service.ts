@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import {
   GenerateSalesLocationsSuggestion,
+  GetImportanceData,
   GetNamesSuggestions,
   GetProjectAnalysis,
   GetToolsRecommendation,
@@ -32,6 +33,14 @@ export default class AnalysisService {
       await generateSalesLocationsSuggestion.execute(projectDescription);
 
     return salesLocations;
+  }
+
+  async getImportanceData(projectDescription: string): Promise<any> {
+    const getImportanceData = new GetImportanceData();
+
+    const importanceData = await getImportanceData.execute(projectDescription);
+
+    return importanceData;
   }
 
   async getNamesSuggestions(projectDescription: string): Promise<any> {
