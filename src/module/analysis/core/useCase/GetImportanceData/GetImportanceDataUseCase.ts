@@ -40,7 +40,7 @@ export class GetImportanceData {
         {
           name: 'get_importance_of_data',
           description:
-            'Apresentar uma lista de informações, com pelo menos 3 itens ,que podem ser relevantes para a ideia informada, exemplo quantidade de pessoas que praticam esportes para um produto relacionado a saúde. Se o produto for um produto físico entender o mercado atual e valor da concorrência se existir. Não quero o valor final do requisito, apenas o nome dos tópicos e qual a importância de realizar o levantamento desse tópico',
+            'Apresentar uma lista de informações, com pelo menos 5 itens ,que podem ser relevantes para a ideia informada, exemplo quantidade de pessoas que praticam esportes para um produto relacionado a saúde. Se o produto for um produto físico entender o mercado atual e valor da concorrência se existir. Não quero o valor final do requisito, apenas o nome dos tópicos e qual a importância de realizar o levantamento desse tópico',
           parameters: this.schema,
         },
       ],

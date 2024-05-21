@@ -5,21 +5,27 @@ export class GenerateSalesLocationsSuggestion {
   schema = {
     type: 'object',
     properties: {
-      title: {
-        type: 'string',
-        description:
-          'Titulo da forma de venda, exemplo vendas de dados, divulgação nas redes sociais, venda direta',
-      },
-      description: {
-        type: 'string',
-        description:
-          'Descreva de forma detalhada como o processo de utilização de método pode ser aplicado na ideia informada, e como ele pode ajudar empreender, por exemplo ajuda na otimização de tempo do empreendedor devido a facilidade em alcançar pessoas engajadas',
+      salesLocations: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+              description:
+                'Titulo da forma de venda, exemplo vendas de dados, divulgação nas redes sociais, venda direta, outra',
+            },
+            description: {
+              type: 'string',
+              description:
+                'Descreva de forma detalhada como o processo de utilização de método pode ser aplicado na ideia informada, e como ele pode ajudar empreendedor, por exemplo ajuda na otimização de tempo do empreendedor devido a facilidade em alcançar pessoas engajadas, contatos dentro do nicho, outros',
+            },
+          },
+        },
       },
     },
     required: ['title', 'description'],
   };
-
-  constructor() {}
 
   async generateSalesLocationsSuggestion(
     projectDescription: string,
@@ -36,7 +42,7 @@ export class GenerateSalesLocationsSuggestion {
         {
           name: 'generate_sales_locations_suggestions',
           description:
-            'Apresentar como o projeto informado pode ser vendido e chegar até o cliente final, por exemplo um loja de roupas precisa realizar todo um processo de divulgação por redes sociais para aumentar suas vendas',
+            'Apresentar uma lista com pelo menos 5 distintos itens diferentes apresentando como a ideia informado pode ser vendida e chegar até o cliente final, por exemplo um loja de roupas precisa realizar todo um processo de divulgação por redes sociais para aumentar suas vendas, ou também por meio do contato direto, com alguma plataforma, ou outras formas que achar interessante',
           parameters: this.schema,
         },
       ],
@@ -44,7 +50,8 @@ export class GenerateSalesLocationsSuggestion {
       temperature: 0.8,
     });
 
-    return JSON.parse(analysis.choices[0].message.function_call.arguments);
+    return JSON.parse(analysis.choices[0].message.function_call.arguments)
+      .salesLocations;
   }
 
   async execute(projectDescription: string): Promise<any> {
