@@ -5,6 +5,7 @@ import {
   GetImportanceData,
   GetNamesSuggestions,
   GetProjectAnalysis,
+  GetRandomSuggestions,
   GetToolsRecommendation,
 } from '@analysis/core/useCase';
 import { LeanCanvasRepositorySequelize } from '@project/shared/persistence';
@@ -53,15 +54,23 @@ export default class AnalysisService {
     };
   }
 
-  async getToolsRecomendations(): Promise<any> {
+  async getToolsRecomendations(projectDescription: string): Promise<any> {
     const getToolsRecommendation = new GetToolsRecommendation();
 
-    const tools = await getToolsRecommendation.execute(
-      `Starthub é uma plataforma destinada a startups, possui diversas funcionalidades destinadas a auxiliar no processo de idealização e validação de ideias`,
-    );
+    const tools = await getToolsRecommendation.execute(projectDescription);
 
     return {
       tools,
+    };
+  }
+
+  async getRandomSuggestions(projectDescription: string): Promise<any> {
+    const getRandomSuggestions = new GetRandomSuggestions();
+
+    const suggestions = await getRandomSuggestions.execute(projectDescription);
+
+    return {
+      suggestions,
     };
   }
 }

@@ -44,6 +44,36 @@ export class AnalysisController {
     }
   }
 
+  @Post('/tools')
+  async recommendedTools(
+    @Body() input: GenerateNamesSugestionBody,
+    @Res() response: Response,
+  ) {
+    try {
+      const tools = await this.analysisService.getToolsRecomendations(
+        input.projectDescription,
+      );
+      return response.json(tools);
+    } catch (error) {
+      return response.status(500).json({ mensagem: error.message });
+    }
+  }
+
+  @Post('/random-suggestions')
+  async getRandomSuggestions(
+    @Body() input: GenerateNamesSugestionBody,
+    @Res() response: Response,
+  ) {
+    try {
+      const suggestions = await this.analysisService.getRandomSuggestions(
+        input.projectDescription,
+      );
+      return response.json(suggestions);
+    } catch (error) {
+      return response.status(500).json({ mensagem: error.message });
+    }
+  }
+
   @Post('/importance-data')
   async getImportanceData(
     @Body() input: GetImportanceDataBody,

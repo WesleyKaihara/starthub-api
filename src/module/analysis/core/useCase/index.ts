@@ -1,3 +1,4 @@
+export { GetRandomSuggestions } from './GetRandomSuggestions/GetRandomSuggestionsUseCase';
 export { GetImportanceData } from './GetImportanceData/GetImportanceDataUseCase';
 export { GetImportanceDataBody } from './GetImportanceData/GetGetImportanceData.dto';
 export { GenerateSalesLocationsSuggestion } from './GetSalesLocationsSuggestions/GetSalesLocationsSuggestionsUseCase';
