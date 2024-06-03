@@ -79,6 +79,7 @@ export class ProjectController {
             name: { type: 'string' },
             description: { type: 'string' },
             private: { type: 'boolean' },
+            userId: { type: 'number' },
           },
         },
       },

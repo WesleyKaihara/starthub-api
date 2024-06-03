@@ -62,6 +62,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       description: input.description,
       private: input.private,
       image: input.image,
+      userId: input.userId,
     });
 
     return Project.restore(

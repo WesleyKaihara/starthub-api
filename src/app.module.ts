@@ -26,7 +26,7 @@ import { DiscussionModule } from './module/discussion/discussion.module';
     ThrottlerModule.forRoot([
       {
         ttl: 1000,
-        limit: 20,
+        limit: 50,
       },
     ]),
     AnalysisModule,
@@ -48,7 +48,7 @@ import { DiscussionModule } from './module/discussion/discussion.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    if(configuration().NODE_ENV !== "test") {
+    if (configuration().NODE_ENV !== 'test') {
       consumer.apply(LoggerMiddleware).forRoutes('*');
     }
   }

@@ -31,6 +31,7 @@ export class InteractionRepositorySequelize implements InteractionRepository {
       where: {
         discussionId: projectId,
       },
+      include: [{ model: UserModel }],
     });
 
     return interactions.map((interaction) =>
@@ -39,9 +40,9 @@ export class InteractionRepositorySequelize implements InteractionRepository {
         interaction.getDataValue('discussionId'),
         interaction.getDataValue('message'),
         User.restore(
-          interaction.getDataValue('user'),
-          interaction.getDataValue('user'),
-          interaction.getDataValue('user'),
+          interaction.user.id,
+          interaction.user.name,
+          interaction.user.email,
         ),
       ),
     );

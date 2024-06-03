@@ -8,7 +8,7 @@ export class GetRandomSuggestions {
       suggestions: {
         type: 'array',
         description:
-          'Apresente uma lista com pelo menos 5 ideias aleatórias em relação ao projeto com a finalidade de pensar em possíveis caminho que a solução pode prosseguir,  ajudar o empreendedor a pensar fora do seu ambiente e trabalhar de formas diferentes',
+          'Lista com pelo menos 5 descrições de ideias aleatórias em relação ao projeto com a finalidade de pensar em possíveis caminho que a solução pode prosseguir,  ajudar o empreendedor a pensar fora do seu ambiente e trabalhar de formas diferentes',
         items: {
           type: 'string',
           description:
@@ -37,12 +37,12 @@ export class GetRandomSuggestions {
         {
           name: 'getRandomSuggestions',
           description:
-            'Apresente uma lista com pelo menos 5 ideias aleatórias com visões diferentes em relação ao projeto, o intuito disso é gerar informações que auxiliem o empreendedor a pensar de forma diferente do que esta acostumado e assim aprimorar a sua ideia ou encontrar outros caminhos para o projeto.',
+            'Apresente uma lista com pelo menos 5 item e descrições de ideias aleatórias com visões diferentes em relação ao projeto, com informações que auxiliem o empreendedor a pensar de forma diferente do que esta acostumado e assim aprimorar a sua ideia ou encontrar outros caminhos para o projeto. A descrição deve ser completa, com informações sobre possibilidades que a ideia pode alcançar, diferencias e tópicos relacionados a inovação',
           parameters: this.schema,
         },
       ],
       function_call: { name: 'getRandomSuggestions' },
-      temperature: 0.8,
+      temperature: 1,
     });
 
     return JSON.parse(analysis.choices[0].message.function_call.arguments)

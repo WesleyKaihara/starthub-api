@@ -17,7 +17,7 @@ export class CreateProjectBody {
   @ApiProperty({
     example: 1,
   })
-  readonly userId: number;
+  readonly userId!: number;
   @ApiProperty({
     example: '',
   })
