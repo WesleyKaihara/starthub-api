@@ -1,5 +1,6 @@
 #enviroment
 production.env
+.env
 
 # compiled output
 /dist
