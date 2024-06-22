@@ -44,12 +44,7 @@ export class UserRepositoryInMemory implements UserRepository {
   ): Promise<User | null> {
     const userIndex = this.users.findIndex((user) => user.id === userId);
     if (userIndex !== -1) {
-      const updatedUser = User.restore(
-        userId,
-        input.name,
-        input.email,
-        input.password,
-      );
+      const updatedUser = User.restore(userId, input.name);
       updatedUser.id = userId;
       this.users[userIndex] = updatedUser;
       return updatedUser;

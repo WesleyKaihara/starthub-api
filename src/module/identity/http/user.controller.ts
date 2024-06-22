@@ -53,6 +53,19 @@ export class UserController {
     }
   }
 
+  @Post()
+  async updatePassword(
+    @Body() input: CreateUserBody,
+    @Res() response: Response,
+  ) {
+    try {
+      const user = await this.userService.createUser(input);
+      return response.json(user);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
   @Put('/:userId')
   async updateUserById(
     @Param('userId', new ParseIntPipe()) userId: number,

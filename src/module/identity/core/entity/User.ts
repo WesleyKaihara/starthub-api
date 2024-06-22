@@ -13,17 +13,10 @@ export default class User {
     return user;
   }
 
-  static update(
-    id: number,
-    name: string,
-    email: string,
-    password: string,
-  ): User {
+  static update(id: number, name: string): User {
     const user = new User();
     user.id = id;
     user.name = name;
-    user.email = email;
-    user.password = password;
     user.isValid();
     return user;
   }
@@ -31,7 +24,7 @@ export default class User {
   static restore(
     id: number,
     name: string,
-    email: string,
+    email?: string,
     password?: string,
   ): User {
     const user = new User();

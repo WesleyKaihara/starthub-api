@@ -3,6 +3,7 @@ import { UserRepository } from './user.repository';
 import User from '@identity/core/entity/User';
 import UserModel from '../../model/user.model';
 import { CreateUserBody, UpdateUserBody } from '@identity/core/useCase';
+import { UniqueConstraintError } from 'sequelize';
 
 @Injectable()
 export class UserRepositorySequelize implements UserRepository {
@@ -31,18 +32,29 @@ export class UserRepositorySequelize implements UserRepository {
   }
 
   async createUser(input: CreateUserBody): Promise<User> {
-    const user: UserModel = await UserModel.create({
-      name: input.name,
-      email: input.email,
-      password: input.password,
-    });
+    try {
+      const user: UserModel = await UserModel.create({
+        name: input.name,
+        email: input.email,
+        password: input.password,
+      });
 
-    return User.restore(user.id, user.name, user.email, user.password);
+      return User.restore(user.id, user.name, user.email, user.password);
+    } catch (error) {
+      if (error instanceof UniqueConstraintError) {
+        throw new Error(
+          'Não foi possível criar o usuário. Por favor, verifique os dados fornecidos.',
+        );
+      }
+      throw error;
+    }
   }
 
   public async updateUser(id: number, input: UpdateUserBody): Promise<User> {
     const [rowsAffected] = await UserModel.update(
-      { ...input },
+      {
+        name: input.name,
+      },
       { where: { id } },
     );
 
