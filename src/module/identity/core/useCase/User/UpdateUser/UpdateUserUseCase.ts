@@ -6,7 +6,7 @@ export class UpdateUser {
   constructor(private readonly productRepository: UserRepository) {}
 
   async execute(userId: number, input: UpdateUserBody): Promise<User> {
-    const user = User.update(userId, input.name, input.email);
+    const user = User.update(userId, input.name);
     await this.productRepository.updateUser(userId, user);
     return user;
   }

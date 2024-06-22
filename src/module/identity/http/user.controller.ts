@@ -6,21 +6,28 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Req,
   Res,
+  UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 import { CreateUserBody, UpdateUserBody } from '@identity/core/useCase';
 import UserService from '@identity/shared/service/user.service';
+import {
+  AuthGuard,
+  AuthenticatedRequest,
+} from '@src/module/auth/guard/auth.guard';
 
 @Controller('/user')
 @ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
+  @Get('/all')
   async listUsers(@Res() response: Response) {
     try {
       const userList = await this.userService.listUsers();
@@ -30,12 +37,14 @@ export class UserController {
     }
   }
 
-  @Get('/:userId')
-  async findUserById(
-    @Param('userId', new ParseIntPipe()) userId: number,
+  @Get()
+  @UseGuards(AuthGuard)
+  async userDetails(
+    @Req() request: AuthenticatedRequest,
     @Res() response: Response,
   ) {
     try {
+      const userId = Number(request.user.sub);
       const user = await this.userService.findUserById(userId);
       return response.json(user);
     } catch (error) {
