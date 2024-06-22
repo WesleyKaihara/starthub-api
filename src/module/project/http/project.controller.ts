@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   FileTypeValidator,
   Get,
   Param,
@@ -115,6 +116,21 @@ export class ProjectController {
     try {
       const project = await this.projectService.updateProject(projectId, input);
       return response.json(project);
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
+    }
+  }
+
+  @Delete('/:projectId')
+  async deleteProjectById(
+    @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Res() response: Response,
+  ) {
+    try {
+      this.projectService.deleteProjectById(projectId);
+      return response.json({
+        message: `Project with id ${projectId} deleted successfully`,
+      });
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }

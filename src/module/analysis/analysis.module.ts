@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import AnalysisService from './shared/service/analysis.service';
 import { AnalysisController } from './http/analysis.controller';
-import { LeanCanvasRepositorySequelize } from '@project/shared/persistence';
+import { AnalysisHistoryRepositorySequelize } from './shared/persistence/repository/analysisHistory/AnalysisHistoryRepositorySequelize';
 
 @Module({
-  providers: [AnalysisService, LeanCanvasRepositorySequelize],
+  providers: [AnalysisService, AnalysisHistoryRepositorySequelize],
   controllers: [AnalysisController],
 })
 export class AnalysisModule {}

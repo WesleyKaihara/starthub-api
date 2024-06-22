@@ -101,4 +101,11 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       throw new Error(`Unable to update project with id ${id}`);
     }
   }
+
+  async deleteProjectById(id: number): Promise<void> {
+    const rowsAffected = await ProjectModel.destroy({ where: { id } });
+    if (rowsAffected === 0) {
+      throw new Error(`Project with id ${id} not found`);
+    }
+  }
 }

@@ -10,6 +10,7 @@ import {
   UpdateDiscussion,
   UpdateDiscussionBody,
 } from '@discussion/core/useCase';
+import { PaginationOptions } from '@src/shared/types/pagination';
 
 @Injectable()
 export default class DiscussionService {
@@ -17,9 +18,9 @@ export default class DiscussionService {
     private readonly discussionRepository: DiscussionRepositorySequelize,
   ) {}
 
-  getDiscussions(): Promise<Discussion[]> {
+  getDiscussions(paginationOptions: PaginationOptions): Promise<Discussion[]> {
     const getAllDiscussions = new GetAllDiscussions(this.discussionRepository);
-    return getAllDiscussions.execute();
+    return getAllDiscussions.execute(paginationOptions);
   }
 
   getDiscussionsByProject(projectId: number): Promise<Discussion[]> {

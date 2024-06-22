@@ -20,3 +20,4 @@ export { GetAllProjects } from './Project/GetAllProjectsUseCase/GetAllProjectsUs
 export { UpdateProject } from './Project/UpdateProjectUseCase/UpdateProjectUseCase';
 export { FindProjectById } from './Project/FindProjectById/FindProjectByIdUseCase';
 export { GetAllUserProjects } from './Project/GetAllUserProjects/GetAllUserProjectsUseCase';
+export { DeleteProjectById } from './Project/DeleteProjectById/DeleteProjectByIdUseCase';

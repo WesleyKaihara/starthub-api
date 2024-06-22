@@ -5,6 +5,7 @@ import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUs
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import {
   CreateProject,
+  DeleteProjectById,
   FindProjectById,
   GetAllProjects,
   GetAllUserProjects,
@@ -58,5 +59,10 @@ export default class ProjectService {
   updateProject(projectId: number, input: UpdateProjectBody): Promise<Project> {
     const updateProject = new UpdateProject(this.projectRepository);
     return updateProject.execute(projectId, input);
+  }
+
+  deleteProjectById(projectId: number) {
+    const deleteProjectById = new DeleteProjectById(this.projectRepository);
+    deleteProjectById.execute(projectId);
   }
 }

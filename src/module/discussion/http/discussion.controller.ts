@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -6,6 +7,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   Res,
 } from '@nestjs/common';
 
@@ -22,9 +24,33 @@ export class DiscussionController {
   constructor(private readonly discussionService: DiscussionService) {}
 
   @Get()
-  async listDiscussions(@Res() response: Response) {
+  async listDiscussions(
+    @Res() response: Response,
+    @Query(
+      'page',
+      new ParseIntPipe({
+        errorHttpStatusCode: 400,
+        exceptionFactory: () =>
+          new BadRequestException(
+            'Deve ser informado a página para listagem das discussões',
+          ),
+      }),
+    )
+    page: number = 1,
+    @Query(
+      'limit',
+      new ParseIntPipe({
+        errorHttpStatusCode: 400,
+        exceptionFactory: () =>
+          new BadRequestException('Deve ser informado o tamanho da página'),
+      }),
+    )
+    limit: number = 10,
+  ) {
     try {
-      const discussions = await this.discussionService.getDiscussions();
+      const paginationOptions = { page, limit };
+      const discussions =
+        await this.discussionService.getDiscussions(paginationOptions);
       return response.json(discussions);
     } catch (error) {
       return response.status(500).json({ message: error.message });

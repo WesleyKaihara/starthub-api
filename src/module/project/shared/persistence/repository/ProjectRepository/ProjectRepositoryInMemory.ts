@@ -69,4 +69,15 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     }
     return null;
   }
+
+  async deleteProjectById(projectId: number): Promise<void> {
+    const projectIndex = this.projects.findIndex(
+      (project) => project.id === projectId,
+    );
+    if (projectIndex !== -1) {
+      this.projects.splice(projectIndex, 1);
+    } else {
+      throw new Error(`Project with id ${projectId} not found`);
+    }
+  }
 }

@@ -4,28 +4,17 @@ import {
   GenerateSalesLocationsSuggestion,
   GetImportanceData,
   GetNamesSuggestions,
-  GetProjectAnalysis,
   GetRandomSuggestions,
   GetToolsRecommendation,
 } from '@analysis/core/useCase';
-import { LeanCanvasRepositorySequelize } from '@project/shared/persistence';
+import { AddAnalysisHistory } from '@analysis/core/useCase/AddAnalysisHistory/AddAnalysisHistoryUseCase';
+import { AnalysisHistoryRepositorySequelize } from '../persistence/repository/analysisHistory/AnalysisHistoryRepositorySequelize';
 
 @Injectable()
 export default class AnalysisService {
   constructor(
-    private readonly leanCanvasRepository: LeanCanvasRepositorySequelize,
+    private readonly analysisHistoryRepository: AnalysisHistoryRepositorySequelize,
   ) {}
-
-  async getCompleteAnalysis(projectId: number): Promise<any> {
-    const getProjectAnalysis = new GetProjectAnalysis(
-      this.leanCanvasRepository,
-    );
-
-    const analysis = await getProjectAnalysis.execute(projectId);
-
-    return analysis;
-  }
-
   async getSalesSuggestions(projectDescription: string): Promise<any> {
     const generateSalesLocationsSuggestion =
       new GenerateSalesLocationsSuggestion();
@@ -33,13 +22,24 @@ export default class AnalysisService {
     const salesLocations =
       await generateSalesLocationsSuggestion.execute(projectDescription);
 
+    const saveAnalysis = new AddAnalysisHistory(this.analysisHistoryRepository);
+    saveAnalysis.execute({
+      request: projectDescription,
+      result: JSON.stringify(salesLocations),
+    });
+
     return salesLocations;
   }
 
   async getImportanceData(projectDescription: string): Promise<any> {
     const getImportanceData = new GetImportanceData();
-
     const importanceData = await getImportanceData.execute(projectDescription);
+
+    const saveAnalysis = new AddAnalysisHistory(this.analysisHistoryRepository);
+    saveAnalysis.execute({
+      request: projectDescription,
+      result: JSON.stringify(importanceData),
+    });
 
     return importanceData;
   }
@@ -48,6 +48,12 @@ export default class AnalysisService {
     const getNamesSuggestions = new GetNamesSuggestions();
 
     const names = await getNamesSuggestions.execute(projectDescription);
+
+    const saveAnalysis = new AddAnalysisHistory(this.analysisHistoryRepository);
+    saveAnalysis.execute({
+      request: projectDescription,
+      result: JSON.stringify(names),
+    });
 
     return {
       names,
@@ -59,6 +65,12 @@ export default class AnalysisService {
 
     const tools = await getToolsRecommendation.execute(projectDescription);
 
+    const saveAnalysis = new AddAnalysisHistory(this.analysisHistoryRepository);
+    saveAnalysis.execute({
+      request: projectDescription,
+      result: JSON.stringify(tools),
+    });
+
     return {
       tools,
     };
@@ -68,6 +80,12 @@ export default class AnalysisService {
     const getRandomSuggestions = new GetRandomSuggestions();
 
     const suggestions = await getRandomSuggestions.execute(projectDescription);
+
+    const saveAnalysis = new AddAnalysisHistory(this.analysisHistoryRepository);
+    saveAnalysis.execute({
+      request: projectDescription,
+      result: JSON.stringify(suggestions),
+    });
 
     return {
       suggestions,

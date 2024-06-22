@@ -1,14 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 
 import ProjectModel from '@project/shared/persistence/model/ProjectModel';
-import ProjectVerticalModel from '@project/shared/persistence/model/ProjectVerticalModel';
 import UserModel from '@identity/shared/persistence/model/user.model';
-import RatingTopicModel from '@project/shared/persistence/model/RatingTopicModel';
-import UserRatingTopicModel from '@project/shared/persistence/model/UserRatingTopicModel';
-import ProductModel from '@src/module/product/shared/persistence/model/ProductModel';
 import DiscussionModel from '@src/module/discussion/shared/persistence/model/DiscussionModel';
 import InteractionModel from '@src/module/discussion/shared/persistence/model/InteractionModel';
-import LeanCanvasModel from '@project/shared/persistence/model/LeanCanvas';
+import AnalysisHistoryModel from '@analysis/shared/persistence/model/analysisHistory.model';
 
 export const sequelizeProvider = {
   provide: 'SEQUELIZE',
@@ -29,13 +25,14 @@ export const sequelizeProvider = {
       DiscussionModel,
       InteractionModel,
       // Project
-      LeanCanvasModel,
+      // LeanCanvasModel,
       ProjectModel,
-      RatingTopicModel,
-      UserRatingTopicModel,
-      ProjectVerticalModel,
+      // RatingTopicModel,
+      // UserRatingTopicModel,
+      // ProjectVerticalModel,
       // Product
-      ProductModel,
+      //ProductModel,
+      AnalysisHistoryModel,
     ]);
 
     if (process.env.NODE_ENV === 'development') {

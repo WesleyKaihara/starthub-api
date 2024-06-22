@@ -6,11 +6,19 @@ import DiscussionModel from '../../model/DiscussionModel';
 
 import { CreateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/CreateDiscussionUseCase/CreateDiscussion.dto';
 import { UpdateDiscussionBody } from '@src/module/discussion/core/useCase/Discussion/UpdateDiscussionUseCase/UpdateDiscussion.dto';
+import { PaginationOptions } from '@src/shared/types/pagination';
 
 @Injectable()
 export class DiscussionRepositorySequelize implements DiscussionRepository {
-  async getAllDiscussions(): Promise<Discussion[]> {
-    const discussions = await DiscussionModel.findAll();
+  async getAllDiscussions(
+    paginationOptions: PaginationOptions,
+  ): Promise<Discussion[]> {
+    const { page, limit } = paginationOptions;
+    const offset = (page - 1) * limit;
+    const discussions = await DiscussionModel.findAll({
+      offset,
+      limit,
+    });
 
     return discussions.map((discussion) =>
       Discussion.restore(
