@@ -2,6 +2,7 @@ import User from '@identity/core/entity/User';
 import {
   CreateUser,
   CreateUserBody,
+  FindUserById,
   UpdateUser,
   UpdateUserBody,
 } from '@identity/core/useCase';
@@ -19,7 +20,8 @@ export default class UserService {
   }
 
   findUserById(userId: number): Promise<User> {
-    return this.userRepository.findUserById(userId);
+    const findUserById = new FindUserById(this.userRepository);
+    return findUserById.execute(userId);
   }
 
   findUserByEmail(email: string): Promise<User> {

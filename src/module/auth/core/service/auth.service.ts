@@ -39,26 +39,27 @@ export class AuthService {
   async refresh(data: RefreshDto) {
     const { refreshToken } = data;
 
-    const email = this.jwtService.decode(refreshToken)['email'];
-    const user = await this.userService.findUserByEmail(email);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
     try {
-      this.jwtService.verify(refreshToken, {
+      const decodedRefreshToken = this.jwtService.verify(refreshToken, {
         secret: process.env.PUBLIC_KEY,
       });
-      return user;
+
+      const { email } = decodedRefreshToken;
+      const user = await this.userService.findUserByEmail(email);
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      const accessToken = await this.generateToken(user);
+
+      return accessToken;
     } catch (err) {
+      console.log(err);
       if (err.name === 'JsonWebTokenError') {
         throw new UnauthorizedException('Invalid Signature');
       }
-      if (err.name === 'TokenExpiredError') {
-        throw new UnauthorizedException('Token Expired');
-      }
-      throw new UnauthorizedException(err.name);
+      throw new UnauthorizedException(err.message);
     }
   }
 
@@ -72,7 +73,7 @@ export class AuthService {
       },
       {
         secret: process.env.SECRET,
-        expiresIn: '5m',
+        expiresIn: '30s',
       },
     );
   }
@@ -87,7 +88,7 @@ export class AuthService {
       },
       {
         secret: process.env.PUBLIC_KEY,
-        expiresIn: '60s',
+        expiresIn: '7d',
       },
     );
   }

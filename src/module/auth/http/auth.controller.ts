@@ -4,7 +4,6 @@ import { ApiTags } from '@nestjs/swagger';
 import SignInDto from './dto/signin.dto';
 import { Response } from 'express';
 import RefreshDto from './dto/refresh.dto';
-import User from '@identity/core/entity/User';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -29,15 +28,9 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Body() data: RefreshDto, @Res() response: Response) {
     try {
-      const payload: User = await this.authService.refresh(data);
-      const access_token = await this.authService.generateToken(payload);
-      const refresh_token =
-        await this.authService.generateRefreshToken(payload);
+      const accessToken = await this.authService.refresh(data);
 
-      return response.json({
-        access_token,
-        refresh_token,
-      });
+      return response.json({ accessToken });
     } catch (error) {
       return response.status(401).send({
         mensagem: `Token Inválido!!`,

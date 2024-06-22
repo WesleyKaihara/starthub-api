@@ -6,6 +6,8 @@ export class FindUserById {
 
   async execute(userId: number): Promise<User> {
     const user = await this.userRepository.findUserById(userId);
+    delete user.password;
+
     return user;
   }
 }
