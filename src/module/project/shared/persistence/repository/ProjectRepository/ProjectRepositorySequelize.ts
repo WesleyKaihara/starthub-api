@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';

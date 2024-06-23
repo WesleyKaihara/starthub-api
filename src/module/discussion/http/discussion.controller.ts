@@ -53,6 +53,10 @@ export class DiscussionController {
         await this.discussionService.getDiscussions(paginationOptions);
       return response.json(discussions);
     } catch (error) {
+      if (error.name === 'SequelizeDatabaseError') {
+        error.message =
+          'Something unexpected happened when searching for discussions';
+      }
       return response.status(500).json({ message: error.message });
     }
   }
