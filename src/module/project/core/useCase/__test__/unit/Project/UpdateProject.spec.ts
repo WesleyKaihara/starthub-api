@@ -20,14 +20,14 @@ describe('UpdateProject', () => {
     const project = new ProjectBuilder()
       .withName('Project Name')
       .withDescription('Project Description')
-      .withPrivate(false)
+      .withAtive(false)
       .build();
     await projectRepository.createProject(project);
 
     const updateProjectDto = new ProjectBuilder()
       .withName('Updated Project Name')
       .withDescription('Updated Project Description')
-      .withPrivate(true)
+      .withAtive(true)
       .build();
 
     const updatedProject = await updateProject.execute(
@@ -38,7 +38,7 @@ describe('UpdateProject', () => {
     expect(updatedProject).toBeDefined();
     expect(updatedProject.name).toBe('Updated Project Name');
     expect(updatedProject.description).toBe('Updated Project Description');
-    expect(updatedProject.private).toBe(true);
+    expect(updatedProject.ative).toBe(true);
   });
 
   it('should throw error if project name is too short', async () => {
@@ -46,7 +46,7 @@ describe('UpdateProject', () => {
     const updateProjectDto = new ProjectBuilder()
       .withName('Test')
       .withDescription('Updated Project Description')
-      .withPrivate(true)
+      .withAtive(true)
       .build();
 
     await expect(
@@ -59,7 +59,7 @@ describe('UpdateProject', () => {
     const updateProjectDto = new ProjectBuilder()
       .withName('Updated Project Name')
       .withDescription('Test')
-      .withPrivate(true)
+      .withAtive(true)
       .build();
 
     await expect(

@@ -4,14 +4,19 @@ class ProjectBuilder {
   private id: number;
   private name: string;
   private description: string;
-  private isPrivate: boolean;
+  private ative: boolean;
   private userId: number;
 
   constructor() {
     this.id = 1;
     this.name = 'Default Project Name';
     this.description = 'Default Project Description';
-    this.isPrivate = false;
+    this.ative = false;
+  }
+
+  withUserId(userId: number) {
+    this.userId = userId;
+    return this;
   }
 
   withName(name: string): ProjectBuilder {
@@ -24,8 +29,8 @@ class ProjectBuilder {
     return this;
   }
 
-  withPrivate(isPrivate: boolean): ProjectBuilder {
-    this.isPrivate = isPrivate;
+  withAtive(ative: boolean): ProjectBuilder {
+    this.ative = ative;
     return this;
   }
 
@@ -34,7 +39,7 @@ class ProjectBuilder {
       this.id,
       this.name,
       this.description,
-      this.isPrivate,
+      this.ative,
       this.userId,
     );
   }

@@ -27,8 +27,6 @@ export const sequelizeProvider = {
       // Project
       // LeanCanvasModel,
       ProjectModel,
-      // RatingTopicModel,
-      // UserRatingTopicModel,
       // ProjectVerticalModel,
       // Product
       //ProductModel,

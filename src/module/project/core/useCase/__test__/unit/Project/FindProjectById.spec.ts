@@ -22,22 +22,26 @@ describe('FindProjectById', () => {
 
   it('should find project by id', async () => {
     const projectId = 1;
+    const userId = 1;
+
     const expectedProject = new ProjectBuilder()
       .withName('Project 1')
+      .withUserId(1)
       .withDescription('Description 1')
       .withPrivate(false)
       .build();
     await projectRepository.createProject(expectedProject);
 
-    const project = await findProjectById.execute(projectId);
+    const project = await findProjectById.execute(projectId, userId);
 
     expect(project).toEqual(expectedProject);
   });
 
   it('should return exeption if project is not found', async () => {
     const projectId = 999;
+    const userId = 1;
 
-    expect(findProjectById.execute(projectId)).rejects.toThrow(
+    expect(findProjectById.execute(projectId, userId)).rejects.toThrow(
       `Project with id ${projectId} not found`,
     );
   });
