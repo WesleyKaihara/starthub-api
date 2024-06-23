@@ -2,21 +2,21 @@ export default class Project {
   id?: number;
   name: string;
   description: string;
-  private: boolean;
+  ative: boolean;
   userId: number;
   image?: string;
 
   static create(
     name: string,
     description: string,
-    _private: boolean,
+    ative: boolean,
     userId: number,
     image?: string,
   ): Project {
     const project = new Project();
     project.name = name;
     project.description = description;
-    project.private = _private;
+    project.ative = ative;
     project.image = image;
     project.userId = userId;
     project.isValid();
@@ -27,7 +27,7 @@ export default class Project {
     id: number,
     name: string,
     description: string,
-    _private: boolean,
+    ative: boolean,
     userId: number,
     image?: string,
   ): Project {
@@ -35,7 +35,7 @@ export default class Project {
     project.id = id;
     project.name = name;
     project.description = description;
-    project.private = _private;
+    project.ative = ative;
     project.image = image;
     project.userId = userId;
     project.isValid();
@@ -46,7 +46,7 @@ export default class Project {
     id: number,
     name: string,
     description: string,
-    _private: boolean,
+    ative: boolean,
     userId: number,
     image?: string,
   ): Project {
@@ -54,7 +54,7 @@ export default class Project {
     project.id = id;
     project.name = name;
     project.description = description;
-    project.private = _private;
+    project.ative = ative;
     project.userId = userId;
     project.image = image;
     return project;

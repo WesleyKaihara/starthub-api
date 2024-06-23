@@ -38,7 +38,7 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
     const project = Project.create(
       input.name,
       input.description,
-      input.private,
+      input.ative,
       input.userId,
       input.image,
     );
@@ -59,7 +59,7 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
         projectId,
         input.name,
         input.description,
-        input.private,
+        input.ative,
         input.userId,
         input.image,
       );
@@ -68,16 +68,5 @@ export class ProjectRepositoryInMemory implements ProjectRepository {
       return updatedProject;
     }
     return null;
-  }
-
-  async deleteProjectById(projectId: number): Promise<void> {
-    const projectIndex = this.projects.findIndex(
-      (project) => project.id === projectId,
-    );
-    if (projectIndex !== -1) {
-      this.projects.splice(projectIndex, 1);
-    } else {
-      throw new Error(`Project with id ${projectId} not found`);
-    }
   }
 }

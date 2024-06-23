@@ -8,12 +8,11 @@ import {
   Put,
   Req,
   Res,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 import { CreateUserBody, UpdateUserBody } from '@identity/core/useCase';
 import UserService from '@identity/shared/service/user.service';

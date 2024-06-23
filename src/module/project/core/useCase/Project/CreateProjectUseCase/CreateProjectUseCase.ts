@@ -17,7 +17,7 @@ export class CreateProject {
     const project = Project.create(
       input.name,
       input.description,
-      input.private,
+      input.ative,
       input.userId,
     );
 

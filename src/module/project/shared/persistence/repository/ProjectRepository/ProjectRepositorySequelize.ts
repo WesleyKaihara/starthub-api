@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import Project from '@project/core/entity/Project';
 import ProjectModel from '../../model/ProjectModel';
@@ -10,14 +10,18 @@ import { ProjectRepository } from './project.repository';
 @Injectable()
 export class ProjectRepositorySequelize implements ProjectRepository {
   async getAllProjects(): Promise<Project[]> {
-    const projects = await ProjectModel.findAll();
+    const projects = await ProjectModel.findAll({
+      where: {
+        ative: true,
+      },
+    });
 
     return projects.map((project) =>
       Project.restore(
         project.id,
         project.name,
         project.description,
-        project.private,
+        project.ative,
         project.userId,
         project.image,
       ),
@@ -34,7 +38,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
         project.id,
         project.name,
         project.description,
-        project.private,
+        project.ative,
         project.userId,
         project.image,
       ),
@@ -43,14 +47,11 @@ export class ProjectRepositorySequelize implements ProjectRepository {
 
   async findProjectById(id: number): Promise<Project> {
     const project = await ProjectModel.findOne({ where: { id } });
-    if (!project) {
-      throw new Error(`Project with id ${id} not found`);
-    }
     return Project.restore(
       project.id,
       project.name,
       project.description,
-      project.private,
+      project.ative,
       project.userId,
       project.image,
     );
@@ -60,7 +61,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
     const project: ProjectModel = await ProjectModel.create({
       name: input.name,
       description: input.description,
-      private: input.private,
+      private: input.ative,
       image: input.image,
       userId: input.userId,
     });
@@ -69,7 +70,7 @@ export class ProjectRepositorySequelize implements ProjectRepository {
       project.id,
       project.name,
       project.description,
-      project.private,
+      project.ative,
       project.userId,
       project.image,
     );
@@ -93,19 +94,12 @@ export class ProjectRepositorySequelize implements ProjectRepository {
         project.id,
         project.name,
         project.description,
-        project.private,
+        project.ative,
         project.userId,
         project.image,
       );
     } else {
       throw new Error(`Unable to update project with id ${id}`);
-    }
-  }
-
-  async deleteProjectById(id: number): Promise<void> {
-    const rowsAffected = await ProjectModel.destroy({ where: { id } });
-    if (rowsAffected === 0) {
-      throw new Error(`Project with id ${id} not found`);
     }
   }
 }

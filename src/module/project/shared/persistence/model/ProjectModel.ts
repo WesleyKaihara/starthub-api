@@ -27,8 +27,11 @@ export default class ProjectModel extends Model {
   @Column
   description: string;
 
-  @Column
-  private: boolean;
+  @Column({
+    allowNull: false,
+    defaultValue: true,
+  })
+  ative: boolean;
 
   @ForeignKey(() => UserModel)
   @Column({ field: 'userId', type: DataType.BIGINT })

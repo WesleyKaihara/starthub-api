@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   FileTypeValidator,
   Get,
   Param,
@@ -9,24 +8,33 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Req,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import ProjectService from '@project/shared/service/project.service';
 import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUseCase/CreateProject.dto';
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  AuthGuard,
+  AuthenticatedRequest,
+} from '@src/module/auth/guard/auth.guard';
 
 @Controller('/project')
 @ApiTags('Project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
+  @ApiOperation({
+    summary: 'Listar todos os projetos ativos',
+  })
   @Get()
   async listProjects(@Res() response: Response) {
     try {
@@ -37,19 +45,31 @@ export class ProjectController {
     }
   }
 
+  @ApiOperation({
+    summary: 'Buscar todas as informações de um projeto',
+  })
+  @UseGuards(AuthGuard)
   @Get('/:projectId')
   async findProjectById(
     @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Req() request: AuthenticatedRequest,
     @Res() response: Response,
   ) {
     try {
-      const project = await this.projectService.findProjectById(projectId);
+      const userId = Number(request.user.sub);
+      const project = await this.projectService.findProjectById(
+        projectId,
+        userId,
+      );
       return response.json(project);
     } catch (error) {
-      return response.status(400).json({ message: error.message });
+      return response.status(error.status).json({ message: error.message });
     }
   }
 
+  @ApiOperation({
+    summary: 'Buscar projetos do usuário',
+  })
   @Get('/user/:userId')
   async listUserProjects(
     @Param('userId', new ParseIntPipe()) userId: number,
@@ -63,6 +83,9 @@ export class ProjectController {
     }
   }
 
+  @ApiOperation({
+    summary: 'Adicionar novo projeto dentro da plataforma',
+  })
   @Post()
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('file'))
@@ -107,6 +130,10 @@ export class ProjectController {
     }
   }
 
+  @ApiOperation({
+    summary:
+      'Atualizar informações do projeto (Apresentação do projeto na plataforma)',
+  })
   @Put('/:projectId')
   async updateProjectById(
     @Param('projectId', new ParseIntPipe()) projectId: number,
@@ -121,16 +148,24 @@ export class ProjectController {
     }
   }
 
-  @Delete('/:projectId')
-  async deleteProjectById(
+  @ApiOperation({
+    summary:
+      'Alternar status de projeto para ativo ou inativo (Oculta o projeto na plataforma)',
+  })
+  @UseGuards(AuthGuard)
+  @Put('/status/:projectId')
+  async toggleProjectStatus(
     @Param('projectId', new ParseIntPipe()) projectId: number,
+    @Req() request: AuthenticatedRequest,
     @Res() response: Response,
   ) {
     try {
-      this.projectService.deleteProjectById(projectId);
-      return response.json({
-        message: `Project with id ${projectId} deleted successfully`,
-      });
+      const userId = Number(request.user.sub);
+      const project = await this.projectService.toggleProjectStatus(
+        projectId,
+        userId,
+      );
+      return response.json(project);
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }

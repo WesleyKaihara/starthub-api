@@ -11,5 +11,4 @@ export interface ProjectRepository {
     projectId: number,
     updateProjectDto: UpdateProjectBody,
   ): Promise<Project>;
-  deleteProjectById(projectId: number);
 }

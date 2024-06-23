@@ -5,7 +5,6 @@ import { CreateProjectBody } from '@project/core/useCase/Project/CreateProjectUs
 import { UpdateProjectBody } from '@project/core/useCase/Project/UpdateProjectUseCase/UpdateProject.dto';
 import {
   CreateProject,
-  DeleteProjectById,
   FindProjectById,
   GetAllProjects,
   GetAllUserProjects,
@@ -13,6 +12,7 @@ import {
 } from '@project/core/useCase';
 import { ProjectRepositorySequelize } from '../persistence';
 import UploadService from '@upload/shared/service/upload.service';
+import { ToggleProjectStatus } from '@project/core/useCase/Project/ToggleProjectStatus/UpdateProjectUseCase';
 
 @Injectable()
 export default class ProjectService {
@@ -37,12 +37,12 @@ export default class ProjectService {
     return getAllProjects.execute(userId);
   }
 
-  findProjectById(projectId: number): Promise<Project> {
+  findProjectById(projectId: number, userId: number): Promise<Project> {
     const findProjectById = new FindProjectById(
       this.projectRepository,
       this.uploadService,
     );
-    return findProjectById.execute(projectId);
+    return findProjectById.execute(projectId, userId);
   }
 
   createProject(
@@ -61,8 +61,8 @@ export default class ProjectService {
     return updateProject.execute(projectId, input);
   }
 
-  deleteProjectById(projectId: number) {
-    const deleteProjectById = new DeleteProjectById(this.projectRepository);
-    deleteProjectById.execute(projectId);
+  toggleProjectStatus(projectId: number, userId: number) {
+    const toggleProjectStatus = new ToggleProjectStatus(this.projectRepository);
+    return toggleProjectStatus.execute(projectId, userId);
   }
 }

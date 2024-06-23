@@ -23,9 +23,9 @@ export class UpdateProjectBody {
   readonly userId: number;
 
   @ApiProperty({
-    example: false,
+    example: true,
   })
-  readonly private: boolean;
+  readonly ative: boolean;
 
   @ApiProperty({
     example: '',

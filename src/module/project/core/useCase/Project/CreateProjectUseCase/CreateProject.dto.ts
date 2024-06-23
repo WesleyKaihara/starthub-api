@@ -11,9 +11,9 @@ export class CreateProjectBody {
   })
   readonly description: string;
   @ApiProperty({
-    example: false,
+    example: true,
   })
-  readonly private: boolean;
+  readonly ative: boolean;
   @ApiProperty({
     example: 1,
   })

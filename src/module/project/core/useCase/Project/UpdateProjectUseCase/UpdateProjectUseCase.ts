@@ -11,7 +11,7 @@ export class UpdateProject {
       projectId,
       input.name,
       input.description,
-      input.private,
+      input.ative,
       input.userId,
       input.image,
     );
