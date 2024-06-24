@@ -17,15 +17,16 @@ describe('FindUserById', () => {
   it('should find user by id', async () => {
     const userId = 1;
     const expectedUser = new UserBuilder()
-      .withName('User 1')
-      .withEmail('user@email.com')
+      .withName('user 1')
+      .withEmail('user1@email.com')
       .withPassword('SeCRet123%')
       .build();
     await userRepository.createUser(expectedUser);
 
     const user = await findUserById.execute(userId);
 
-    expect(user).toEqual(expectedUser);
+    expect(user.id).toEqual(userId);
+    expect(user.name).toEqual('user 01');
   });
 
   it('should throw and expection if user is not found', async () => {

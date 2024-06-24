@@ -14,7 +14,7 @@ export class AuthGuardMock implements CanActivate {
 }
 
 export function gerarTokenTeste() {
-  const payload = { sub: 999, username: 'Usuário testes' };
+  const payload = { sub: 1, username: 'Usuário testes' };
   const token = jwt.sign(payload, jwtConstants.secret);
 
   return token;

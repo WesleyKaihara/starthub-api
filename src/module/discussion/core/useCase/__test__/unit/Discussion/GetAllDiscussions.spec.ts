@@ -5,6 +5,7 @@ import {
   DiscussionRepository,
   DiscussionRepositoryInMemory,
 } from '@discussion/shared/persistence';
+import { PaginationOptions } from '@src/shared/types/pagination';
 
 describe('GetAllDiscussions', () => {
   let getAllDiscussions: GetAllDiscussions;
@@ -27,16 +28,23 @@ describe('GetAllDiscussions', () => {
     await discussionRepository.createDiscussion(discussion1);
     await discussionRepository.createDiscussion(discussion2);
 
-    const discussions = await getAllDiscussions.execute();
+    const paginationOptions: PaginationOptions = {
+      page: 1,
+      limit: 5,
+    };
 
-    expect(discussions).toHaveLength(2);
-    expect(discussions[0].title).toBe('Discussion 1');
-    expect(discussions[0].context).toBe(
+    const discussions = await getAllDiscussions.execute(paginationOptions);
+
+    expect(discussions).toHaveProperty('hasNextPage');
+
+    expect(discussions.itens.length).toBeGreaterThan(0);
+    expect(discussions.itens[0].title).toBe('Discussion 1');
+    expect(discussions.itens[0].context).toBe(
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 1',
     );
 
-    expect(discussions[1].title).toBe('Discussion 2');
-    expect(discussions[1].context).toBe(
+    expect(discussions.itens[1].title).toBe('Discussion 2');
+    expect(discussions.itens[1].context).toBe(
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. 2',
     );
   });

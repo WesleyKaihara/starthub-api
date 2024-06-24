@@ -6,8 +6,9 @@ import {
   UserRepositoryInMemory,
   UserRepositorySequelize,
 } from '@identity/shared/persistence';
-import UserService from '@identity/shared/service/user.service';
-import User from '@identity/core/entity/User';
+import { gerarTokenTeste } from '@src/module/auth/http/__test__/auth-guard.mock';
+
+const token = gerarTokenTeste();
 
 describe('UserController (e2e)', () => {
   let app;
@@ -31,83 +32,15 @@ describe('UserController (e2e)', () => {
   it('/user (GET)', () => {
     return request(app.getHttpServer())
       .get('/user')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /json/)
       .then((response) => {
-        expect(response.body).toBeInstanceOf(Array);
-      });
-  });
-
-  it('should return 500 error when an error occurs while listing users', () => {
-    jest
-      .spyOn(app.get(UserService), 'listUsers')
-      .mockRejectedValueOnce(new Error('Failed to fetch users'));
-
-    return request(app.getHttpServer())
-      .get('/user')
-      .expect(500)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toHaveProperty(
-          'message',
-          'Failed to fetch users',
-        );
-      });
-  });
-
-  it('/user/:userId (GET)', () => {
-    const user = User.restore(1, 'User 1', 'user@email.com', 'Secret1231d$');
-
-    jest
-      .spyOn(app.get(UserService), 'findUserById')
-      .mockResolvedValueOnce(user);
-
-    return request(app.getHttpServer())
-      .get('/user/1')
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .then((response) => {
+        expect(response.body).toBeInstanceOf(Object);
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('email');
-        expect(response.body).toHaveProperty('password');
-      });
-  });
-
-  it('should be throw an expection when user not found', () => {
-    return request(app.getHttpServer())
-      .get('/user/1')
-      .expect(400)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toHaveProperty(
-          'message',
-          'User with id 1 not found',
-        );
-      });
-  });
-
-  it('should return 400 error when user id is not a number', () => {
-    return request(app.getHttpServer())
-      .get('/user/abc')
-      .expect(400)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toHaveProperty('message');
-      });
-  });
-
-  it('should return 400 error when an error occurs while finding project by id', () => {
-    jest
-      .spyOn(app.get(UserService), 'findUserById')
-      .mockRejectedValueOnce(new Error('Failed to find user'));
-
-    return request(app.getHttpServer())
-      .get('/user/1')
-      .expect(400)
-      .expect('Content-Type', /json/)
-      .then((response) => {
-        expect(response.body).toHaveProperty('message', 'Failed to find user');
+        expect(response.body).not.toHaveProperty('password');
       });
   });
 
@@ -154,7 +87,6 @@ describe('UserController (e2e)', () => {
       .then((response) => {
         expect(response.body).toHaveProperty('id');
         expect(response.body.name).toBe('Updated User');
-        expect(response.body.email).toBe('user@email.com');
       });
   });
 

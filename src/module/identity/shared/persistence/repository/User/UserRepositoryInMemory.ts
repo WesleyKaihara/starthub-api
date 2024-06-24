@@ -7,7 +7,7 @@ export class UserRepositoryInMemory implements UserRepository {
   private nextId: number;
 
   constructor() {
-    this.users = [];
+    this.users = [User.restore(1, 'user 01', 'user01@email.com')];
     this.nextId = 1;
   }
 

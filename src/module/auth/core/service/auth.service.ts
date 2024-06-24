@@ -55,7 +55,6 @@ export class AuthService {
 
       return accessToken;
     } catch (err) {
-      console.log(err);
       if (err.name === 'JsonWebTokenError') {
         throw new UnauthorizedException('Invalid Signature');
       }

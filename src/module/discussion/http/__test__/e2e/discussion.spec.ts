@@ -31,11 +31,11 @@ describe('DiscussionController (e2e)', () => {
 
   it('/discussion (GET)', () => {
     return request(app.getHttpServer())
-      .get('/discussion')
+      .get('/discussion?page=1&limit=5')
       .expect(200)
       .expect('Content-Type', /json/)
       .then((response) => {
-        expect(response.body).toBeInstanceOf(Array);
+        expect(response.body.itens).toBeInstanceOf(Array);
       });
   });
 
@@ -45,7 +45,7 @@ describe('DiscussionController (e2e)', () => {
       .mockRejectedValueOnce(new Error('Failed to fetch discussions'));
 
     return request(app.getHttpServer())
-      .get('/discussion')
+      .get('/discussion?page=1&limit=5')
       .expect(500)
       .expect('Content-Type', /json/)
       .then((response) => {

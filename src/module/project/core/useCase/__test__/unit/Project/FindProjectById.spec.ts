@@ -28,7 +28,7 @@ describe('FindProjectById', () => {
       .withName('Project 1')
       .withUserId(1)
       .withDescription('Description 1')
-      .withPrivate(false)
+      .withAtive(false)
       .build();
     await projectRepository.createProject(expectedProject);
 

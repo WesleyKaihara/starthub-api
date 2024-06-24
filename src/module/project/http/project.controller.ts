@@ -63,7 +63,8 @@ export class ProjectController {
       );
       return response.json(project);
     } catch (error) {
-      return response.status(error.status).json({ message: error.message });
+      const status = error.status || 400;
+      return response.status(status).json({ message: error.message });
     }
   }
 

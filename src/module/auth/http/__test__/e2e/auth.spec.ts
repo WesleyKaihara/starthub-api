@@ -190,14 +190,9 @@ describe('AuthController (e2e)', () => {
         refreshToken: 'valid_refresh_token',
       };
 
-      const user = User.restore(
-        999,
-        'Test user',
-        'test.user@email.com',
-        '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
-      );
-
-      jest.spyOn(authService, 'refresh').mockResolvedValueOnce(user);
+      jest
+        .spyOn(authService, 'refresh')
+        .mockResolvedValueOnce('new_access_token');
       jest
         .spyOn(authService, 'generateToken')
         .mockResolvedValueOnce('new_access_token');
@@ -211,8 +206,7 @@ describe('AuthController (e2e)', () => {
 
       expect(response.status).toBe(201);
       expect(response.body).toEqual({
-        access_token: 'new_access_token',
-        refresh_token: 'new_refresh_token',
+        accessToken: 'new_access_token',
       });
     });
   });

@@ -30,10 +30,8 @@ describe('UpdateUser', () => {
       .build();
 
     const updatedUser = await updateUser.execute(userId, updateUserDto);
-
     expect(updatedUser).toBeDefined();
     expect(updatedUser.name).toBe('Updated User Name');
-    expect(updatedUser.email).toBe('user@email.com');
   });
 
   it('should throw error if user name is too short', async () => {

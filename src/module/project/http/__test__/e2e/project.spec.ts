@@ -9,6 +9,9 @@ import {
   ProjectRepositoryInMemory,
   ProjectRepositorySequelize,
 } from '@project/shared/persistence';
+import { gerarTokenTeste } from '@src/module/auth/http/__test__/auth-guard.mock';
+
+const token = gerarTokenTeste();
 
 describe('ProjectController (e2e)', () => {
   let app;
@@ -46,6 +49,7 @@ describe('ProjectController (e2e)', () => {
 
     return request(app.getHttpServer())
       .get('/project')
+      .set('Authorization', `Bearer ${token}`)
       .expect(500)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -65,19 +69,21 @@ describe('ProjectController (e2e)', () => {
 
     return request(app.getHttpServer())
       .get('/project/1')
+      .set('Authorization', `Bearer ${token}`)
       .expect(200)
       .expect('Content-Type', /json/)
       .then((response) => {
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
         expect(response.body).toHaveProperty('description');
-        expect(response.body).toHaveProperty('private');
+        expect(response.body).toHaveProperty('ative');
       });
   });
 
   it('should return 400 error when project id is not a number', () => {
     return request(app.getHttpServer())
       .get('/project/abc')
+      .set('Authorization', `Bearer ${token}`)
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -88,6 +94,7 @@ describe('ProjectController (e2e)', () => {
   it('should return 400 error when project not exists', () => {
     return request(app.getHttpServer())
       .get('/project/5')
+      .set('Authorization', `Bearer ${token}`)
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -105,6 +112,7 @@ describe('ProjectController (e2e)', () => {
 
     return request(app.getHttpServer())
       .get('/project/1')
+      .set('Authorization', `Bearer ${token}`)
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -121,21 +129,21 @@ describe('ProjectController (e2e)', () => {
   //     .send({
   //       name: 'Test Project',
   //       description: 'Test Description',
-  //       private: true,
+  //       ative: true,
   //     })
   //     .expect(201)
   //     .expect('Content-Type', /json/)
   //     .then((response) => {
   //       expect(response.body.name).toBe('Test Project');
   //       expect(response.body.description).toBe('Test Description');
-  //       expect(response.body.private).toBe(true);
+  //       expect(response.body.ative).toBe(true);
   //     });
   // });
 
   // it('should return error when creating project with invalid name length', () => {
   //   return request(app.getHttpServer())
   //     .post('/project')
-  //     .send({ name: 'Test', description: 'Valid Description', private: true })
+  //     .send({ name: 'Test', description: 'Valid Description', ative: true })
   //     .expect(400)
   //     .expect('Content-Type', /json/)
   //     .then((response) => {
@@ -152,7 +160,7 @@ describe('ProjectController (e2e)', () => {
       .send({
         name: 'Valid Name',
         description: 'Test description',
-        private: true,
+        ative: true,
       })
       .expect(400)
       .expect('Content-Type', /json/)
@@ -168,7 +176,7 @@ describe('ProjectController (e2e)', () => {
       .send({
         name: 'Updated Project',
         description: 'Updated Description',
-        private: false,
+        ative: false,
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -176,7 +184,7 @@ describe('ProjectController (e2e)', () => {
         expect(response.body).toHaveProperty('id');
         expect(response.body.name).toBe('Updated Project');
         expect(response.body.description).toBe('Updated Description');
-        expect(response.body.private).toBe(false);
+        expect(response.body.ative).toBe(false);
       });
   });
 
@@ -186,7 +194,7 @@ describe('ProjectController (e2e)', () => {
       .send({
         name: 'test',
         description: 'Valid Description',
-        private: false,
+        ative: false,
       })
       .expect(400)
       .expect('Content-Type', /json/)
@@ -201,7 +209,7 @@ describe('ProjectController (e2e)', () => {
   it('should return error when updating project with invalid description length', () => {
     return request(app.getHttpServer())
       .put('/project/1')
-      .send({ name: 'Valid Name', description: 'Test', private: false })
+      .send({ name: 'Valid Name', description: 'Test', ative: false })
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
