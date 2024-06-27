@@ -19,9 +19,16 @@ describe('UpdateUser', () => {
     const user = new UserBuilder()
       .withName('Updated User Name')
       .withEmail('user@email.com')
+      .withCpf('883.416.500-45')
       .withPassword('SeCret123$')
       .build();
-    await userRepository.createUser(user);
+
+    await userRepository.createUser({
+      name: user.name,
+      cpf: user.cpf.getCpf(),
+      email: user.email,
+      password: user.password,
+    });
 
     const updateUserDto = new UserBuilder()
       .withName('Updated User Name')
@@ -29,7 +36,10 @@ describe('UpdateUser', () => {
       .withPassword('SeCret123$')
       .build();
 
-    const updatedUser = await updateUser.execute(userId, updateUserDto);
+    const updatedUser = await updateUser.execute(userId, {
+      name: updateUserDto.name,
+      cpf: updateUserDto.cpf.getCpf(),
+    });
     expect(updatedUser).toBeDefined();
     expect(updatedUser.name).toBe('Updated User Name');
   });
@@ -42,8 +52,11 @@ describe('UpdateUser', () => {
       .withPassword('SeCret123$')
       .build();
 
-    await expect(updateUser.execute(userId, updateUserDto)).rejects.toThrow(
-      /User Name must have at least 3 characters/,
-    );
+    await expect(
+      updateUser.execute(userId, {
+        name: updateUserDto.name,
+        cpf: updateUserDto.cpf.getCpf(),
+      }),
+    ).rejects.toThrow(/User Name must have at least 3 characters/);
   });
 });

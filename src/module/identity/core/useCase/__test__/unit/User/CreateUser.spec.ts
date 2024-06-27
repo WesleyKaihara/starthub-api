@@ -17,6 +17,7 @@ describe('CreateUser', () => {
   it('should create a user', async () => {
     const input: CreateUserBody = {
       name: 'Test User',
+      cpf: '183.544.680-97',
       email: 'user@email.com',
       password: 'SecRet125#',
     };
@@ -32,6 +33,7 @@ describe('CreateUser', () => {
   it('should throw error if user name is too short', async () => {
     const input: CreateUserBody = {
       name: 'AA',
+      cpf: '183.544.680-97',
       email: 'user@email.com',
       password: 'SecRet125#',
     };

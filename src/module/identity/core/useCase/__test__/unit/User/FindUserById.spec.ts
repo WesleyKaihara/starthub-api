@@ -19,9 +19,16 @@ describe('FindUserById', () => {
     const expectedUser = new UserBuilder()
       .withName('user 1')
       .withEmail('user1@email.com')
+      .withCpf('422.209.770-56')
       .withPassword('SeCRet123%')
       .build();
-    await userRepository.createUser(expectedUser);
+
+    await userRepository.createUser({
+      name: expectedUser.name,
+      cpf: expectedUser.cpf.getCpf(),
+      email: expectedUser.email,
+      password: expectedUser.password,
+    });
 
     const user = await findUserById.execute(userId);
 

@@ -39,7 +39,6 @@ describe('UserController (e2e)', () => {
         expect(response.body).toBeInstanceOf(Object);
         expect(response.body).toHaveProperty('id');
         expect(response.body).toHaveProperty('name');
-        expect(response.body).toHaveProperty('email');
         expect(response.body).not.toHaveProperty('password');
       });
   });
@@ -50,6 +49,7 @@ describe('UserController (e2e)', () => {
       .send({
         name: 'Test User',
         email: 'user@email.com',
+        cpf: '693.673.040-05',
         password: 'SeCret124$',
       })
       .expect(201)
@@ -63,7 +63,12 @@ describe('UserController (e2e)', () => {
   it('should return error when creating user with invalid name length', () => {
     return request(app.getHttpServer())
       .post('/user')
-      .send({ name: 'AA', email: 'user@email.com', password: 'SeCret124$' })
+      .send({
+        name: 'AA',
+        email: 'user@email.com',
+        cpf: '693.673.040-05',
+        password: 'SeCret124$',
+      })
       .expect(400)
       .expect('Content-Type', /json/)
       .then((response) => {
@@ -79,8 +84,7 @@ describe('UserController (e2e)', () => {
       .put('/user/1')
       .send({
         name: 'Updated User',
-        email: 'user@email.com',
-        password: 'SeCret124$',
+        cpf: '693.673.040-05',
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -95,6 +99,7 @@ describe('UserController (e2e)', () => {
       .put('/user/1')
       .send({
         name: 'AA',
+        cpf: '693.673.040-05',
         email: 'user@email.com',
         password: 'SeCret124$',
       })

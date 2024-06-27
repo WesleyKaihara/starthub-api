@@ -81,6 +81,7 @@ describe('AuthController (e2e)', () => {
       const user = User.restore(
         999,
         'Test user',
+        '208.465.980-94',
         'test.user@email.com',
         '$2b$12$zi.PWj5vkADiOikQLw9dju.vuXFIiCL2WvoUx/x7Prc6CfvDrzLey',
       );
