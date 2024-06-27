@@ -24,6 +24,10 @@ export default class UserModel extends Model {
 
   @Unique
   @Column
+  cpf: string;
+
+  @Unique
+  @Column
   email: string;
 
   @Column

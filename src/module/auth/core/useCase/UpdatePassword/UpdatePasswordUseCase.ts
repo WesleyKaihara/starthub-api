@@ -13,7 +13,10 @@ export class CreateUser {
     }
 
     user.password = input.newPassword;
-    await this.userRepository.updateUser(userId, user);
+    await this.userRepository.updateUser(userId, {
+      name: user.name,
+      cpf: user.cpf.format(),
+    });
     return user;
   }
 }

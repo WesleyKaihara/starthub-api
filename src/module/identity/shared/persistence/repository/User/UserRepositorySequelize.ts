@@ -11,7 +11,7 @@ export class UserRepositorySequelize implements UserRepository {
     const users = await UserModel.findAll();
 
     return users.map((user) =>
-      User.restore(user.id, user.name, user.email, user.password),
+      User.restore(user.id, user.name, user.cpf, user.email, user.password),
     );
   }
 
@@ -20,7 +20,13 @@ export class UserRepositorySequelize implements UserRepository {
     if (!user) {
       throw new Error(`User with id ${id} not found`);
     }
-    return User.restore(user.id, user.name, user.email, user.password);
+    return User.restore(
+      user.id,
+      user.name,
+      user.cpf,
+      user.email,
+      user.password,
+    );
   }
 
   public async findUserByEmail(email: string): Promise<User> {
@@ -28,18 +34,31 @@ export class UserRepositorySequelize implements UserRepository {
     if (!user) {
       throw new Error(`User with email ${email} not found`);
     }
-    return User.restore(user.id, user.name, user.email, user.password);
+    return User.restore(
+      user.id,
+      user.name,
+      user.cpf,
+      user.email,
+      user.password,
+    );
   }
 
   async createUser(input: CreateUserBody): Promise<User> {
     try {
       const user: UserModel = await UserModel.create({
         name: input.name,
+        cpf: input.cpf,
         email: input.email,
         password: input.password,
       });
 
-      return User.restore(user.id, user.name, user.email, user.password);
+      return User.restore(
+        user.id,
+        user.name,
+        user.cpf,
+        user.email,
+        user.password,
+      );
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
         throw new Error(
@@ -54,6 +73,7 @@ export class UserRepositorySequelize implements UserRepository {
     const [rowsAffected] = await UserModel.update(
       {
         name: input.name,
+        cpf: input.cpf,
       },
       { where: { id } },
     );

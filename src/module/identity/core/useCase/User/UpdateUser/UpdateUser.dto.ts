@@ -5,4 +5,9 @@ export class UpdateUserBody {
     example: 'Nome Atualizado',
   })
   readonly name: string;
+
+  @ApiProperty({
+    example: '000.000.000-00',
+  })
+  readonly cpf: string;
 }

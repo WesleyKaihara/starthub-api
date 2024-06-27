@@ -1,11 +1,15 @@
 import { UserRepository } from '@identity/shared/persistence';
-import User from '../../../entity/User';
+import { UserWithoutPassword } from './GetAllUser.dto';
 
 export class GetAllUsers {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(): Promise<User[]> {
+  async execute(): Promise<UserWithoutPassword[]> {
     const users = await this.userRepository.getAllUsers();
-    return users;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return users.map(({ password, cpf, ...user }) => ({
+      ...user,
+      cpf: cpf.getCpf(),
+    })) as UserWithoutPassword[];
   }
 }
